@@ -72,6 +72,8 @@ flask run
 
 ## Project Stucture
 
+```bash
+
 CITS3403_AGILE_WEB
 ├── .env
 ├── .git
@@ -82,3 +84,5 @@ CITS3403_AGILE_WEB
 └── web
     ├── __init__.py
     └── routes.py
+    
+```
