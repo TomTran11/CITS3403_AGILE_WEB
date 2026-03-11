@@ -115,10 +115,6 @@ CITS3403_AGILE_WEB
 
 ## Contributors
 
-``` 
-
 | Name | Student ID | GitHub |
-|------|-----------|--------|
+|------|------------|--------|
 | Tom Tran | 23459091 | [TomTran11](https://github.com/TomTran11) |
-
-```
