@@ -119,3 +119,4 @@ CITS3403_AGILE_WEB
 |------|------------|--------|
 | Tom Tran | 23459091 | [TomTran11](https://github.com/TomTran11) |
 | Jiwon Song | 22965587 | [jiwon-07](https://github.com/jiwon-07) |
+| Benjamin Gilmore | 23706738 | [bgilmore22](https://github.com/bgilmore22) |
