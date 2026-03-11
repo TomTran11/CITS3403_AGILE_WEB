@@ -65,7 +65,31 @@ pip install -r requirements.txt
 
 ### 5. Run the application
 ```bash
+
 flask run
+
+```
+
+---
+
+## Managing Dependencies
+
+If new Python packages are installed during development, update the requirements.txt file so other team members can install the same dependencies.
+
+```bash
+
+pip freeze > requirements.txt
+
+```
+
+After updating the file, commit the changes:
+
+```bash
+
+git add requirements.txt
+git commit -m "Update project dependencies"
+git push
+
 ```
 
 ---
@@ -85,4 +109,16 @@ CITS3403_AGILE_WEB
     ├── __init__.py
     └── routes.py
     
+```
+
+---
+
+## Contributors
+
+``` 
+
+| Name | Student ID | GitHub |
+|------|-----------|--------|
+| Tom Tran | 23459091 | [TomTran11](https://github.com/TomTran11) |
+
 ```
