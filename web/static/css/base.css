@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    background: linear-gradient(135deg, #f5c6a5, #e9a87a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background: #f0c7ad;
+    padding: 40px;
+    border-radius: 20px;
+    width: 320px;
+    text-align: center;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+
+    border: none;
+    border-radius: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #ff8c42;
+    color: white;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff6f1a;
+}
+
+a {
+    color: #ff6f1a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 30px;
+
+    background: #ff8c42;   /* ORANGE */
+    color: white;
+}
+
+/* Logo */
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Right side links */
+.nav-right a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.nav-right .btn {
+    background: #e6732f;
+    color: white;
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-weight: bold;
+}
+
+.nav-right .btn:hover {
+    background:  #cc5f1f
+}
