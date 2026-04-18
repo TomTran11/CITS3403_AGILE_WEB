@@ -111,3 +111,16 @@ a {
 .nav-right .btn:hover {
     background:  #cc5f1f
 }
+
+/* =========================
+   LANDING
+========================= */
+
+.landing .btn {
+    background: #e6732f;
+    color: white;
+    border-radius: 20px;
+    padding: 8px 32px;
+    margin: 20px;
+    font-weight: bold;
+}

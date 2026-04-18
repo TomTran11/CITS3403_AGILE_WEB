@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="landing">
+    <h1>Find Your People in Uni!</h1>
+    <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+        <a href="{{ url_for('auth.signup') }}" class=btn>Sign up</a>
+        <a href="{{ url_for('auth.signup') }}" class=btn>Login</a> 
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block title %}Find Your People{% endblock %}
