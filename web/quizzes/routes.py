@@ -1,4 +1,4 @@
-from flash import jsonify
+from flask import jsonify
 from web.quizzes import quizzes
 from web.quizzes.definitions import QUIZZES
 
