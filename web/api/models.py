@@ -1,5 +1,6 @@
 from web import db
 
+
 class User(db.Model):
     __tablename__ = "users"
 
@@ -8,3 +9,39 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
     languages = db.Column(db.String(100), nullable=False)
     studyunits = db.Column(db.String(45), nullable=False)
+
+
+class QuizResult(db.Model):
+    __tablename__ = "quiz_results"
+
+    result_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(75), db.ForeignKey("users.username"), nullable=False)
+    quiz_name = db.Column(db.String(100), nullable=False)
+    question_index = db.Column(db.Integer, nullable=False)
+    score = db.Column(db.Integer, nullable=False)
+
+    __table_args__ = (
+        db.UniqueConstraint(
+            "username",
+            "quiz_name",
+            "question_index",
+            name="unique_user_quiz_question"
+        ),
+    )
+
+
+class UserKeyword(db.Model):
+    __tablename__ = "user_keywords"
+
+    keyword_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(75), db.ForeignKey("users.username"), nullable=False)
+    keyword = db.Column(db.String(100), nullable=False)
+    source_quiz = db.Column(db.String(100), nullable=False)
+
+    __table_args__ = (
+        db.UniqueConstraint(
+            "username",
+            "keyword",
+            name="uq_user_keyword"
+        ),
+    )
