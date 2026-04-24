@@ -2,23 +2,25 @@ from flask import Flask
 from dotenv import load_dotenv
 from web.config import ProductionConfig, DevelopmentConfig, TestingConfig
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import CSRFProtect
 import os
 
 load_dotenv()
 db = SQLAlchemy()
+csrf = CSRFProtect()
 app = Flask(__name__)
-env = os.getenv("FLASK_ENV", "development")
 testing = os.getenv("TESTING", "false").lower() == "true"
+debug = os.getenv("FLASK_DEBUG", "false").lower() == "true"
 
 if testing:
     app.config.from_object(TestingConfig)
-elif env == "production":
-    app.config.from_object(ProductionConfig)
-else:
+elif debug:
     app.config.from_object(DevelopmentConfig)
+else:
+    app.config.from_object(ProductionConfig)
 
 db.init_app(app)
-
+csrf.init_app(app)   
 
 # Importing and registering blueprints
 from web.main import main

@@ -1,37 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <title>{% block title %}UniApp{% endblock %}</title>
+
+    <!-- Base CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    {% block styles %}{% endblock %}
 </head>
 
 <body>
+
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-left">
-            <a href="{{ url_for('main.landing_page') }}" class="logo">UniApp</a>
+            <a href="{{ url_for('main.landing_page') }}" class="logo">
+                <i class="bi bi-people-fill"></i>
+                <span class="uni">Uni</span><span class="app">App</span>
+            </a>
         </div>
 
         <div class="nav-right">
-            
-
             {% if session.get("user") %}
                 <!-- Logged in -->
-                <span>Hi, {{ session.get("user") }}</span>
+                <span>Hi, {{ user.displayname }}</span>
                 <a href="{{ url_for('auth.logout') }}" class="btn">Logout</a>
             {% else %}
                 <!-- Guest -->
-                <a href="{{ url_for('main.about') }}">About</a>
-                <a href="{{ url_for('auth.login') }}">Login</a>
-                <a href="{{ url_for('auth.signup') }}" class="btn">Sign Up</a>
+                <a href="{{ url_for('auth.about') }}">About</a>
+
+                {% if request.endpoint == 'auth.login' %}
+                    <a href="{{ url_for('auth.signup') }}" class="btn">Sign Up</a>
+
+                {% elif request.endpoint == 'auth.signup' %}
+                    <a href="{{ url_for('auth.login') }}" class="btn">Login</a>
+
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}">Login</a>
+                    <a href="{{ url_for('auth.signup') }}" class="btn">Sign Up</a>
+                {% endif %}
             {% endif %}
         </div>
-
     </nav>
 
     <!-- PAGE CONTENT -->
-    <div class="card">
+    <div class="page-container">
         {% block content %}{% endblock %}
     </div>
+
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>

@@ -1,0 +1,80 @@
+.card {
+    background: #f0c7ad !important;
+    width: 420px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,1);
+    position:absolute !important;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Inputs */
+.card input {
+    width: 100%;
+    padding: 12px 12px 12px 15px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 5px;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+}
+
+input:hover {
+    box-shadow: 0 6px 18px rgba(231, 111, 81, 0.3);
+    background: white;
+}
+
+/* Button */
+.card button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(180deg, #f47c6b, #e76f51);
+    color: white;
+    font-weight: bold;
+
+    box-shadow: 0 6px 16px rgba(231, 111, 81, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* Extra text */
+.extra {
+    margin-top: 10px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.extra a {
+    color: #e76f51;
+    text-decoration: none;
+}
+
+/* Form structure */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group p {
+    margin: 30px 0 5px 0;
+    text-align: left;
+}
+
+.flash-alert {
+    transition: all 0.5s ease;
+}
+
+.flash-hide {
+    opacity: 0;
+    transform: translateY(-10px);
+}
