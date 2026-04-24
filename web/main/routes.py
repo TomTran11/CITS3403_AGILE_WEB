@@ -1,4 +1,6 @@
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for, session, flash
+from web import db
+from web.api.models import User
 from . import main
 from web.auth.utils import require_login
 
@@ -8,16 +10,13 @@ from web.auth.utils import require_login
 def landing_page():
     return render_template('main/landing_page.html')
 
-# About page
-@main.route('/about')
-def about():
-    return render_template('main/about.html')
-
 # Dashboard
 @main.route('/dashboard')
 @require_login
 def dashboard():
-    return render_template('main/dashboard.html')  
+    username = session.get("user")
+    user = User.query.filter_by(username=username).first()
+    return render_template('main/dashboard.html', user=user)
 
 # Error page
 @main.app_errorhandler(404)
