@@ -27,6 +27,10 @@ h1, h2, h3 {
     color: #333;
 }
 
+h1{
+    font-size: 50px;
+}
+
 p {
     font-size: 14px;
     margin-top: 10px;
@@ -85,6 +89,66 @@ a {
     color: white;
 }
 
+/* =========================
+   CAROUSEL
+========================= */
+
+.carousel-indicators li{
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-image: none;
+    width: 100px
+}
+
+
+.carousel-control-prev-icon:after {
+    content: "\25C0";
+    font-size: 50px;
+    align-items: center;
+}
+
+.carousel-control-next-icon:after {
+    content: "\25B6";
+    font-size: 50px;
+    justify-content: center;
+}
+
+.carousel-inner {
+
+    width: 1200px;
+    height: 400px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.carousel-image {
+    float: left;
+    border-radius: 30%;
+    width: 300px;
+    height: 300px;
+    margin-top: 50px;
+    margin-left: 200px;
+ 
+}
+
+.carousel-text {
+    
+    margin: 50px;
+    margin-top: 100px;
+    line-height: 1.2;
+    display: inline-block;
+    color: #333;
+    font-weight: bold;
+
+}
+
 /* Logo */
 .logo {
     font-size: 20px;
@@ -119,8 +183,9 @@ a {
 .landing .btn {
     background: #FFBC57;
     color: white;
-    border-radius: 20px;
-    padding: 8px 32px;
-    margin: 20px;
+    border-radius: 30px;
+    padding: 8px 50px;
+    margin: 20px 20px;
+    font-size: 20px;
     font-weight: bold;
 }
