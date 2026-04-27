@@ -7,7 +7,7 @@
 body {
     font-family: Arial, sans-serif;
     height: 100vh;
-    background: linear-gradient(135deg, #f5c6a5, #FFDBCC);
+    background:  #FFDBCC;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,6 +89,33 @@ a {
     color: white;
 }
 
+/* Logo */
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Right side links */
+.nav-right a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.nav-right .btn {
+    background: #FE9900;
+    color: white;
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-weight: bold;
+}
+
+.nav-right .btn:hover {
+    background:  #ED553D
+}
+
 /* =========================
    CAROUSEL
 ========================= */
@@ -97,15 +124,21 @@ a {
     width: 10px;
     height: 10px;
     border-radius: 100%;
+    background-color: #F79181;
     
 }
+
+
 
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     background-image: none;
-    width: 100px
+    color: #ED553D;
+    width: 100px;
 }
+
+
 
 
 .carousel-control-prev-icon:after {
@@ -115,8 +148,9 @@ a {
 }
 
 .carousel-control-next-icon:after {
-    content: "\25B6";
+    content: "\25B6"; 
     font-size: 50px;
+    opacity: 1;
     justify-content: center;
 }
 
@@ -149,32 +183,6 @@ a {
 
 }
 
-/* Logo */
-.logo {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-}
-
-/* Right side links */
-.nav-right a {
-    margin-left: 20px;
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-}
-
-.nav-right .btn {
-    background: #FE9900;
-    color: white;
-    border-radius: 10px;
-    padding: 8px 16px;
-    font-weight: bold;
-}
-
-.nav-right .btn:hover {
-    background:  #ED553D
-}
 
 /* =========================
    LANDING
@@ -183,9 +191,17 @@ a {
 .landing .btn {
     background: #FFBC57;
     color: white;
+    border-color:#FFDBCC;
+    border-width: 3px;
     border-radius: 30px;
     padding: 8px 50px;
     margin: 20px 20px;
     font-size: 20px;
     font-weight: bold;
+}
+
+.landing .btn:hover {
+    background: #ED553D;
+    border-color:#ED553D;
+    
 }
