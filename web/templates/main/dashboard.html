@@ -1,3 +1,72 @@
 {% extends "base.html" %}
+{% block wrapper_class %}profile-page{% endblock %}
 
 {% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-content">
+
+    <!-- GREETING -->
+    <h1 class="dashboard-greeting">Hello, {{ session.get("user") }} !</h1>
+
+    <!-- SEARCH BAR -->
+    <div class="search-bar-wrap">
+        <input class="search-bar" type="text" placeholder="Search for study partners...">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <!-- RECOMMENDED -->
+    <section class="dash-section">
+        <h2 class="dash-section-title">Recommended</h2>
+        <div class="card-slider-wrap">
+            <button class="slider-arrow left">&#9664;</button>
+            <div class="card-row">
+                <!-- placeholder cards -->
+                {% for i in range(3) %}
+                <div class="user-card">
+                    <div class="user-card-header">
+                        <div class="user-card-avatar" style="background: {{ ['#F28A80','#FFB75C','#e07070'][i] }}">?</div>
+                        <span class="user-card-name">Name Lastname</span>
+                    </div>
+                    <div class="user-card-tags">
+                        <span class="user-tag" style="background:#FFB75C"></span>
+                        <span class="user-tag" style="background:#F28A80"></span>
+                        <span class="user-tag" style="background:#e8a060"></span>
+                    </div>
+                    <p class="user-card-bio">Short bio that is around a sentence long.</p>
+                    <button class="heart-btn">♡</button>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="slider-arrow right">&#9654;</button>
+        </div>
+    </section>
+
+    <!-- RECENT -->
+    <section class="dash-section">
+        <h2 class="dash-section-title">Recent</h2>
+        <div class="card-slider-wrap">
+            <button class="slider-arrow left">&#9664;</button>
+            <div class="card-row">
+                {% for i in range(3) %}
+                <div class="user-card">
+                    <div class="user-card-header">
+                        <div class="user-card-avatar" style="background: {{ ['#F28A80','#e07070','#FFB75C'][i] }}">?</div>
+                        <span class="user-card-name">Name Lastname</span>
+                    </div>
+                    <div class="user-card-tags">
+                        <span class="user-tag" style="background:#FFB75C"></span>
+                        <span class="user-tag" style="background:#F28A80"></span>
+                        <span class="user-tag" style="background:#e8a060"></span>
+                    </div>
+                    <p class="user-card-bio">Short bio that is around a sentence long.</p>
+                    <button class="heart-btn">♡</button>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="slider-arrow right">&#9654;</button>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
