@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block wrapper_class %}profile-page{% endblock %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="profile-content">
+
+    <div class="profile-header">
+        <div class="profile-avatar-large">
+            {{ session.get("user")[0] | upper }}
+        </div>
+        <h1 class="profile-name">{{ session.get("user") }}</h1>
+    </div>
+
+    <div class="profile-bio-box">No bio yet.</div>
+
+    <div class="profile-section">
+        <label class="section-label">Languages</label>
+        <div class="tag-row">
+            <span class="tag-empty">No languages added yet.</span>
+        </div>
+    </div>
+
+    <div class="profile-section">
+        <label class="section-label">Study Units</label>
+        <div class="tag-row">
+            <span class="tag-empty">No study units added yet.</span>
+        </div>
+    </div>
+
+    <a href="{{ url_for('main.edit_profile') }}" class="edit-profile-btn">Edit Profile</a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block wrapper_class %}profile-page{% endblock %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<div class="profile-content">
+
+    <div class="profile-header">
+        <div class="profile-avatar-large">
+            {{ session.get("user")[0] | upper }}
+        </div>
+        <h1 class="profile-name">Edit Profile</h1>
+    </div>
+
+    <div class="profile-section">
+        <label class="section-label">Display Name</label>
+        <input class="profile-input" type="text" placeholder="{{ session.get('user') }}">
+    </div>
+
+    <div class="profile-section">
+        <label class="section-label">About me</label>
+        <textarea class="profile-input" rows="3" placeholder="Write a short bio"></textarea>
+    </div>
+
+    <div class="profile-section">
+        <label class="section-label">Languages</label>
+        <input class="profile-input" type="text" placeholder="e.g. English, Mandarin">
+        <small class="field-hint">Separate each with a comma</small>
+    </div>
+
+    <div class="profile-section">
+        <label class="section-label">Study Units</label>
+        <input class="profile-input" type="text" placeholder="e.g. CITS3403, JAPN1401">
+        <small class="field-hint">Separate each with a comma</small>
+    </div>
+
+    <button class="edit-profile-btn" onclick="alert('Available after database integration.')">Save Changes</button>
+    <a href="{{ url_for('main.profile') }}" class="cancel-link">← Back to Profile</a>
+
+</div>
+{% endblock %}

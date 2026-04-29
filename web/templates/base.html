@@ -4,34 +4,49 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
 </head>
-
 <body>
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-left">
             <a href="{{ url_for('main.landing_page') }}" class="logo">UniApp</a>
         </div>
-
         <div class="nav-right">
-            
-
             {% if session.get("user") %}
-                <!-- Logged in -->
-                <span>Hi, {{ session.get("user") }}</span>
-                <a href="{{ url_for('auth.logout') }}" class="btn">Logout</a>
+                <span class="nav-greeting">Hi, {{ session.get("user") }}</span>
+                <div class="profile-menu">
+                    <button class="profile-icon-btn" onclick="toggleProfileMenu()">
+                        <div class="profile-avatar">{{ session.get("user")[0] | upper }}</div>
+                    </button>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="{{ url_for('main.profile') }}"> View Profile</a>
+                        <a href="{{ url_for('main.edit_profile') }}"> Edit Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ url_for('auth.logout') }}" class="dropdown-logout"> Logout</a>
+                    </div>
+                </div>
             {% else %}
-                <!-- Guest -->
                 <a href="{{ url_for('main.about') }}">About</a>
                 <a href="{{ url_for('auth.login') }}">Login</a>
                 <a href="{{ url_for('auth.signup') }}" class="btn">Sign Up</a>
             {% endif %}
         </div>
-
     </nav>
 
     <!-- PAGE CONTENT -->
-    <div class="card">
+    <div class="{% block wrapper_class %}card{% endblock %}">
         {% block content %}{% endblock %}
     </div>
+
+    <script>
+        function toggleProfileMenu() {
+            document.getElementById('profileDropdown').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            const menu = document.querySelector('.profile-menu');
+            if (menu && !menu.contains(e.target)) {
+                document.getElementById('profileDropdown').classList.remove('open');
+            }
+        });
+    </script>
 </body>
 </html>
