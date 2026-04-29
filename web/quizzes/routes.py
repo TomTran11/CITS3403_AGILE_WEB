@@ -1,4 +1,4 @@
-from flask import jsonify, request, session
+from flask import jsonify, request, session, render_template, redirect, url_for
 from web.quizzes import quizzes
 from web.quizzes.service import get_quiz_names, get_quiz_by_name, save_quiz_answers
 
@@ -9,6 +9,14 @@ def list_quizzes():
         "quizzes": get_quiz_names()
     })
 
+@quizzes.route("/page", methods=["GET"])
+def quizzes_page():
+    username = session.get("user")
+
+    if not username:
+        return redirect(url_for("auth.login"))
+
+    return render_template("quizzes/quizzes.html")
 
 @quizzes.route("/<quiz_name>", methods=["GET"])
 def get_quiz(quiz_name):
