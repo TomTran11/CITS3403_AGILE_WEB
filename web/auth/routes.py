@@ -20,9 +20,10 @@ def login():
             return redirect(url_for('main.dashboard'))
 
         flash("Invalid username or password.", "danger")
-        return render_template('auth/login.html')
-
-    return render_template('auth/login.html')
+        return render_template('auth/login.html', title="Login")
+    
+    session.pop("user", None)
+    return render_template('auth/login.html', title="Login")
 
 
 # SIGNUP
@@ -41,15 +42,15 @@ def signup():
         # Basic validation
         if not all([username, display_name, study_units, spoken_languages, password, confirm_password, email]):
             flash('All fields are required.', 'danger')
-            return render_template('auth/signup.html')
+            return render_template('auth/signup.html', title="Sign Up")
 
         existing_user = User.query.filter(
             (User.username == username) | (User.email == email) | (User.displayname == display_name)
         ).first()
         if existing_user:
             flash('Username, email, or display name already exists.', 'danger')
-            return render_template('auth/signup.html')
-        
+            return render_template('auth/signup.html', title="Sign Up")
+
         study_units = [u.strip() for u in study_units.split(',') if u.strip()]
         unit_regex = re.compile(r'^[A-Z]{4}[0-9]{4}$')
         if len(study_units) == 0:
@@ -90,7 +91,8 @@ def signup():
         flash('Account created successfully!', 'success')
         return redirect(url_for('auth.login'))
 
-    return render_template('auth/signup.html')
+    session.pop("user", None)
+    return render_template('auth/signup.html', title="Sign Up")
 
 # LOGOUT
 @auth.route('/logout')
