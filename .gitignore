@@ -2,7 +2,11 @@ venv/
 __pycache__/
 *.pyc
 .env
+<<<<<<< HEAD
 instance/
 *.db
 .DS_Store
 .vscode/
+=======
+instance/*.db.DS_Store
+>>>>>>> origin/Jiwon/dashboard-page
