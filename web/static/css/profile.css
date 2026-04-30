@@ -1,0 +1,132 @@
+.profile-page {
+    width: 100%;
+    flex: 1;
+}
+
+.profile-content {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 70px 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+}
+
+.profile-avatar-large {
+    width: 110px;
+    height: 110px;
+    min-width: 110px;
+    border-radius: 50%;
+    background: white;
+    color: #F28A80;
+    font-weight: 800;
+    font-size: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.profile-name {
+    font-size: 58px;
+    font-weight: 800;
+    color: #2a2a2a;
+    line-height: 1;
+}
+
+.profile-bio-box {
+    background: white;
+    border-radius: 16px;
+    padding: 20px 24px;
+    font-size: 17px;
+    color: #888;
+    min-height: 64px;
+    line-height: 1.6;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.section-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #c08060;
+}
+
+.tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.tag {
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.tag-language { background: #FF958A; color: white; }
+.tag-unit     { background: #F28A80; color: white; }
+
+.tag-empty {
+    font-size: 16px;
+    color: #bbb;
+    font-style: italic;
+}
+
+.profile-input {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 16px;
+    background: white;
+    font-family: inherit;
+    font-size: 16px;
+    color: #333;
+    resize: vertical;
+}
+
+.edit-profile-btn {
+    display: block;
+    width: fit-content;
+    min-width: 200px;
+    text-align: center;
+    background: #FF958A;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 16px 40px;
+    font-weight: 700;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+}
+
+.edit-profile-btn:hover { background: #F07066; color: white; }
+
+.cancel-link {
+    font-size: 14px;
+    color: #c08060;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.field-hint {
+    font-size: 11px;
+    color: #c08060;
+    margin-top: -4px;
+}

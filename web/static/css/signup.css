@@ -1,27 +1,29 @@
 /* Card */
 .card {
-    background: #f0c7ad !important;
+    background: #f0c7ad;
     width: 750px;
     padding: 30px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 0 10px 30px rgba(0,0,0,1);
-    position: absolute !important;
+    position: absolute;
+}
+
+.card h1{
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-weight: 700;
 }
 
 .card form {
-    padding-right: 120px;
+    padding-right: 100px;
 }
 
 /* Inputs fields*/
 input {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    margin-top: 5px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     transition: all 0.2s ease;
 }
 
@@ -51,6 +53,25 @@ input:focus {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
+    max-height: 100px;
+    overflow-y: auto;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    scrollbar-gutter: stable;
+}
+
+.selected-languages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.selected-languages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.selected-languages::-webkit-scrollbar-thumb {
+    background: #F28A80;
+    border-radius: 10px;
 }
 
 .lang_tag {
@@ -80,7 +101,7 @@ input:focus {
 .dropdown-list {
     display: none;
     position: absolute;
-    top: 105%;
+    top: 85%;
     left: 0;
     width: 100%;
 
@@ -146,6 +167,16 @@ button:active {
 .form-group p {
     margin: 8px 0 5px 0px;
     text-align: left;
+    font-weight: 400;
+    margin-left: 4px;
+    color: #666;
+    font-size: 13px;
+}
+
+.form-group input {
+    margin-top: 0px;
+    background: #f8f8f8;
+    border: 1px solid #eee;
 }
 
 /* Arrow button */
