@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <title>{% block title %}UniApp{% endblock %}</title>
 
+    <!-- Responsive meta tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block styles %}{% endblock %}
+
     <!-- Base CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
-    {% block styles %}{% endblock %}
 </head>
-
 <body>
 
     <!-- NAVBAR -->
@@ -25,21 +27,30 @@
         </div>
 
         <div class="nav-right">
-            {% if session.get("user") %}
+            {% if user %}
                 <!-- Logged in -->
-                <span>Hi, {{ user.displayname }}</span>
-                <a href="{{ url_for('auth.logout') }}" class="btn">Logout</a>
+                <div class="profile-menu">
+                    <button class="profile-icon-btn">
+                        <div class="profile-avatar">
+                            {{ user.displayname[0] | upper }}
+                        </div>
+                    </button>
+
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="{{ url_for('main.profile') }}">View Profile</a>
+                        <a href="{{ url_for('main.edit_profile') }}">Edit Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ url_for('auth.logout') }}" class="dropdown-logout">Logout</a>
+                    </div>
+                </div>
+
             {% else %}
-                <!-- Guest -->
-                <a href="{{ url_for('auth.about') }}">About</a>
-
-                {% if request.endpoint == 'auth.login' %}
-                    <a href="{{ url_for('auth.signup') }}" class="btn">Sign Up</a>
-
-                {% elif request.endpoint == 'auth.signup' %}
-                    <a href="{{ url_for('auth.login') }}" class="btn">Login</a>
-
+                {% if title in ['Login', 'Sign Up'] %}
+                    <!-- Login / Signup page → About only -->
+                    <a href="{{ url_for('main.about') }}">About</a>
                 {% else %}
+                    <!-- Other pages (not logged in) -->
+                    <a href="{{ url_for('main.about') }}">About</a>
                     <a href="{{ url_for('auth.login') }}">Login</a>
                     <a href="{{ url_for('auth.signup') }}" class="btn">Sign Up</a>
                 {% endif %}
@@ -48,11 +59,13 @@
     </nav>
 
     <!-- PAGE CONTENT -->
-    <div class="page-container">
+    <div class="{% block wrapper_class %}{% endblock %}">
         {% block content %}{% endblock %}
     </div>
 
+    <!-- JS -->
     <script src="{{ url_for('static', filename='js/base.js') }}"></script>
     {% block scripts %}{% endblock %}
+
 </body>
 </html>
