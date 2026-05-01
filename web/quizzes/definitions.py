@@ -321,5 +321,69 @@ QUIZZES = {
             {"name": "Active Diplomat",    "min_score": 26, "max_score": 38},
             {"name": "Direct Resolver",    "min_score": 39, "max_score": 50}
         ]
+    },
+
+    "humour_playfulness": {
+        "quiz_name": "Humour & Playfulness",
+        "type": "category",
+        "description": "Sees what kind of fun and humour you bring to your friendships.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I use humour to lighten the mood in serious situations.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 2,
+                "text": "I enjoy playful banter and teasing with close friends.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 3,
+                "text": "I find absurd or random humour funnier than clever wordplay.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 4,
+                "text": "I like making others laugh even if it means being a little silly.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 5,
+                "text": "I enjoy pranks or light-hearted jokes between friends.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 6,
+                "text": "I appreciate dry or deadpan humour over loud, obvious jokes.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 7,
+                "text": "I laugh easily and often in social situations.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 8,
+                "text": "I use memes or internet humour as a main way of communicating with friends.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 9,
+                "text": "I prefer sincere, heartfelt conversations over jokey ones.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 10,
+                "text": "I often make jokes or funny observations without thinking about it.",
+                "reverse_scored": False
+            }
+        ],
+        "categories": [
+            {"name": "Sincere",           "min_score": 0,  "max_score": 12},
+            {"name": "Dry",               "min_score": 13, "max_score": 25},
+            {"name": "Playful",           "min_score": 26, "max_score": 38},
+            {"name": "Class Clown",       "min_score": 39, "max_score": 50}
+        ]
     }
 }
