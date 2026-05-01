@@ -129,5 +129,69 @@ QUIZZES = {
                 "assign_keyword_if_score_at_least": 4
             }
         ]
-    }
+    },
+
+    "communication_style": {
+        "quiz_name": "Communication Style",
+        "type": "category",
+        "description": "Discovers how you naturally prefer to communicate and connect with others.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I prefer to think things through before responding in a conversation.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 2,
+                "text": "I feel comfortable expressing my emotions openly to people I've just met.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 3,
+                "text": "I would rather send a voice message than type a long text.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 4,
+                "text": "I find it easy to bring up difficult topics in a friendship.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 5,
+                "text": "I prefer to check in with friends frequently rather than catch up occasionally.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 6,
+                "text": "I enjoy deep one-on-one conversations more than group chats.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 7,
+                "text": "I tend to use humour to connect with new people.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 8,
+                "text": "I like to have a plan for what I'll talk about before social events.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 9,
+                "text": "I often go quiet or withdraw when I feel overwhelmed in social settings.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 10,
+                "text": "I find it easy to keep a conversation going with someone I just met.",
+                "reverse_scored": False
+            }
+        ],
+        "categories": [
+            {"name": "Reserved",  "min_score": 0,  "max_score": 12},
+            {"name": "Reflective", "min_score": 13, "max_score": 25},
+            {"name": "Engaging",   "min_score": 26, "max_score": 38},
+            {"name": "Expressive", "min_score": 39, "max_score": 50}
+        ]
+    },
 }
