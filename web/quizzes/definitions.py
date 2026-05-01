@@ -257,5 +257,69 @@ QUIZZES = {
             {"name": "Organised",   "min_score": 26, "max_score": 38},
             {"name": "Structured",  "min_score": 39, "max_score": 50}
         ]
+    },
+
+    "conflict_stress_response": {
+        "quiz_name": "Conflict & Stress Response",
+        "type": "category",
+        "description": "Understands how you handle tension, disagreement, and pressure in relationships.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I address conflict directly rather than letting it sit.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 2,
+                "text": "When stressed, I prefer to talk it out with someone rather than be alone.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 3,
+                "text": "I find it easy to forgive friends after a disagreement.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 4,
+                "text": "I stay calm and logical when someone upsets me.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 5,
+                "text": "I tend to take on other people's emotional stress as my own.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 6,
+                "text": "I need time alone to decompress after a stressful situation.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 7,
+                "text": "I am comfortable setting boundaries with friends.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 8,
+                "text": "I tend to avoid confrontation even when something bothers me.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 9,
+                "text": "I find it difficult to bring up an issue if I think it will upset the other person.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 10,
+                "text": "I would rather resolve a conflict quickly than wait for the right moment.",
+                "reverse_scored": False
+            }
+        ],
+        "categories": [
+            {"name": "Conflict Avoider",   "min_score": 0,  "max_score": 12},
+            {"name": "Passive Diplomat",   "min_score": 13, "max_score": 25},
+            {"name": "Active Diplomat",    "min_score": 26, "max_score": 38},
+            {"name": "Direct Resolver",    "min_score": 39, "max_score": 50}
+        ]
     }
 }
