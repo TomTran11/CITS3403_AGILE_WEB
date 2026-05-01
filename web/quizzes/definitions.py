@@ -194,4 +194,68 @@ QUIZZES = {
             {"name": "Expressive", "min_score": 39, "max_score": 50}
         ]
     },
+
+    "lifestyle_routine": {
+        "quiz_name": "Lifestyle and Routine",
+        "type": "category",
+        "description": "Finds out how structured or spontaneous your day-to-day life is.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I follow a consistent daily routine (sleep, meals, exercise).",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 2,
+                "text": "I plan my week ahead rather than deciding things day by day.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 3,
+                "text": "I feel anxious when my schedule gets disrupted unexpectedly.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 4,
+                "text": "I prefer knowing where I'm going before I leave the house.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 5,
+                "text": "I make lists and track tasks to stay on top of things.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 6,
+                "text": "I enjoy trying new things even if they disrupt my usual habits.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 7,
+                "text": "I like my living space to be tidy and organised at all times.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 8,
+                "text": "I find routine comforting rather than boring.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 9,
+                "text": "I often make last-minute decisions about how to spend my time.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 10,
+                "text": "I set specific goals and track my progress toward them regularly.",
+                "reverse_scored": False
+            }
+        ],
+        "categories": [
+            {"name": "Spontaneous", "min_score": 0,  "max_score": 12},
+            {"name": "Flexible",    "min_score": 13, "max_score": 25},
+            {"name": "Organised",   "min_score": 26, "max_score": 38},
+            {"name": "Structured",  "min_score": 39, "max_score": 50}
+        ]
+    }
 }
