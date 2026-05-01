@@ -129,5 +129,137 @@ QUIZZES = {
                 "assign_keyword_if_score_at_least": 4
             }
         ]
+    },
+
+    "cricket_knowledge": {
+        "quiz_name": "Cricket Knowledge",
+        "type": "category",
+        "description": "Measures how much a user knows about cricket.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I know the difference between Test, ODI, and T20 cricket.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 2,
+                "text": "I can name at least 5 current international cricket teams.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 3,
+                "text": "I understand what LBW means in cricket.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 4,
+                "text": "I follow cricket tournaments like the IPL or World Cup.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 5,
+                "text": "I know who Sachin Tendulkar is.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 6,
+                "text": "I find cricket too slow and boring to watch.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 7,
+                "text": "I struggle to understand cricket scoring.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 8,
+                "text": "I rarely watch or follow cricket matches.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 9,
+                "text": "I don't know what a wicket is.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 10,
+                "text": "Cricket rules confuse me.",
+                "reverse_scored": True
+            }
+        ],
+        "categories": [
+            {"name": "cricket_novice", "min_score": 10, "max_score": 19},
+            {"name": "casual_fan", "min_score": 20, "max_score": 29},
+            {"name": "cricket_enthusiast", "min_score": 30, "max_score": 39},
+            {"name": "cricket_expert", "min_score": 40, "max_score": 50}
+        ]
+    },
+
+    "football_preferences": {
+        "quiz_name": "Football Preferences",
+        "type": "direct",
+        "description": "Captures football interests and assigns searchable keywords.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I watch football matches regularly.",
+                "keyword": "football_fan",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 2,
+                "text": "I support a specific football club.",
+                "keyword": "club_supporter",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 3,
+                "text": "I enjoy playing football myself.",
+                "keyword": "football_player",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 4,
+                "text": "I follow international football tournaments like the World Cup.",
+                "keyword": "international_football_fan",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 5,
+                "text": "I enjoy watching football with friends or family.",
+                "keyword": "social_football_watcher",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 6,
+                "text": "I follow football transfer news and player stats.",
+                "keyword": "football_analyst",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 7,
+                "text": "I play fantasy football leagues.",
+                "keyword": "fantasy_football_player",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 8,
+                "text": "I enjoy attending live football matches.",
+                "keyword": "live_football_attendee",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 9,
+                "text": "I like discussing football tactics and strategies.",
+                "keyword": "football_tactician",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 10,
+                "text": "I watch football highlights and analysis shows.",
+                "keyword": "football_analyst_viewer",
+                "assign_keyword_if_score_at_least": 4
+            }
+        ]
     }
 }
