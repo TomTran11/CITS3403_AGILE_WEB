@@ -1,0 +1,53 @@
+.about-container {
+    width: 75%;
+    margin: 100px auto;
+    padding: 40px;
+    border-radius: 20px;
+    background: #f0c7ad;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.about-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.about-container h2 {
+    margin-top: 25px;
+    color: #333;
+}
+
+.about-container p {
+    line-height: 1.6;
+}
+
+.about-container ul {
+    padding-left: 20px;
+}
+
+.about-container hr {
+    margin: 25px 0;
+    border: none;
+    border-top: 1px solid rgba(0,0,0,1.5);
+}
+
+.intro {
+    font-size: 18px;
+    text-align: center;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.about-header i {
+    font-size: 50px;
+    color: #e76f51;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.about-header h1 {
+    margin: 0;
+}

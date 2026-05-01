@@ -6,95 +6,45 @@
 
 body {
     font-family: Arial, sans-serif;
-    height: 100vh;
+    min-height: 100vh;
     background: linear-gradient(135deg, #FFF7F5, #FFDBCC);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-}
-
-.card {
-    background: #f0c7ad;
-    padding: 40px;
-    border-radius: 20px;
-    width: 320px;
-    text-align: center;
-
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-h1, h2, h3 {
-    color: #333;
-}
-
-p {
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-
-    border: none;
-    border-radius: 10px;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-
-    border: none;
-    border-radius: 10px;
-
-    background: #FF958A;
-    color: white;
-    font-weight: bold;
-
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    background: #F79181;
-}
-
-a {
-    color: #F79181;
-    text-decoration: none;
-    font-weight: bold;
+    padding-top: 72px;
 }
 
 /* =========================
    NAVBAR
 ========================= */
 .navbar {
-    position: absolute;
+    position: fixed;
     top: 0;
     width: 100%;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    padding: 30px 30px;
-
-    background: #FFB75C;   /* ORANGE */
-    color: white;
+    padding: 14px 32px;
+    background: #FFB75C;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    border-radius: 0px 0px 10px 10px;
 }
 
-/* Logo */
 .logo {
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 700;
     color: #333;
+    text-decoration: none;
 }
 
-/* Right side links */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
 .nav-right a {
-    margin-left: 20px;
     text-decoration: none;
     color: #333;
     font-weight: 500;
@@ -108,6 +58,110 @@ a {
     font-weight: bold;
 }
 
-.nav-right .btn:hover {
-    background:  #E57368
+.nav-right .btn:hover { background: #E57368; }
+
+/* =========================
+   PROFILE ICON DROPDOWN
+========================= */
+.profile-menu { position: relative; }
+
+.profile-icon-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    width: auto;
+    margin-top: 0;
+    cursor: pointer;
 }
+
+.profile-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #F28A80;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    transition: transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.profile-icon-btn:hover .profile-avatar { transform: scale(1.08); }
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: white;
+    border-radius: 14px;
+    min-width: 170px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+    overflow: hidden;
+    flex-direction: column;
+    z-index: 200;
+    animation: dropIn 0.18s ease;
+}
+
+.profile-dropdown.open { display: flex; }
+
+@keyframes dropIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.profile-dropdown a {
+    padding: 12px 16px;
+    color: #444;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    display: block;
+    transition: background 0.15s;
+}
+
+.profile-dropdown a:hover { background: #FFF0EA; color: #F28A80; }
+
+.dropdown-divider { height: 1px; background: #f0e8e4; margin: 2px 0; }
+
+.dropdown-logout { color: #E06060 !important; }
+.dropdown-logout:hover { background: #FFF0F0 !important; color: #CC4444 !important; }
+
+/* =========================
+   GENERIC STYLES
+========================= */
+h1, h2, h3 { color: #333; }
+
+p { font-size: 14px; margin-top: 10px; }
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #FF958A;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover { background: #F79181; }
+
+a { color: #F79181; text-decoration: none; font-weight: bold; }
