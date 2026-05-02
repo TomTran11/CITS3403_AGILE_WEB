@@ -90,3 +90,54 @@ def calculate_match_percentage(current_user_answers, other_user_answers):
 
     #We then return the final matching percentage rounded to 2 decimal places alongside the list of shared quizzes both users did
     return round(match_percentage, 2), shared_quizzes
+
+#This is the main function that finds all the potential friend matches for a user based on the compatability score
+def find_matches_for_user(username, threshold=matching_threshold):
+    #For the current logged in user, we get all their answers for their quizzes
+    current_user_answers = get_answers_for_user(username)
+
+    #If the current user has not done any quizzes, we return an empty list as they cannot be matched with anyone
+    if not current_user_answers:
+        return []
+
+    #This gets all the other users who have taken a quiz
+    other_usernames = get_all_other_users(username)
+
+    #This is an empty list that stores any and all potential matched for the current user
+    matches = []
+
+    #We then loop through every other user username
+    for other_username in other_usernames:
+        #And for each username, we get their quiz answers
+        other_user_answers = get_answers_for_user(other_username)
+
+        #We then compare the 2 users quiz answers using our helper function
+        match_percentage, shared_quizzes = calculate_match_percentage(
+            current_user_answers,
+            other_user_answers
+        )
+
+        #If the two users have no overlapping quiz answers, cause they havnt both done the same quiz, we skip the current other user
+        if match_percentage is None:
+            continue
+
+        #We then only include users as potential matches who are equal or higher than our matching threshold
+        if match_percentage >= threshold:
+            #We then add that user to our matches list alongside other information about them
+            matches.append({
+                "username": other_username,
+                "match_percentage": match_percentage,
+                #This is the number of quizzes both users have done
+                "quizzes_compared": len(shared_quizzes),
+                #This returns the quiz names that both users have done
+                "shared_quizzes": shared_quizzes
+            })
+
+    #We then sort the matches from the highest and best match to the lowest
+    matches.sort(
+        key=lambda match: match["match_percentage"],
+        reverse=True
+    )
+
+    #Finally we return the list of matches
+    return matches
