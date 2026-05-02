@@ -72,7 +72,7 @@ pip install -r requirements.txt
 
 Create a `.env` file inside the `web/` directory and add the following:
 
-```bash
+```env
 
 SECRET_KEY=your-secret-key 
 FLASK_DEBUG=true 
@@ -95,13 +95,14 @@ MAIL_SUPPRESS_SEND=false
 ```
 
 ### 6. Email Setup:
-This project uses Flask-Mail to send password reset emails.
+This project uses **Flask-Mail** to send password reset emails.
 
-Steps to configure Gmail:
-    1.Go to your Google Account -> Security
-    2.Enable 2-Step Verification
-    3.Generate an App Password
-    4.Use the generated password as: MAIL_PASSWORD=your_app_password
+#### Steps to configure Gmail:
+
+1. Go to your **Google Account → Security**
+2. Enable **2-Step Verification**
+3. Generate an **App Password**
+4. Use the generated password in your `.env` file:
 
 ### 7. Run the application
 ```bash
@@ -192,6 +193,14 @@ CITS3403_AGILE_WEB
          └─ quizzes.html
 
 ```
+
+---
+
+## References
+
+- Umpirsky. (n.d.). Language List (ISO 639-1). 
+Available at: https://github.com/umpirsky/language-list
+Accessed: May 2026.
 
 ---
 

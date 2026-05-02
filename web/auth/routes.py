@@ -4,6 +4,7 @@ from . import auth
 from web.auth.utils import redirect_if_logged_in
 from web import db
 from web.api.models import User
+from web.data.language_loader import LANGUAGE_DATA
 import re
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -66,6 +67,10 @@ def signup():
             flash('Please select at least one language.', 'danger')
             return render_template('auth/signup.html')
         
+        if not all(lang in LANGUAGE_DATA for lang in spoken_languages):
+            flash('Invalid language selected.', 'danger')
+            return render_template('auth/signup.html')
+
         if password != confirm_password:
             flash('Passwords do not match.', 'danger')
             return render_template('auth/signup.html')

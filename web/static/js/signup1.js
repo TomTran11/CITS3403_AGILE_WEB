@@ -19,13 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Fetch languages
-    fetch("https://raw.githubusercontent.com/umpirsky/language-list/master/data/en/language.json")
+    fetch("/api/languages")
         .then(res => res.json())
         .then(data => {
 
             dropdown_list.innerHTML = "";
 
-            const languages = Object.values(data).sort();
+            const languages = data.languages;
             languages.forEach(lang => {
                 const div = document.createElement("div");
                 div.textContent = lang;
