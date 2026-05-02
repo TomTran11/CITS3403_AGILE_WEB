@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, session, flash
+from flask import current_app, jsonify, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash,check_password_hash
 from . import auth
 from web.auth.utils import redirect_if_logged_in
@@ -103,3 +103,49 @@ def logout():
 @auth.route('/about')
 def about():
     return render_template('auth/about.html')
+
+# FORGOT PASSWORD
+@auth.route('/forgot-password', methods=['POST'])
+def forgot_password():
+    email = request.form.get('email', '').strip().lower()
+
+    if not email or not re.match(r'^[a-zA-Z0-9._%+-]+@student\.uwa\.edu\.au$', email):
+        return jsonify({"error": "Invalid email"}), 400
+
+    user = User.query.filter_by(email=email).first()
+
+    if user:
+        current_app.email_service.send_reset_email(user)
+
+    return jsonify({"message": "ok"})
+
+# RESET PASSWORD
+@auth.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    user = current_app.email_service.verify_token(token)
+
+    if not user:
+        flash('Invalid or expired token', 'danger')
+        return redirect(url_for('auth.login'))
+
+    if request.method == 'POST':
+        new_password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        if new_password != confirm_password:
+            flash('Passwords do not match', 'danger')
+            return redirect(request.url)
+
+        if not new_password or len(new_password) < 6:
+            flash('Password must be at least 6 characters', 'danger')
+            return redirect(request.url)
+
+        user.password = generate_password_hash(new_password)
+
+        user.reset_token_version += 1
+        db.session.commit()
+
+        flash('Password updated successfully', 'success')
+        return redirect(url_for('auth.login'))
+
+    return render_template('auth/reset_password.html')
