@@ -102,8 +102,7 @@ body {
 
 .carousel-inner {
     
-    width: 100%;
-    height: calc(attr(width)/3);
+
     box-sizing: border-box;
     text-align: left;
 

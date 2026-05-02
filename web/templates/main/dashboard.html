@@ -17,7 +17,6 @@
         .carousel-inner{
             mask-image: linear-gradient(to left,transparent 0%, black 3%, black 97%, transparent 100%);
             display:flex;
-            width: 100%;
             text-align: center;
             justify-content: space-evenly;
             
@@ -28,6 +27,14 @@
             display:block;
             margin: 20px;
             flex: 0 0 calc((100%/3) - 40px);
+        }
+
+        .carousel-control-prev-icon{
+            margin-right: 200px;
+        }
+
+        .carousel-control-next-icon {
+            margin-left: 200px;
         }
 
         
@@ -62,7 +69,7 @@
         <h2 class="dash-section-title">Recommended</h2>
 
 
-        <div id="carouselExampleControls" class="carousel" data-ride="carousel" data-wrap="false">
+        <div id="carouselExampleControls" class="carousel" data-ride="carousel" data-wrap="false" style="width: 90%; align-self: center;">
 
             <div class="carousel-inner">
 
