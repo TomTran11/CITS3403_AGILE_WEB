@@ -116,3 +116,53 @@ def clear_populated_quiz_data():
 
     #We then save the deletions in the DB
     db.session.commit()
+
+    #This is a helper function that just converts the quiz answer list into a format the quiz service expects
+def convert_answer_list_to_dict(answer_list):
+    #We first create an empty dictionary
+    answers = {}
+
+    #We then loop through the quiz answers starting at question 1
+    for index, score in enumerate(answer_list, start=1):
+        #We then store each into the dictionary where each question number is a string
+        answers[str(index)] = score
+
+    #Finally we return the dictionary
+    return answers
+
+#This function saves a fake users answer for one quiz
+def save_populated_quiz_attempt(username, quiz_name, answer_list):
+    #We get the quiz titles first
+    quiz = QUIZZES[quiz_name]
+    #Then we use the helper function to convert the quiz answers
+    answers = convert_answer_list_to_dict(answer_list)
+
+    #We loop through each question in the quiz
+    for question in quiz["questions"]:
+        #And we get the question number
+        question_index = question["question_index"]
+
+        #And for each question we create a QuizResult row for that user and their answers for that quiz
+        quiz_result = QuizResult(
+            username=username,
+            quiz_name=quiz_name,
+            question_index=question_index,
+            score=int(answers[str(question_index)])
+        )   
+
+        #We then add the quiz results to the DB
+        db.session.add(quiz_result)
+
+    #This then runs our existing keyword generation logic using the quizzes and their answers provided here
+    generated_keywords = generate_keywords(quiz, answers)
+
+    #We then loop through every keyword the user has generated for the quiz and we create an object for it to go into the DB
+    for keyword in generated_keywords:
+        user_keyword = UserKeyword(
+            username=username,
+            keyword=keyword,
+            source_quiz=quiz_name
+        )
+
+        #We then add the keywords into the DB 
+        db.session.add(user_keyword)
