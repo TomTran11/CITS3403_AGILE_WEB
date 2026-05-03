@@ -385,5 +385,73 @@ QUIZZES = {
             {"name": "Playful",           "min_score": 26, "max_score": 38},
             {"name": "Class Clown",       "min_score": 39, "max_score": 50}
         ]
+    },
+
+    "time_availability": {
+        "quiz_name": "Time & Availability",
+        "type": "direct",
+        "description": "Captures when users prefer to socialise and are available.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I am usually free in the mornings.",
+                "keyword": "morning_person",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 2,
+                "text": "I prefer doing activities in the afternoon.",
+                "keyword": "afternoon_active",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 3,
+                "text": "I prefer hanging out at night.",
+                "keyword": "night_person",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 4,
+                "text": "I am free on weekdays.",
+                "keyword": "weekday_available",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 5,
+                "text": "I am free on weekends.",
+                "keyword": "weekend_available",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 6,
+                "text": "I like spontaneous daytime plans.",
+                "keyword": "daytime_spontaneous",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 7,
+                "text": "I prefer planned hangouts.",
+                "keyword": "scheduled_social",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 8,
+                "text": "I stay up late regularly.",
+                "keyword": "late_night_active",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 9,
+                "text": "I wake up early most days.",
+                "keyword": "early_riser",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 10,
+                "text": "I prefer shorter hangouts.",
+                "keyword": "short_hangouts",
+                "assign_keyword_if_score_at_least": 4
+            }
+        ]
     }
 }
