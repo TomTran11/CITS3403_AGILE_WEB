@@ -166,3 +166,39 @@ def save_populated_quiz_attempt(username, quiz_name, answer_list):
 
         #We then add the keywords into the DB 
         db.session.add(user_keyword)
+
+#This function saves all the populated fake users quiz answers
+def populate_quiz_data():
+    #We loop through each user answer
+    for username, quizzes in populated_user_answers.items():
+        #Then we loop through each quiz that the selected user has done
+        for quiz_name, answer_list in quizzes.items():
+            #We save those answers and generate their keywords for that quiz
+            save_populated_quiz_attempt(username, quiz_name, answer_list)
+
+    #Finally we save all the quiz results and keywords to the DB
+    db.session.commit()
+
+#This function controls the whole database populating process
+def main():
+    #We create a flask application context and run the helper functions
+    with app.app_context():
+        #Create DB tables if they dont exist yet
+        db.create_all()
+        #Create/Update the fake users
+        create_populate_users()
+        #Delete old quiz answers and key words for the fake users
+        clear_populated_quiz_data()
+        #Add new quiz answers and keywords for the fake users
+        populate_quiz_data()
+
+        #We then display a success message
+        print("The database has been populated successfully.")
+        #This then prints each fake users login details
+        print("Populated users:")
+        for user in populate_users:
+            print(f"- {user['username']} / password")
+
+#We then only run main when this file is executed directly
+if __name__ == "__main__":
+    main()
