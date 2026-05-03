@@ -19,7 +19,7 @@ def dashboard():
 
 @main.route('/about')
 def about():
-    return render_template('main/about.html')
+    return render_template('auth/about.html')
 
 @main.route('/profile')
 @require_login
@@ -30,6 +30,13 @@ def profile():
 @require_login
 def edit_profile():
     return render_template('main/edit_profile.html')
+
+@main.route('/account_settings')
+@require_login
+def account_settings():
+    username = session.get("user")
+    user = User.query.filter_by(username=username).first()
+    return render_template('main/account_settings.html', user=user)
 
 @main.app_errorhandler(404)
 def page_not_found(e):
