@@ -8,10 +8,13 @@ A Flask-based web application developed for the CITS3403 Agile Web Development u
 
 This project is built using the Flask microframework and demonstrates:
 
-- Backend development with Flask 
+- Backend development using Flask and Blueprints
 - Secure user authentication system 
 - Password reset via email using Flask-Mail 
 - Dynamic frontend interactions using JavaScript (Fetch API) 
+- Quiz based user profiling and personality keyword generation
+- User matching system based on quiz answer similiarity between users
+- Database populating for consistent testing across all environments
 - Clean dependency management using virtual environments 
 - Version control using Git and GitHub
 
@@ -20,8 +23,8 @@ This project is built using the Flask microframework and demonstrates:
 ##  Technologies Used
 
 - Python 3
-- Flask
-- Flask-SQLAlchemy
+- Flask (Application Framework)
+- Flask-SQLAlchemy (Database Management)
 - Flask-WTF (CSRF Protection)
 - Flask-Mail (Email Service)
 - HTML, CSS, JavaScript
@@ -104,7 +107,13 @@ This project uses **Flask-Mail** to send password reset emails.
 3. Generate an **App Password**
 4. Use the generated password in your `.env` file:
 
-### 7. Run the application
+### 7. Database Setup:
+This project uses a database populating script to populate test data via fake users.
+It creates test users and inserts quiz results and keyword generation into the DB for actionable data such as the matching system.
+
+python populating_DB.py
+
+### 8. Run the application
 ```bash
 
 flask --app web run
@@ -141,6 +150,7 @@ git push
 CITS3403_AGILE_WEB
 ├─ README.md
 ├─ requirements.txt
+├─ populating_DB.py
 └─ web
    ├─ __init__.py
    ├─ api
