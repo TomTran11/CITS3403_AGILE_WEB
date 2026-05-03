@@ -1,12 +1,9 @@
 from werkzeug.security import generate_password_hash
 
-from web import create_app, db
+from web import app, db
 from web.api.models import User, QuizResult, UserKeyword
 from web.quizzes.definitions import QUIZZES
 from web.quizzes.service import generate_keywords
-
-
-app = create_app()
 
 #We start populating the DB with a bunch of fake users and information filled in for them
 populate_users = [
@@ -154,7 +151,7 @@ def save_populated_quiz_attempt(username, quiz_name, answer_list):
         db.session.add(quiz_result)
 
     #This then runs our existing keyword generation logic using the quizzes and their answers provided here
-    generated_keywords = generate_keywords(quiz, answers)
+    generated_keywords = generate_keywords(username, quiz_name, quiz, answers)
 
     #We then loop through every keyword the user has generated for the quiz and we create an object for it to go into the DB
     for keyword in generated_keywords:
