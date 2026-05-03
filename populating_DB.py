@@ -97,3 +97,22 @@ def create_populate_users():
             db.session.add(user)
     #And here we save all the user changes in the DB
     db.session.commit()
+
+#This function deletes any old quiz answers or information for the fake users
+#This makes the function safe to run multiple times
+def clear_populated_quiz_data():
+    #We create a list of usernames
+    populated_usernames = [user["username"] for user in populate_users]
+
+    #We then delete all quiz results that belong to the populated fake users
+    QuizResult.query.filter(
+        QuizResult.username.in_(populated_usernames)
+    ).delete(synchronize_session=False)
+
+    #We also delete all the keywords associated with those users
+    UserKeyword.query.filter(
+        UserKeyword.username.in_(populated_usernames)
+    ).delete(synchronize_session=False)
+
+    #We then save the deletions in the DB
+    db.session.commit()
