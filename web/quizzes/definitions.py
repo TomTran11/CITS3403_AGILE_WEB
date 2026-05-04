@@ -521,5 +521,73 @@ QUIZZES = {
                 "assign_keyword_if_score_at_least": 4
             }
         ]
+    },
+
+    "friendship_expectations": {
+        "quiz_name": "Friendship Expectations",
+        "type": "direct",
+        "description": "Captures what users expect from friendships and social connections.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I like friends who check in regularly.",
+                "keyword": "likes_regular_checkins",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 2,
+                "text": "I prefer friendships that do not require constant messaging.",
+                "keyword": "low_maintenance_friendship",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 3,
+                "text": "I like friends who are comfortable making plans first.",
+                "keyword": "likes_plan_initiators",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 4,
+                "text": "I appreciate friends who are flexible when plans change.",
+                "keyword": "values_flexibility",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 5,
+                "text": "I prefer friends who are direct if something is wrong.",
+                "keyword": "prefers_direct_friends",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 6,
+                "text": "I like friendships where silence or distance does not feel awkward.",
+                "keyword": "comfortable_with_space",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 7,
+                "text": "I enjoy friendships where we can talk about personal problems.",
+                "keyword": "emotional_support_friendship",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 8,
+                "text": "I prefer friendships based around shared activities rather than deep talks.",
+                "keyword": "activity_based_friendship",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 9,
+                "text": "I like friends who encourage me to try new things.",
+                "keyword": "likes_encouraging_friends",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 10,
+                "text": "I value friendships where both people put in similar effort.",
+                "keyword": "equal_effort_friendship",
+                "assign_keyword_if_score_at_least": 4
+            }
+        ]
     }
 }
