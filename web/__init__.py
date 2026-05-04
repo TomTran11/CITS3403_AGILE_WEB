@@ -39,8 +39,5 @@ app.register_blueprint(auth, url_prefix='/auth')
 app.register_blueprint(api, url_prefix='/api')
 app.register_blueprint(quizzes, url_prefix="/quizzes")
 
-from web.api.models import User
-
-
 with app.app_context():
     db.create_all()

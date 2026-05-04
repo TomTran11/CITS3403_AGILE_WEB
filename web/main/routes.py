@@ -1,6 +1,6 @@
-from flask import render_template, request, redirect, url_for, session, flash
+from flask import jsonify, render_template, request, redirect, url_for, session, flash
 from web import db
-from web.api.models import User
+from web.api.models import User, SocialLink
 from . import main
 from web.auth.utils import require_login
 
@@ -30,6 +30,55 @@ def profile():
 @require_login
 def edit_profile():
     return render_template('main/edit_profile.html')
+
+@main.route('/update_socials', methods=['POST'])
+@require_login
+def update_socials():
+    user = User.query.get(session["user"])
+    PLATFORMS = ["instagram", "linkedin", "discord"]
+
+    # clear existing
+    SocialLink.query.filter_by(user_id=user.username).delete()
+
+    for p in PLATFORMS:
+        raw = request.form.get(p)
+
+        if raw:
+            value = raw.strip()
+
+            if not value:
+                return jsonify({
+                    "status": "error",
+                    "message": f"{p.capitalize()} cannot be empty"
+                })
+
+            if value.lower().startswith("javascript:"):
+                return jsonify({
+                    "status": "error",
+                    "message": "Invalid link format"
+                })
+
+            if not value.startswith("http"):
+                value = "https://" + value
+
+            if not value.startswith("https://"):
+                return jsonify({
+                    "status": "error",
+                    "message": f"{p.capitalize()} must use HTTPS"
+                })
+
+            db.session.add(SocialLink(
+                user_id=user.username,
+                platform=p,
+                link=value
+            ))
+
+    db.session.commit()
+
+    return jsonify({
+        "status": "success",
+        "message": "Social links updated successfully!"
+    })
 
 @main.route('/account_settings')
 @require_login
