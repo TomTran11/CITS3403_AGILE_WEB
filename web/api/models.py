@@ -12,7 +12,7 @@ class User(db.Model):
     languages = db.Column(JSON, nullable=False)
     units = db.Column(JSON, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-
+    reset_token_version = db.Column(db.Integer, default=0)
 
 class QuizResult(db.Model):
     __tablename__ = "quiz_results"

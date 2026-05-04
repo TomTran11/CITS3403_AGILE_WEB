@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block wrapper_class %}profile-page{% endblock %}
+
+{% block title %}Account Settings{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-content">
+
+    <div class="profile-header">
+        <div class="profile-avatar-large">
+            {{ user.displayname[0] | upper }}
+        </div>
+        <h1 class="profile-name">Account Settings</h1>
+    </div>
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} text-center mt-2 flash-alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST">
+        <!-- CSRF -->
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <!-- New Email -->
+        <div class="profile-section">
+            <label class="section-label">New Email</label>
+            <input 
+                type="email" 
+                name="email" 
+                placeholder="Enter new email"
+                required
+                style="width: 100%; padding: 12px; border-radius: 10px; border: none;"
+            >
+        </div>
+
+        <!-- New Password -->
+        <div class="profile-section">
+            <label class="section-label">New Password</label>
+            <input 
+                type="password" 
+                name="password" 
+                placeholder="Enter new password"
+                minlength="6"
+                style="width: 100%; padding: 12px; border-radius: 10px; border: none;"
+            >
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="profile-section">
+            <label class="section-label">Confirm Password</label>
+            <input 
+                type="password" 
+                name="confirm_password" 
+                placeholder="Confirm new password"
+                minlength="6"
+                style="width: 100%; padding: 12px; border-radius: 10px; border: none;"
+            >
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="edit-profile-btn">
+            Save Changes
+        </button>
+
+    </form>
+
+</div>
+{% endblock %}
