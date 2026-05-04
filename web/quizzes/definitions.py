@@ -589,5 +589,73 @@ QUIZZES = {
                 "assign_keyword_if_score_at_least": 4
             }
         ]
+    },
+
+    "travel_style": {
+        "quiz_name": "Travel & Experience Style",
+        "type": "direct",
+        "description": "Captures how users like to travel and experience new places.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I enjoy travelling to new countries.",
+                "keyword": "international_traveller",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 2,
+                "text": "I prefer relaxed holidays over busy itineraries.",
+                "keyword": "relaxed_traveller",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 3,
+                "text": "I like planning trips in advance.",
+                "keyword": "trip_planner",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 4,
+                "text": "I enjoy spontaneous trips with little planning.",
+                "keyword": "spontaneous_traveller",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 5,
+                "text": "I enjoy beach holidays.",
+                "keyword": "beach_traveller",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 6,
+                "text": "I enjoy city exploring and sightseeing.",
+                "keyword": "city_explorer",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 7,
+                "text": "I enjoy trying local food when travelling.",
+                "keyword": "food_explorer",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 8,
+                "text": "I like staying in nice hotels or resorts.",
+                "keyword": "comfort_traveller",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 9,
+                "text": "I prefer budget-friendly travel.",
+                "keyword": "budget_traveller",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 10,
+                "text": "I enjoy doing activities like tours or experiences while travelling.",
+                "keyword": "activity_traveller",
+                "assign_keyword_if_score_at_least": 4
+            }
+        ]
     }
 }
