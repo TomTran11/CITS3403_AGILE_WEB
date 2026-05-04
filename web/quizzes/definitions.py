@@ -453,5 +453,73 @@ QUIZZES = {
                 "assign_keyword_if_score_at_least": 4
             }
         ]
+    },
+
+    "social_activities": {
+        "quiz_name": "Social Activities",
+        "type": "direct",
+        "description": "Captures the types of social activities users enjoy.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I enjoy going out for coffee.",
+                "keyword": "coffee_hangouts",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 2,
+                "text": "I enjoy going out for dinner.",
+                "keyword": "dinner_hangouts",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 3,
+                "text": "I like going to bars or nightlife.",
+                "keyword": "nightlife_social",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 4,
+                "text": "I enjoy hanging out at home.",
+                "keyword": "home_hangouts",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 5,
+                "text": "I like attending university events.",
+                "keyword": "campus_events",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 6,
+                "text": "I enjoy going to the beach.",
+                "keyword": "beach_hangouts",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 7,
+                "text": "I enjoy spontaneous plans.",
+                "keyword": "spontaneous_plans",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 8,
+                "text": "I prefer organised plans.",
+                "keyword": "organised_plans",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 9,
+                "text": "I enjoy trying new places.",
+                "keyword": "explores_new_places",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 10,
+                "text": "I enjoy relaxed social activities.",
+                "keyword": "low_energy_social",
+                "assign_keyword_if_score_at_least": 4
+            }
+        ]
     }
 }
