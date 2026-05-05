@@ -168,11 +168,14 @@ async function submitQuiz() {
 
     //We then sent a POST request with the answers
     try {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+       
         const response = await fetch(`/quizzes/${currentQuizName}/submit`, {
             method: "POST",
             headers: {
                 //We then tell the server that what we are sending is JSON
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
             },
             body: JSON.stringify({
                 //We then convert the JS answers into a JSON string
