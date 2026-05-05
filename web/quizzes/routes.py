@@ -1,6 +1,7 @@
-from flask import jsonify, request, session, render_template, redirect, url_for
+from flask import jsonify, request, session, render_template
 from web.quizzes import quizzes
-from web.quizzes.service import get_quiz_names, get_quiz_by_name, save_quiz_answers
+from web.quizzes.service import (get_quiz_names, get_quiz_by_name, save_quiz_answers, get_completed_quizzes_for_user, get_keywords_for_quiz)
+from web.auth.utils import require_login
 
 
 @quizzes.route("/", methods=["GET"])
@@ -10,12 +11,8 @@ def list_quizzes():
     })
 
 @quizzes.route("/page", methods=["GET"])
+@require_login
 def quizzes_page():
-    username = session.get("user")
-
-    if not username:
-        return redirect(url_for("auth.login"))
-
     return render_template("quizzes/quizzes.html")
 
 @quizzes.route("/<quiz_name>", methods=["GET"])
@@ -27,13 +24,10 @@ def get_quiz(quiz_name):
 
     return jsonify(quiz)
 
-
 @quizzes.route("/<quiz_name>/submit", methods=["POST"])
+@require_login
 def submit_quiz(quiz_name):
     username = session.get("user")
-
-    if not username:
-        return jsonify({"error": "User must be logged in to submit quiz."}), 401
 
     data = request.get_json()
 
@@ -55,4 +49,28 @@ def submit_quiz(quiz_name):
         "message": message,
         "quiz_name": quiz_name,
         "generated_keywords": keywords
+    }), 200
+
+@quizzes.route("/completed", methods=["GET"])
+@require_login
+def completed_quizzes():
+    username = session.get("user")
+    completed = get_completed_quizzes_for_user(username)
+    return jsonify({
+        "username": username,
+        "completed_quizzes": completed
+    }), 200
+
+@quizzes.route("/<quiz_name>/keywords", methods=["GET"])
+@require_login
+def quiz_keywords(quiz_name):
+    username = session.get("user")
+    quiz = get_quiz_by_name(quiz_name)
+    if not quiz:
+        return jsonify({"error": "Quiz not found."}), 404
+    keywords = get_keywords_for_quiz(username, quiz_name)
+    return jsonify({
+        "username": username,
+        "quiz_name": quiz_name,
+        "keywords": keywords
     }), 200

@@ -156,68 +156,99 @@ function showCurrentQuestion() {
     });
 }
 
-
 //This function submits the quiz after the user has completed it
-function submitQuiz() {
+async function submitQuiz() {
     const quizDisplay = document.getElementById("quiz-display");
 
-    // Show loading message
+    //Show loading message
     quizDisplay.innerHTML = `
         <h2>We are submitting your answers...</h2>
         <p>Please wait while your answers are saved and analysed.</p>
     `;
 
     //We then sent a POST request with the answers
-    fetch(`/quizzes/${currentQuizName}/submit`, {
-        method: "POST",
-        headers: {
-            //We then tell the server that what we are sending is JSON
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            //However we send the answers as objects
-            answers: answers
-        })
-    })
-        .then(response => {
-            //We then convert the response to JSON and keep the current status
-            return response.json().then(data => {
-                return { ok: response.ok, data: data };
-            });
-        })
-        .then(result => {
-            //This handles the situation for when the backend returns an error
-            if (!result.ok) {
-                quizDisplay.innerHTML = `
-                    <h2>Error</h2>
-                    <p>${result.data.error}</p>
-                `;
-                return;
-            }
+    try {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+       
+        const response = await fetch(`/quizzes/${currentQuizName}/submit`, {
+            method: "POST",
+            headers: {
+                //We then tell the server that what we are sending is JSON
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken
+            },
+            body: JSON.stringify({
+                //We then convert the JS answers into a JSON string
+                answers: answers
+            })
+        });
 
-            //We then display the success message to the user and their assigned keywords
-            quizDisplay.innerHTML = `
-                <h2>Thank you for completing the ${currentQuiz.quiz_name}!</h2>
-                <p>Your answers are saved, and your keywords are being calculated.</p>
+        //We then convert the backend's JSOn reponse into a JS object
+        const result = await response.json();
 
-                <h3>Generated keywords</h3>
-                <ul>
-                    ${result.data.generated_keywords
-                        .map(keyword => `<li>${keyword}</li>`)
-                        .join("")}
-                </ul>
-            `;
-        })
-        //Error handling for when something goes wrong with quiz submission
-        .catch(error => {
+        //This checks if the backends response was successful or not and displays an error message if needed
+        if (!response.ok) {
             quizDisplay.innerHTML = `
                 <h2>Error</h2>
-                <p>We're so sorry, something seems to have gone wrong with submitting your quiz.</p>
+                <p>${result.error}</p>
             `;
-            console.error(error);
-        });
-}
+            return;
+        }
 
+        //This sends a request to the backend matching route
+        const matchResponse = await fetch("/matching/");
+        const matchData = await matchResponse.json();
+
+        //We then create an empty string so that it can hold the suggested matches later on
+        let matchesHtml = "";
+
+        //We error check to see if the matching request failed or not
+        if (!matchResponse.ok) {
+            matchesHtml = "<p>We are so sorry but we could not load your potential matches.</p>";
+        //This checks whether the request worked with no matches above the threshold meaning they have no acceptable matches
+        } else if (matchData.matches.length === 0) {
+            matchesHtml = "<p>We are so sorry, but there are no matches above the matching threshold yet.</p>";
+        //Else the request worked and they have potential matches
+        } else {
+            //We start an unordered list for the matches and create a HTML block for each match
+            matchesHtml = `
+                <ul>
+                    ${matchData.matches.map(match => `
+                        <li>
+                            <strong>${match.username}</strong>
+                            — ${match.match_percentage}% match
+                            <br>
+                            Quizzes compared: ${match.quizzes_compared}
+                            <br>
+                            Shared quizzes: ${match.shared_quizzes.join(", ")}
+                        </li>
+                    `).join("")}
+                </ul>
+            `;
+        }
+        
+        //We then replace the quizzes answering and display area with the final completed quiz display
+        quizDisplay.innerHTML = `
+            <h2>${result.message}</h2>
+            <p>Your quiz has been completed and saved.</p>
+
+            <h3>Generated keywords</h3>
+            <ul>
+                ${result.generated_keywords.map(keyword => `<li>${keyword}</li>`).join("")}
+            </ul>
+
+            <h3>Suggested Matches</h3>
+            ${matchesHtml}
+        `;
+    //This error checks and catches any unexpected errors
+    } catch (error) {
+        quizDisplay.innerHTML = `
+            <h2>An error has occured</h2>
+            <p>We are so sorry, something has gone wrong with submitting the quiz.</p>
+        `;
+        console.error(error);
+    }
+}
 
 //This is the helper function that helps format the quiz name to become more readable for the user
 function formatQuizName(quizName) {
