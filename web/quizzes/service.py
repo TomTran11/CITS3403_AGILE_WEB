@@ -162,18 +162,3 @@ def calculate_category_result(quiz, answers):
             return category["name"]
 
     return None
-
-def get_completed_quizzes_for_user(username):
-    results = QuizResult.query.filter_by(username=username).all()
-    completed = []
-    for result in results:
-        if result.quiz_name not in completed:
-            completed.append(result.quiz_name)
-    return completed
-
-def get_keywords_for_quiz(username, quiz_name):
-    user_keywords = UserKeyword.query.filter_by(
-        username=username,
-        source_quiz=quiz_name
-    ).all()
-    return [uk.keyword for uk in user_keywords]
