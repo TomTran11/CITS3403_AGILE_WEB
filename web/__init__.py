@@ -11,39 +11,51 @@ load_dotenv()
 db = SQLAlchemy()
 csrf = CSRFProtect()
 mail = Mail()
-app = Flask(__name__)
-testing = os.getenv("TESTING", "false").lower() == "true"
-debug = os.getenv("FLASK_DEBUG", "false").lower() == "true"
 
-if testing:
-    app.config.from_object(TestingConfig)
-elif debug:
-    app.config.from_object(DevelopmentConfig)
-else:
-    app.config.from_object(ProductionConfig)
+def create_app(config_mode=None):
+    app = Flask(__name__)
+    # Mode SPECIFIC CONFIG
+    if config_mode == "testing":
+        app.config.from_object(TestingConfig)
+    elif config_mode == "development":
+        app.config.from_object(DevelopmentConfig)
+    elif config_mode == "production":
+        app.config.from_object(ProductionConfig)
+    # PERSONAL MODE CONFIG
+    else:
+        testing = os.getenv("TESTING", "false").lower() == "true"
+        debug = os.getenv("FLASK_DEBUG", "false").lower() == "true"
 
-mail.init_app(app)
-db.init_app(app)
-csrf.init_app(app)   
+        if testing:
+            app.config.from_object(TestingConfig)
+        elif debug:
+            app.config.from_object(DevelopmentConfig)
+        else:
+            app.config.from_object(ProductionConfig)
 
-# Services registration
-app.email_service = EmailService(mail)
+    mail.init_app(app)
+    db.init_app(app)
+    csrf.init_app(app)
 
-# Importing and registering blueprints
-from web.main import main
-from web.auth import auth
-from web.api import api
-from web.quizzes import quizzes
-app.register_blueprint(main)
-app.register_blueprint(auth, url_prefix='/auth')
-app.register_blueprint(api, url_prefix='/api')
-app.register_blueprint(quizzes, url_prefix="/quizzes")
+    app.email_service = EmailService(mail)
 
-from web.api.models import User
+    from web.main import main
+    from web.auth import auth
+    from web.api import api
+    from web.quizzes import quizzes
+    from web.matching import matching
 
-from web.matching import matching
-app.register_blueprint(matching)
+    app.register_blueprint(main)
+    app.register_blueprint(auth, url_prefix="/auth")
+    app.register_blueprint(api, url_prefix="/api")
+    app.register_blueprint(quizzes, url_prefix="/quizzes")
+    app.register_blueprint(matching)
 
+    from web.api.models import User, QuizResult, UserKeyword
 
-with app.app_context():
-    db.create_all()
+    with app.app_context():
+        db.create_all()
+
+    return app
+
+app = create_app()
