@@ -146,11 +146,25 @@ git push
 
 ## Project Stucture
 
-```bash
+```
 CITS3403_AGILE_WEB
 ├─ README.md
-├─ requirements.txt
 ├─ populating_DB.py
+├─ pytest.ini
+├─ requirements.txt
+├─ tests
+│  ├─ README.md
+│  ├─ backend
+│  │  ├─ test_about.py
+│  │  ├─ test_forgot_&_reset_pass.py
+│  │  ├─ test_landing_page.py
+│  │  ├─ test_login.py
+│  │  ├─ test_protected_routes.py
+│  │  └─ test_signup.py
+│  ├─ conftest.py
+│  └─ selenium
+│     ├─ test_login_ui.py
+│     └─ test_signup_ui.py
 └─ web
    ├─ __init__.py
    ├─ api
@@ -161,9 +175,16 @@ CITS3403_AGILE_WEB
    │  ├─ routes.py
    │  └─ utils.py
    ├─ config.py
+   ├─ data
+   │  ├─ language_loader.py
+   │  └─ languages.json
    ├─ main
    │  ├─ __init__.py
    │  └─ routes.py
+   ├─ matching
+   │  ├─ __init__.py
+   │  ├─ routes.py
+   │  └─ service.py
    ├─ quizzes
    │  ├─ __init__.py
    │  ├─ definitions.py
