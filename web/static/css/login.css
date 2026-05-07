@@ -3,10 +3,12 @@
     width: 420px;
     padding: 40px;
     box-shadow: 0 10px 30px rgba(0,0,0,1);
-    position:absolute !important;
+    position:absolute;
     top:50%;
     left:50%;
     transform: translate(-50%, -50%);
+    overflow: hidden;
+    min-height: 320px;
 }
 
 /* Inputs */
@@ -77,4 +79,36 @@ button:hover {
 .flash-hide {
     opacity: 0;
     transform: translateY(-10px);
+}
+
+.forgot-password {
+    text-align: right;
+    margin-top: 5px;
+}
+
+.forgot-password a {
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #ff3300;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.form-container {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    position: absolute;
+    width: 100%;
+    transform: translateY(20px);
+}
+
+.form-container.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    transform: translate(0);
 }

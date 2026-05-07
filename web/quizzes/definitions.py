@@ -129,5 +129,261 @@ QUIZZES = {
                 "assign_keyword_if_score_at_least": 4
             }
         ]
+    },
+
+    "communication_style": {
+        "quiz_name": "Communication Style",
+        "type": "category",
+        "description": "Discovers how you naturally prefer to communicate and connect with others.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I prefer to think things through before responding in a conversation.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 2,
+                "text": "I feel comfortable expressing my emotions openly to people I've just met.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 3,
+                "text": "I would rather send a voice message than type a long text.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 4,
+                "text": "I find it easy to bring up difficult topics in a friendship.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 5,
+                "text": "I prefer to check in with friends frequently rather than catch up occasionally.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 6,
+                "text": "I enjoy deep one-on-one conversations more than group chats.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 7,
+                "text": "I tend to use humour to connect with new people.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 8,
+                "text": "I like to have a plan for what I'll talk about before social events.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 9,
+                "text": "I often go quiet or withdraw when I feel overwhelmed in social settings.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 10,
+                "text": "I find it easy to keep a conversation going with someone I just met.",
+                "reverse_scored": False
+            }
+        ],
+        "categories": [
+            {"name": "Reserved",  "min_score": 0,  "max_score": 12},
+            {"name": "Reflective", "min_score": 13, "max_score": 25},
+            {"name": "Engaging",   "min_score": 26, "max_score": 38},
+            {"name": "Expressive", "min_score": 39, "max_score": 50}
+        ]
+    },
+
+    "lifestyle_routine": {
+        "quiz_name": "Lifestyle and Routine",
+        "type": "category",
+        "description": "Finds out how structured or spontaneous your day-to-day life is.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I follow a consistent daily routine (sleep, meals, exercise).",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 2,
+                "text": "I plan my week ahead rather than deciding things day by day.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 3,
+                "text": "I feel anxious when my schedule gets disrupted unexpectedly.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 4,
+                "text": "I prefer knowing where I'm going before I leave the house.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 5,
+                "text": "I make lists and track tasks to stay on top of things.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 6,
+                "text": "I enjoy trying new things even if they disrupt my usual habits.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 7,
+                "text": "I like my living space to be tidy and organised at all times.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 8,
+                "text": "I find routine comforting rather than boring.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 9,
+                "text": "I often make last-minute decisions about how to spend my time.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 10,
+                "text": "I set specific goals and track my progress toward them regularly.",
+                "reverse_scored": False
+            }
+        ],
+        "categories": [
+            {"name": "Spontaneous", "min_score": 0,  "max_score": 12},
+            {"name": "Flexible",    "min_score": 13, "max_score": 25},
+            {"name": "Organised",   "min_score": 26, "max_score": 38},
+            {"name": "Structured",  "min_score": 39, "max_score": 50}
+        ]
+    },
+
+    "conflict_stress_response": {
+        "quiz_name": "Conflict & Stress Response",
+        "type": "category",
+        "description": "Understands how you handle tension, disagreement, and pressure in relationships.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I address conflict directly rather than letting it sit.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 2,
+                "text": "When stressed, I prefer to talk it out with someone rather than be alone.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 3,
+                "text": "I find it easy to forgive friends after a disagreement.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 4,
+                "text": "I stay calm and logical when someone upsets me.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 5,
+                "text": "I tend to take on other people's emotional stress as my own.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 6,
+                "text": "I need time alone to decompress after a stressful situation.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 7,
+                "text": "I am comfortable setting boundaries with friends.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 8,
+                "text": "I tend to avoid confrontation even when something bothers me.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 9,
+                "text": "I find it difficult to bring up an issue if I think it will upset the other person.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 10,
+                "text": "I would rather resolve a conflict quickly than wait for the right moment.",
+                "reverse_scored": False
+            }
+        ],
+        "categories": [
+            {"name": "Conflict Avoider",   "min_score": 0,  "max_score": 12},
+            {"name": "Passive Diplomat",   "min_score": 13, "max_score": 25},
+            {"name": "Active Diplomat",    "min_score": 26, "max_score": 38},
+            {"name": "Direct Resolver",    "min_score": 39, "max_score": 50}
+        ]
+    },
+
+    "humour_playfulness": {
+        "quiz_name": "Humour & Playfulness",
+        "type": "category",
+        "description": "Sees what kind of fun and humour you bring to your friendships.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I use humour to lighten the mood in serious situations.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 2,
+                "text": "I enjoy playful banter and teasing with close friends.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 3,
+                "text": "I find absurd or random humour funnier than clever wordplay.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 4,
+                "text": "I like making others laugh even if it means being a little silly.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 5,
+                "text": "I enjoy pranks or light-hearted jokes between friends.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 6,
+                "text": "I appreciate dry or deadpan humour over loud, obvious jokes.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 7,
+                "text": "I laugh easily and often in social situations.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 8,
+                "text": "I use memes or internet humour as a main way of communicating with friends.",
+                "reverse_scored": False
+            },
+            {
+                "question_index": 9,
+                "text": "I prefer sincere, heartfelt conversations over jokey ones.",
+                "reverse_scored": True
+            },
+            {
+                "question_index": 10,
+                "text": "I often make jokes or funny observations without thinking about it.",
+                "reverse_scored": False
+            }
+        ],
+        "categories": [
+            {"name": "Sincere",           "min_score": 0,  "max_score": 12},
+            {"name": "Dry",               "min_score": 13, "max_score": 25},
+            {"name": "Playful",           "min_score": 26, "max_score": 38},
+            {"name": "Class Clown",       "min_score": 39, "max_score": 50}
+        ]
     }
 }
