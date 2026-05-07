@@ -53,6 +53,18 @@ document.querySelectorAll(".carousel").forEach(carousel => {
             $(items[upcoming]).removeClass(direction_class);
             
         }, 200);
+
+        //update indicators
+        indicator_set = carousel.querySelectorAll(".carousel-indicators")[0];
+        indicators = indicator_set.querySelectorAll("li");
+        for (i=0; i< indicators.length; i++) {
+            if (i == upcoming){
+                $(indicators[i]).addClass("active");
+            }
+            else {
+                $(indicators[i]).removeClass("active");
+            }
+        }
     }
 
     /*
