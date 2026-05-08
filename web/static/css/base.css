@@ -6,8 +6,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #FFF7F5, #FFDBCC);
+    height: 100vh;
+    background:  #FFDBCC;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,10 +24,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 32px;
-    background: #FFB75C;
+    padding: 30px 30px;
+    background: #FFBC57;
     z-index: 100;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    color: white;
     border-radius: 0px 0px 10px 10px;
 }
 
@@ -51,11 +51,105 @@ body {
 }
 
 .nav-right .btn {
-    background: #F28A80;
+    background: #FE9900;
     color: white;
     border-radius: 10px;
     padding: 8px 16px;
     font-weight: bold;
+}
+
+.nav-right .btn:hover {
+    background:  #ED553D
+}
+
+/* =========================
+   CAROUSEL
+========================= */
+
+.carousel-indicators li{
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: #F79181;
+    
+}
+
+
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-image: none;
+    color: #ED553D;
+    width: 100px;
+}
+
+
+
+
+.carousel-control-prev-icon:after {
+    content: "\25C0";
+    font-size: 50px;
+    align-items: center;
+}
+
+.carousel-control-next-icon:after {
+    content: "\25B6"; 
+    font-size: 50px;
+    opacity: 1;
+    justify-content: center;
+}
+
+.carousel-inner {
+
+    width: 1200px;
+    height: 400px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.carousel-image {
+    float: left;
+    border-radius: 30%;
+    width: 300px;
+    height: 300px;
+    margin-top: 50px;
+    margin-left: 200px;
+ 
+}
+
+.carousel-text {
+    
+    margin: 50px;
+    margin-top: 100px;
+    line-height: 1.2;
+    display: inline-block;
+    color: #333;
+    font-weight: bold;
+
+}
+
+
+/* =========================
+   LANDING
+========================= */
+
+.landing .btn {
+    background: #FFBC57;
+    color: white;
+    border-color:#FFDBCC;
+    border-width: 3px;
+    border-radius: 30px;
+    padding: 8px 50px;
+    margin: 20px 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.landing .btn:hover {
+    background: #ED553D;
+    border-color:#ED553D;
+    
 }
 
 .nav-right .btn:hover { background: #E57368; }
