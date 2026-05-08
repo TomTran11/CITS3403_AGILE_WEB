@@ -9,10 +9,10 @@
     <!-- Responsive meta tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {% block styles %}{% endblock %}
-
     <!-- Base CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
+    {% block styles %}{% endblock %}
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -30,6 +30,30 @@
         <div class="nav-right">
             {% if user %}
                 <!-- Logged in -->
+
+                <!-- NOTIFICATION BELL -->
+                <div class="notif-menu">
+                    <button class="notif-btn" onclick="toggleNotifMenu()">
+                        🔔
+                        <span class="notif-badge" id="notifBadge">3</span>
+                    </button>
+                    <div class="notif-dropdown" id="notifDropdown">
+                        <div class="notif-header">Notifications</div>
+                        <div class="notif-item unread">
+                            <span class="notif-dot"></span>
+                            <span> [username1] liked your profile</span>
+                        </div>
+                        <div class="notif-item unread">
+                            <span class="notif-dot"></span>
+                            <span>[username1] liked your profile</span>
+                        </div>
+                        <div class="notif-item unread">
+                            <span class="notif-dot"></span>
+                            <span>[username1] liked your profile</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="profile-menu">
                     <button class="profile-icon-btn">
                         <div class="profile-avatar">
@@ -67,6 +91,20 @@
 
     <!-- JS -->
     <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script>
+        function toggleNotifMenu() {
+            document.getElementById('notifDropdown').classList.toggle('open');
+            document.getElementById('profileDropdown').classList.remove('open');
+        }
+        document.addEventListener('click', function(e) {
+            const notif = document.querySelector('.notif-menu');
+            const profile = document.querySelector('.profile-menu');
+            if (notif && !notif.contains(e.target))
+                document.getElementById('notifDropdown')?.classList.remove('open');
+            if (profile && !profile.contains(e.target))
+                document.getElementById('profileDropdown')?.classList.remove('open');
+        });
+    </script>
     {% block scripts %}{% endblock %}
 
 </body>
