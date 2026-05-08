@@ -116,3 +116,49 @@
     background: #eeeeee;
     color: #666666;
 }
+
+/*This is the modal overlay that we will use for when a quiz card has been selected*/
+.quiz-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.quiz-overlay.active {
+    display: flex;
+}
+
+.quiz-modal {
+    background: #ffffff;
+    width: 80%;
+    max-width: 700px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/*This is the modal overlay close button that will override the extended base.css button styles*/
+.quiz-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ffffff;
+    width: auto;
+    margin-top: 0;
+    padding: 0;
+    z-index: 10;
+}
+
+.quiz-close-btn:hover {
+    background: none;
+}
