@@ -1,0 +1,22 @@
+/*basic quiz page styling*/
+.quizzes-wrapper {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 24px;
+    font-family: Arial, sans-serif;
+    color: #333333;
+}
+
+.quizzes-header {
+    margin-bottom: 30px;
+}
+
+.quizzes-header h1 {
+    color: #F07060;
+    margin-bottom: 8px;
+}
+
+.quizzes-header p {
+    color: #666666;
+}
