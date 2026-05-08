@@ -66,7 +66,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 16px;
-    maargin-top: 16px;
+    margin-top: 16px;
 }
 
 .loading-text {
@@ -81,7 +81,7 @@
     padding: 20px;
     cursor: point;
     transition: border-color 0.2s;
-    text-aligned: left;
+    text-align: left;
     width: 100%;
 }
 
