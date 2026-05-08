@@ -177,3 +177,13 @@
  
 .heart-btn:hover { background: none; color: #F28A80; }
 .heart-btn.liked  { color: #F28A80; }
+/* base.css의 button/input 전역 스타일 override */
+.dashboard-content button { width: auto !important; margin-top: 0 !important; }
+.dashboard-content input  { width: auto !important; margin: 0 !important; }
+
+.search-bar  { width: 100% !important; }
+.search-btn  { width: auto !important; padding: 16px 32px !important; border-radius: 30px !important; }
+.slider-arrow { background: none !important; width: auto !important; padding: 10px 14px !important; }
+.slider-arrow:hover { background: none !important; }
+.heart-btn   { background: none !important; width: auto !important; padding: 0 !important; margin-top: 0 !important; }
+.heart-btn:hover { background: none !important; color: #F28A80 !important; }
