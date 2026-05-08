@@ -19,6 +19,7 @@
 
 .quizzes-header p {
     color: #666666;
+    margin-top: 0;
 }
 
 /*Quizzes overall progress bar for the user based on their completed quizzes*/
@@ -34,6 +35,7 @@
     justify-content: space-between;
     margin-bottom: 8px;
     color: #666666;
+    font-size: 14px;
 }
 
 .overall-prograss-bar-tracking {
@@ -44,5 +46,73 @@
 .overall-progress-bar-filling {
     height: 100%;
     width: 0%;
-    background: #f07060
+    background: #f07060;
+    transition: width 0.5s ease;
+}
+
+/*Seperated quiz sections between completed quizzes and to do quizzes for the user*/
+.quiz-section {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 8px;
+    color: #333333;
+}
+
+/*Quiz grid that contains the quiz cards for each quiz in their sections*/
+.quiz-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    maargin-top: 16px;
+}
+
+.loading-text {
+    color: #666666;
+    margin-top: 0;
+}
+
+/*Individual quiz cards that contain quiz information*/
+.quiz-cards {
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 20px;
+    cursor: point;
+    transition: border-color 0.2s;
+    text-aligned: left;
+    width: 100%;
+}
+
+.quiz-card:hover {
+    border-color: #f07060;
+}
+
+.quiz-card-name {
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-top: 0;
+    font-size: 15px;
+    color: #333333;
+}
+
+.quiz-card-desc {
+    color: #666666;
+    margin-bottom: 12px;
+    margin-top: 0;
+    font-size: 14px;
+}
+
+.quiz-card-badge {
+    display: inline-block;
+    background: #f07060;
+    color: #ffffff;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+}
+
+.quiz-card-badge.todo {
+    background: #eeeeee;
+    color: #666666;
 }
