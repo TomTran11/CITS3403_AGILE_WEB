@@ -41,16 +41,17 @@
                         <div class="notif-header">Notifications</div>
                         <div class="notif-item unread">
                             <span class="notif-dot"></span>
-                            <span>Someone liked your profile</span>
+                            <span>[username1] liked your profile</span>
                         </div>
                         <div class="notif-item unread">
                             <span class="notif-dot"></span>
-                            <span>New study partner match!</span>
+                            <span>[username2] liked your profile</span>
                         </div>
                         <div class="notif-item unread">
                             <span class="notif-dot"></span>
-                            <span>Profile viewed by a user</span>
+                            <span>[username3] liked your profile</span>
                         </div>
+                        <a href="{{ url_for('main.notifications') }}" class="notif-view-more">View more notifications →</a>
                     </div>
                 </div>
 

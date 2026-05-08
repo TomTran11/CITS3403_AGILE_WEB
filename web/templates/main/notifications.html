@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block wrapper_class %}notif-page{% endblock %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/notifications.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="notif-page-wrapper">
+
+    <h1 class="notif-page-title">Notifications</h1>
+
+    <div class="notif-page-list">
+
+        <div class="notif-page-item unread">
+            <div class="notif-page-avatar">u</div>
+            <div class="notif-page-body">
+                <p class="notif-page-text"><strong>[username1]</strong> liked your profile</p>
+                <span class="notif-page-time">Just now</span>
+            </div>
+            <span class="notif-page-dot"></span>
+        </div>
+
+        <div class="notif-page-item unread">
+            <div class="notif-page-avatar">u</div>
+            <div class="notif-page-body">
+                <p class="notif-page-text"><strong>[username2]</strong> liked your profile</p>
+                <span class="notif-page-time">2 minutes ago</span>
+            </div>
+            <span class="notif-page-dot"></span>
+        </div>
+
+        <div class="notif-page-item unread">
+            <div class="notif-page-avatar">u</div>
+            <div class="notif-page-body">
+                <p class="notif-page-text"><strong>[username3]</strong> liked your profile</p>
+                <span class="notif-page-time">5 minutes ago</span>
+            </div>
+            <span class="notif-page-dot"></span>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
