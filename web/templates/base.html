@@ -9,10 +9,10 @@
     <!-- Responsive meta tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    {% block styles %}{% endblock %}
+
     <!-- Base CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-
-    {% block styles %}{% endblock %}
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -34,22 +34,22 @@
                 <!-- NOTIFICATION BELL -->
                 <div class="notif-menu">
                     <button class="notif-btn" onclick="toggleNotifMenu()">
-                        🔔
+                        <i class="bi bi-bell-fill"></i>
                         <span class="notif-badge" id="notifBadge">3</span>
                     </button>
                     <div class="notif-dropdown" id="notifDropdown">
                         <div class="notif-header">Notifications</div>
                         <div class="notif-item unread">
                             <span class="notif-dot"></span>
-                            <span> [username1] liked your profile</span>
+                            <span>Someone liked your profile</span>
                         </div>
                         <div class="notif-item unread">
                             <span class="notif-dot"></span>
-                            <span>[username1] liked your profile</span>
+                            <span>New study partner match!</span>
                         </div>
                         <div class="notif-item unread">
                             <span class="notif-dot"></span>
-                            <span>[username1] liked your profile</span>
+                            <span>Profile viewed by a user</span>
                         </div>
                     </div>
                 </div>
