@@ -20,3 +20,29 @@
 .quizzes-header p {
     color: #666666;
 }
+
+/*Quizzes overall progress bar for the user based on their completed quizzes*/
+.overall-progress-section {
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 16px;
+    margin-bottom: 40px;
+}
+
+.overall-progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #666666;
+}
+
+.overall-prograss-bar-tracking {
+    background: #eeeeee;
+    height: 10px;
+}
+
+.overall-progress-bar-filling {
+    height: 100%;
+    width: 0%;
+    background: #f07060
+}
