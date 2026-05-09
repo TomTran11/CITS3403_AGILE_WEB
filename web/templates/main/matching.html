@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block wrapper_class %}profile-page{% endblock %}
+
+{% block title %}My Matches{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/matching.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-content">
+
+    <h1 class="dashboard-greeting">My Matches</h1>
+
+    <p class="matching-subtitle">Browse all your matched study partners</p>
+
+    <div class="matching-grid">
+        {% for i in range(9) %}
+        <div class="user-card">
+            <div class="user-card-header">
+                <div class="user-card-avatar" style="background: {{ ['#F28A80','#FFB75C','#e07070'][i % 3] }}">?</div>
+                <span class="user-card-name">Name Lastname</span>
+            </div>
+            <div class="user-card-tags">
+                <span class="user-tag" style="background:#FFB75C"></span>
+                <span class="user-tag" style="background:#F28A80"></span>
+                <span class="user-tag" style="background:#e8a060"></span>
+            </div>
+            <p class="user-card-bio">Short bio that is around a sentence long.</p>
+            <button class="heart-btn">♡</button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <a href="{{ url_for('main.dashboard') }}" class="cancel-link" style="text-align:center; display:block; margin-top:20px;">← Back to Dashboard</a>
+
+</div>
+{% endblock %}
