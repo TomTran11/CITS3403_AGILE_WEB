@@ -323,3 +323,33 @@
     color: #ffffff;
     border-radius: 999px;
 }
+
+/*And this is the modal loading slide*/
+.modal-loading {
+    padding: 60px 40px;
+    text-align: center;
+    color: #666666;
+}
+
+.modal-loading p {
+    color: #666666;
+    margin-top: 0;
+}
+
+/*This is the progress bar for the quiz as the user does it and it goes at the bottom of the modal*/
+.modal-progress-bar-track {
+    height: 6px;
+    background: #eeeeee;
+    flex-shrink: 0;
+}
+
+.modal-progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: #f07060;
+    transition: width 0.4s ease;
+}
+
+.modal-progress-label {
+    display: none;
+}
