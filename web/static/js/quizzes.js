@@ -118,107 +118,42 @@ function updateOverallProgress(done, total) {
     document.getElementById("overall-progress-fill").style.width = `${pct}%`;
 }
 
-
-//This loads the content for the specific quiz the user has selected, so the questions for the quiz
-function loadSelectedQuiz(quizName) {
-    const quizDisplay = document.getElementById("quiz-display");
-
-    //We sent a GET request to get the questions for a specific quiz
-    fetch(`/quizzes/${quizName}`)
-        .then(response => {
-            //We then convert the response into JSON
-            return response.json().then(data => {
-                return { ok: response.ok, data: data };
-            });
-        })
-        //We then handle a situation where if the backend returned and error
-        .then(result => {
-            // If backend returned error
-            if (!result.ok) {
-                quizDisplay.innerHTML = `<p>${result.data.error}</p>`;
-                return;
-            }
-
-            const quiz = result.data;
-
-            //We then save the quiz data globally so it can be accessed
-            currentQuizName = quizName;
-            currentQuiz = quiz;
-            currentQuestionIndex = 0;
-            answers = {};
-
-            //We then display the quiz info to the user based on the quiz they selected
-            quizDisplay.innerHTML = `
-                <h2>${quiz.quiz_name}</h2>
-                <p>${quiz.description || ""}</p>
-                <p>${quiz.questions.length} questions</p>
-                <button id="begin-quiz">Begin Quiz</button>
-            `;
-
-            //Once the button is clicked, the quiz starts
-            document
-                .getElementById("begin-quiz")
-                .addEventListener("click", showCurrentQuestion);
-        })
-        //This error handles situations where we cant load the quiz questions
-        .catch(error => {
-            quizDisplay.innerHTML = "<p>We couldn't load this quizzes questions, we apologise.</p>";
-            console.error(error);
-        });
+//These are all helper functions for the modal
+//This opens the modal for the quiz and then disables the background page scrolling
+function openModal() {
+    document.getElementById("quiz-overlay").classList.add("active");
+    document.body.style.overflow = "hidden";
 }
 
-//This function then formats exactly how each question will look to the user
-function showCurrentQuestion() {
-    const quizDisplay = document.getElementById("quiz-display");
+//This closes the modal overlay and then restores the page scrolling whilst also hiding the modal progress bar that was there for a quiz
+function closeModal() {
+    document.getElementById("quiz-overlay").classList.remove("active");
+    document.body.style.overflow = "";
+    hideModalProgress();
+}
 
-    //This gets the current question
-    const question = currentQuiz.questions[currentQuestionIndex];
+//This cycles through the modals current HTML content as there are a variety of modal screens such as intro, question, results
+function setModalContent(html) {
+    document.getElementById("quiz-modal-content").innerHTML = html;
+}
+ 
+//This helper function displays and updates the modal progress bar that appears when a user begins taking a quiz
+function showModalProgress(current, total) {
+    const track = document.getElementById("modal-progress-track");
+    const fill = document.getElementById("modal-progress-fill");
+    const label = document.getElementById("modal-progress-label");
 
-    //This is a check to see if the question is the last one for the quiz
-    const isLastQuestion =
-        currentQuestionIndex === currentQuiz.questions.length - 1;
+    //This makes the progress bar visible
+    track.style.display = "block";
+    //This updates the progress bar using a percentage to decide how filled the bar should be
+    fill.style.width = `${(current / total) * 100}%`;
+    //This then updates the progress bar text
+    label.textContent = `${current} / ${total}`;
+}
 
-    //We then render the question's user interface for the user to interact with
-    quizDisplay.innerHTML = `
-        <div class="quiz-question">
-            <p>Question ${currentQuestionIndex + 1} of ${currentQuiz.questions.length}</p>
-
-            <h2>${question.text}</h2>
-
-            <label for="answer-slider">Answer from 1 to 5 based on how strongly you feel about the question.:</label>
-            <input id="answer-slider" type="range" min="1" max="5" value="3">
-
-            <p>Selected score: <span id="selected-score">3</span></p>
-
-            <button id="next-question">
-                ${isLastQuestion ? "Submit Quiz" : "Next Question"}
-            </button>
-        </div>
-    `;
-
-    //We then get the slider and display the elements
-    const slider = document.getElementById("answer-slider");
-    const selectedScore = document.getElementById("selected-score");
-
-    //As the user moves the slider, we update the display score for the question
-    slider.addEventListener("input", () => {
-        selectedScore.textContent = slider.value;
-    });
-
-    //This outlines what happens next after a user clicks either next or submit
-    document.getElementById("next-question").addEventListener("click", () => {
-        // We then save the answer and convert the index to string for JSON format
-        answers[String(question.question_index)] = Number(slider.value);
-
-        if (isLastQuestion) {
-            //If the user is on the last question, we submit the quiz
-            submitQuiz();
-        } else {
-            //If it is not the last question, we move onto the next question
-            currentQuestionIndex += 1;
-            showCurrentQuestion();
-        }
-    });
+//The hides the modal's progress bar
+function hideModalProgress() {
+    document.getElementById("modal-progress-track").style.display = "none";
 }
 
 //This function submits the quiz after the user has completed it
