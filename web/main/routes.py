@@ -51,3 +51,9 @@ def check_session():
 @require_login
 def notifications():
     return render_template('main/notifications.html')
+
+# Matching page (full list of matches)
+@main.route('/matching')
+@require_login
+def matching():
+    return render_template('main/matching.html')
