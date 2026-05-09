@@ -35,8 +35,7 @@
 
         <div class="profile-section">
             <label class="section-label">About me</label>
-            <textarea class="profile-input" rows="3" placeholder="Write a short bio..."></textarea>
-            <small class="field-hint">Bio is display-only for now (not saved)</small>
+            <textarea id="bioTextarea" class="profile-input" rows="3" placeholder="Write a short bio..."></textarea>
         </div>
 
         <div class="profile-section">
@@ -61,4 +60,19 @@
     </form>
 
 </div>
+
+<script>
+    // Bio is stored locally per username
+    const username = "{{ user.username }}";
+    const bioKey = "bio_" + username;
+    const bioTextarea = document.getElementById('bioTextarea');
+
+    // Load saved bio on page load
+    bioTextarea.value = localStorage.getItem(bioKey) || '';
+
+    // Save bio when form is submitted
+    document.querySelector('form').addEventListener('submit', function() {
+        localStorage.setItem(bioKey, bioTextarea.value);
+    });
+</script>
 {% endblock %}
