@@ -1,0 +1,96 @@
+/* =========================
+   NOTIFICATIONS PAGE
+========================= */
+.notif-page {
+    width: 100%;
+    flex: 1;
+}
+
+.notif-page-wrapper {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.notif-page-title {
+    font-size: 52px;
+    font-weight: 800;
+    color: #F07060;
+    text-align: center;
+}
+
+.notif-page-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: #f5cebc;
+    border-radius: 24px;
+    padding: 32px;
+}
+
+.notif-page-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: white;
+    border-radius: 18px;
+    padding: 28px 36px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s, transform 0.15s;
+}
+
+.notif-page-item:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+
+.notif-page-item.unread { border-left: 5px solid #FF958A; }
+
+.notif-page-avatar {
+    width: 54px;
+    height: 54px;
+    min-width: 54px;
+    border-radius: 50%;
+    background: #f5cebc;
+    color: #F28A80;
+    font-weight: 700;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+
+.notif-page-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.notif-page-text {
+    font-size: 17px;
+    color: #333;
+    margin: 0;
+}
+
+.notif-page-time {
+    font-size: 13px;
+    color: #bbb;
+}
+
+.notif-page-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #FF958A;
+    flex-shrink: 0;
+}
+
+.notif-page-item:not(.unread) .notif-page-dot { background: transparent; }

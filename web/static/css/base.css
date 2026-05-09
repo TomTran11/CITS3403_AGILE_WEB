@@ -6,8 +6,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #FFF7F5, #FFDBCC);
+    height: 100vh;
+    background:  #FFDBCC;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,10 +24,10 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 32px;
-    background: #FFB75C;
+    padding: 30px 30px;
+    background: #FFBC57;
     z-index: 100;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    color: white;
     border-radius: 0px 0px 10px 10px;
 }
 
@@ -51,11 +51,105 @@ body {
 }
 
 .nav-right .btn {
-    background: #F28A80;
+    background: #FE9900;
     color: white;
     border-radius: 10px;
     padding: 8px 16px;
     font-weight: bold;
+}
+
+.nav-right .btn:hover {
+    background:  #ED553D
+}
+
+/* =========================
+   CAROUSEL
+========================= */
+
+.carousel-indicators li{
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: #F79181;
+    
+}
+
+
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-image: none;
+    color: #ED553D;
+    width: 100px;
+}
+
+
+
+
+.carousel-control-prev-icon:after {
+    content: "\25C0";
+    font-size: 50px;
+    align-items: center;
+}
+
+.carousel-control-next-icon:after {
+    content: "\25B6"; 
+    font-size: 50px;
+    opacity: 1;
+    justify-content: center;
+}
+
+.carousel-inner {
+
+    width: 1200px;
+    height: 400px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.carousel-image {
+    float: left;
+    border-radius: 30%;
+    width: 300px;
+    height: 300px;
+    margin-top: 50px;
+    margin-left: 200px;
+ 
+}
+
+.carousel-text {
+    
+    margin: 50px;
+    margin-top: 100px;
+    line-height: 1.2;
+    display: inline-block;
+    color: #333;
+    font-weight: bold;
+
+}
+
+
+/* =========================
+   LANDING
+========================= */
+
+.landing .btn {
+    background: #FFBC57;
+    color: white;
+    border-color:#FFDBCC;
+    border-width: 3px;
+    border-radius: 30px;
+    padding: 8px 50px;
+    margin: 20px 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.landing .btn:hover {
+    background: #ED553D;
+    border-color:#ED553D;
+    
 }
 
 .nav-right .btn:hover { background: #E57368; }
@@ -165,3 +259,114 @@ button {
 button:hover { background: #F79181; }
 
 a { color: #F79181; text-decoration: none; font-weight: bold; }
+
+
+/* =========================
+   NOTIFICATION BELL
+========================= */
+.notif-menu { position: relative; }
+
+.notif-btn {
+    background: rgba(255,255,255,0.25);
+    border: none;
+    padding: 8px 10px;
+    position: relative;
+    line-height: 1;
+    width: auto;
+    margin-top: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.notif-btn i {
+    font-size: 18px;
+    color: white;
+}
+
+.notif-btn:hover {
+    background: rgba(255,255,255,0.4);
+}
+
+.notif-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: #e05050;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #FFB75C;
+}
+
+.notif-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: white;
+    border-radius: 16px;
+    min-width: 280px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+    overflow: hidden;
+    flex-direction: column;
+    z-index: 200;
+    animation: dropIn 0.18s ease;
+}
+
+.notif-dropdown.open { display: flex; }
+
+.notif-header {
+    padding: 14px 18px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #c08060;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid #f5ebe6;
+}
+
+.notif-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 18px;
+    font-size: 14px;
+    transition: background 0.15s;
+    cursor: pointer;
+}
+
+.notif-item:hover { background: #FFF5F0; }
+.notif-item.unread { font-weight: 600; color: #333; }
+
+.notif-dot {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    border-radius: 50%;
+    background: #FF958A;
+}
+
+.notif-item:not(.unread) .notif-dot { background: transparent; }
+
+.notif-view-more {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    font-size: 13px;
+    border-top: 1px solid #f5ebe6;
+    transition: background 0.15s;
+}
+
+.notif-view-more:hover {
+    background: #FFF5F0;
+    color: #F07066;
+}
