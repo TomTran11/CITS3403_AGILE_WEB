@@ -122,7 +122,7 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: #333333;
     align-items: center;
     justify-content: center;
     z-index: 1000;
@@ -161,4 +161,24 @@
 
 .quiz-close-btn:hover {
     background: none;
+}
+
+/*This is the different slide that will exist in the modal when the user selects a quiz card*/
+.modal-intro,
+.modal-choice,
+.modal-question,
+.modal-results {
+    padding: 40px;
+}
+
+.modal-intro,
+.modal-question {
+    background: #ffb75c;
+    color: #ffffff;
+}
+
+.modal-choice,
+.modal-results {
+    background: #f07060;
+    color: #ffffff;
 }
