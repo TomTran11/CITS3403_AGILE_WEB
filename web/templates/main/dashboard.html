@@ -5,6 +5,7 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/matching.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -30,7 +31,10 @@
 
     <!-- RECOMMENDED -->
     <section class="dash-section">
-        <h2 class="dash-section-title">Recommended</h2>
+        <div class="dash-section-header">
+            <h2 class="dash-section-title">My Matches</h2>
+            <a href="{{ url_for('main.matching') }}" class="view-more-link">View more →</a>
+        </div>
         <div class="card-slider-wrap">
             <button class="slider-arrow left">&#9664;</button>
             <div class="card-row">
