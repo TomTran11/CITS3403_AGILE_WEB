@@ -156,6 +156,47 @@ function hideModalProgress() {
     document.getElementById("modal-progress-track").style.display = "none";
 }
 
+//This function sets out the introduction modal slide for when a user clicks on a quiz card
+async function openIntroModal(quizName) {
+    //We call the helper functions and open the modal
+    openModal();
+    //We then hide the progress bar as its only used when the user begins a quiz
+    hideModalProgress();
+    //We then show a temporary loading message to the user whilst we get the quiz data
+    setModalContent(`<div class="modal-loading">Loading quiz...</div>`);
+
+    try {
+        //We then request the quiz data from the backend
+        const res = await fetch(`/quizzes/${quizName}`);
+        //We also must convert the JSON backend response into a JS object
+        const quiz = await res.json();
+ 
+        //We then store some of the quiz information globally to be used later
+        currentQuizName = quizName;
+        currentQuiz = quiz;
+        currentQuestionIndex = 0;
+        answers = {};
+ 
+        //We then build the intro modal page with the follow headings and text
+        setModalContent(`
+            <div class="modal-intro">
+                <p class="modal-quiz-name">${formatQuizName(quizName)}</p>
+                <h2>How true are the following statements?</h2>
+                <p>${quiz.description || ""}</p>
+                <p class="modal-meta">${quiz.questions.length} questions &nbsp;·&nbsp; Rate each 1 to 5</p>
+                <button class="modal-begin-btn" id="begin-btn">Let's Begin →</button>
+            </div>
+        `);
+ 
+        //If the begin button is clicked, we then start the quiz
+        document.getElementById("begin-btn").addEventListener("click", showQuestion);
+    //If the quiz loading fails, we display an error message
+    } catch (err) {
+        setModalContent(`<div class="modal-loading">Could not load this quiz.</div>`);
+        console.error(err);
+    }
+}
+
 //This function submits the quiz after the user has completed it
 async function submitQuiz() {
     const quizDisplay = document.getElementById("quiz-display");
