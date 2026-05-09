@@ -46,7 +46,7 @@
     border-radius: 16px;
     padding: 20px 24px;
     font-size: 17px;
-    color: #888;
+    color: #444;
     min-height: 64px;
     line-height: 1.6;
 }
@@ -114,6 +114,7 @@
     cursor: pointer;
     transition: background 0.2s;
     text-decoration: none;
+    margin-top: 20px;
 }
 
 .edit-profile-btn:hover { background: #F07066; color: white; }
