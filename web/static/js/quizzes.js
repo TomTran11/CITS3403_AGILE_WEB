@@ -76,6 +76,40 @@ async function loadQuizzes() {
     }
 }
 
+//This function builds the quiz card element that goes into the sections
+function buildCard(quizName, isCompleted) {
+    const card = document.createElement("div");
+    card.classList.add("quiz-card");
+    if (isCompleted) card.classList.add("completed");
+ 
+    //We have to get the quiz description so that we can place it onto the quiz card
+    card.innerHTML = `
+        <p class="quiz-card-name">${formatQuizName(quizName)}</p>
+        <p class="quiz-card-desc">Loading...</p>
+        <span class="quiz-card-badge ${isCompleted ? "" : "todo"}">${isCompleted ? "Completed ✓" : "Not started"}</span>`;
+ 
+    //We then place the actual descriptions from the backend into the card
+    fetch(`/quizzes/${quizName}`)
+        .then(r => r.json())
+        .then(data => {
+            card.querySelector(".quiz-card-desc").textContent = data.description || "";
+        })
+        .catch(() => {
+            card.querySelector(".quiz-card-desc").textContent = "";
+        });
+ 
+    //If the card is clicked and has been completed, we open the model that gives the user a summary of their previous answers, if not we open the quiz intro modal
+    card.addEventListener("click", () => {
+        if (isCompleted) {
+            openChoiceModal(quizName);
+        } else {
+            openIntroModal(quizName);
+        }
+    });
+ 
+    return card;
+}
+
 
 //This loads the content for the specific quiz the user has selected, so the questions for the quiz
 function loadSelectedQuiz(quizName) {
