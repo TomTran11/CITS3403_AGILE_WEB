@@ -110,6 +110,14 @@ function buildCard(quizName, isCompleted) {
     return card;
 }
 
+//This function is for the progress bar that goes at the bottom of the completed quiz section so that the user can see how far they have come from doing no quizzes
+function updateOverallProgress(done, total) {
+    const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+    document.getElementById("overall-progress-text").textContent = `${done} of ${total} quizzes completed`;
+    document.getElementById("overall-progress-percent").textContent = `${pct}%`;
+    document.getElementById("overall-progress-fill").style.width = `${pct}%`;
+}
+
 
 //This loads the content for the specific quiz the user has selected, so the questions for the quiz
 function loadSelectedQuiz(quizName) {
