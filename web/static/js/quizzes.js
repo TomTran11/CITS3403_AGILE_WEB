@@ -6,51 +6,74 @@ let currentQuiz = null;
 let currentQuestionIndex = 0;
 //This stores the users quiz answers before being submitted to the backend
 let answers = {};
+//This stores and tracks which quizzes the user has done
+let completedQuizNames = [];
 
 
 //As soon as the page is loaded, we then load the quizzes
 document.addEventListener("DOMContentLoaded", () => {
     loadQuizzes();
+
+    document.getElementById("quiz-close-btn").addEventListener("click", closeModal);
+    document.getElementById("quiz-overlay").addEventListener("click", (e) => {
+        if (e.target === document.getElementById("quiz-overlay")) closeModal();
+    });
 });
 
 
-//This functions loads all the quizzes
-function loadQuizzes() {
-    const quizList = document.getElementById("quiz-list");
+//This functions loads all the quizzes and then splits them into the 2 sections, completed and todo
+async function loadQuizzes() {
+    const todoList = document.getElementById("todo-list");
+    const completedList = document.getElementById("completed-list");
+    const completedSection = document.getElementById("completed-section");
 
-    //We send a GET request to backend to get our quizzes
-    fetch("/quizzes/")
-        //We then also convert the responses into JSON
-        .then(response => response.json())
-        .then(data => {
-            //If theres any existing content, we clear it
-            quizList.innerHTML = "";
+    try {
+        //We then fetch the list of all the quiz names
+        const namesRes = await fetch("/quizzes/");
+        const NamesData = await namesRes.json();
+        const quizNames = NamesData.quizzes;
 
-            //We then loop through each quiz name that was returned
-            data.quizzes.forEach(quizName => {
-                //For each available quiz we make a button for it
-                const button = document.createElement("button");
+        //Next we fetch all the quizzes that this user has completed
+        let userCompleted =[];
+        try {
+            const completedRes = await fetch("/quizzes/completed");
+            if (completedRes.ok) {
+                const completedData = await completedRes.json();
+                userCompleted = completedData.completed_quizzes || [];
+            }
+        //If the endpoint doesnt exist yet then the user has no completed quizzes and all of them are moved to the To-Do section
+        } catch (_) {
 
-                //We also format the quiz name to have better readability
-                button.textContent = formatQuizName(quizName);
+        }
 
-                //And we add a CSS class to the buttons so that can be styled
-                button.classList.add("quiz-card");
+        completedQuizNames = userCompleted;
 
-                //When a specific button is clicked by a user, we load the quiz they selected
-                button.addEventListener("click", () => {
-                    loadSelectedQuiz(quizName);
-                });
+        //We then seperate the quizzes into two lists, one for completed quizzes and one for todo quizzes
+        const todoNames = quizNames.filter(n => !userCompleted.includes(n));
+        const doneNames = quizNames.filter(n => userCompleted.includes(n));
 
-                //We then append the button we made to the quiz list container so the users can interact with it
-                quizList.appendChild(button);
-            });
-        })
-        //If the request fails, we inform the user of the error
-        .catch(error => {
-            quizList.innerHTML = "<p>Could not load quizzes.</p>";
-            console.error(error);
-        });
+        //We then fill in the overall progress bar to show progress towards completing all quizzes for the user
+        updateOverallProgress(doneNames.length, quizNames.length);
+
+        //Next we create all the quiz cards that go in the todo section
+        todoList.innerHTML = "";
+        if (todoNames.length === 0) {
+            todoList.innerHTML = "<p class='loading-text'>All quizzes completed!</p>";
+        } else {
+            todoNames.forEach(name => todoList.appendChild(buildCard(name, false)));
+        }
+ 
+        //Finally we create the quiz cards that go into the completed quiz section
+        if (doneNames.length > 0) {
+            completedSection.style.display = "block";
+            completedList.innerHTML = "";
+            doneNames.forEach(name => completedList.appendChild(buildCard(name, true)));
+        }
+ 
+    } catch (err) {
+        todoList.innerHTML = "<p class='loading-text'>Could not load quizzes.</p>";
+        console.error(err);
+    }
 }
 
 
