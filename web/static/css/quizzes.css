@@ -300,3 +300,26 @@
     min-width: 24px;
     text-align: center;
 }
+
+/*This is the modal results slide for after a user has completed a quiz*/
+.results-sub {
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.keywords-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.keyword-chip {
+    background: #333333;
+    border: 1px solid #666666;
+    padding: 6px 14px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #ffffff;
+    border-radius: 999px;
+}
