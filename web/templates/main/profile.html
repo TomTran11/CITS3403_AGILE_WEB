@@ -12,9 +12,12 @@
 
     <div class="profile-header">
         <div class="profile-avatar-large">
-            {{ session.get("user")[0] | upper }}
+            {{ user.displayname[0] | upper }}
         </div>
-        <h1 class="profile-name">{{ session.get("user") }}</h1>
+        <div class="profile-name-block">
+            <h1 class="profile-name">{{ user.displayname }}</h1>
+            <span class="profile-username">@{{ user.username }}</span>
+        </div>
     </div>
 
     <div class="profile-bio-box">No bio yet.</div>
@@ -22,14 +25,26 @@
     <div class="profile-section">
         <label class="section-label">Languages</label>
         <div class="tag-row">
-            <span class="tag-empty">No languages added yet.</span>
+            {% if user.languages %}
+                {% for lang in user.languages %}
+                    <span class="tag tag-language">{{ lang }}</span>
+                {% endfor %}
+            {% else %}
+                <span class="tag-empty">No languages added yet.</span>
+            {% endif %}
         </div>
     </div>
 
     <div class="profile-section">
         <label class="section-label">Study Units</label>
         <div class="tag-row">
-            <span class="tag-empty">No study units added yet.</span>
+            {% if user.units %}
+                {% for unit in user.units %}
+                    <span class="tag tag-unit">{{ unit }}</span>
+                {% endfor %}
+            {% else %}
+                <span class="tag-empty">No study units added yet.</span>
+            {% endif %}
         </div>
     </div>
 
