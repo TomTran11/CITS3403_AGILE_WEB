@@ -212,3 +212,61 @@
     opacity: 0.8;
     margin-bottom: 10px;
 }
+
+.modal-meta {
+    opacity: 0.8;
+    margin-bottom: 24px;
+}
+
+/*This is for the modal buttons and also overrides the extended base.css button styles.*/
+.modal-begin-btn,
+.modal-next-btn,
+.results-done-btn,
+.modal-choice-btns button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    width: auto;
+    margin-top: 16px;
+    border-radius: 10px;
+}
+
+.modal-begin-btn,
+.modal-next-btn,
+.results-done-btn {
+    background: #ffffff;
+    color: #f07060;
+}
+
+.modal-begin-btn:hover,
+.modal-next-btn:hover,
+.results-done-btn:hover {
+    background: #f8f8f8;
+}
+
+.modal-choice-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.btn-retake {
+    background: #ffffff;
+    color: #f07060;
+}
+
+.btn-retake:hover {
+    background: #f8f8f8;
+}
+
+.btn-view-results {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff !important;
+}
+
+.btn-view-results:hover {
+    background: #333333;
+}
