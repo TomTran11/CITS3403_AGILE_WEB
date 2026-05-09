@@ -182,3 +182,33 @@
     background: #f07060;
     color: #ffffff;
 }
+
+/*We then override the extended base.css h2 color for inside the modal slides.*/
+.modal-intro h2,
+.modal-choice h2,
+.modal-question h2,
+.modal-results h2 {
+    color: #ffffff;
+    margin-top: 0;
+}
+
+/*We also override the extended base.css p margin for inside the modal slides.*/
+.modal-intro p,
+.modal-choice p,
+.modal-question p,
+.modal-results p {
+    margin-top: 0;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+/*This is the selected quiz name that goes above th heading in the modal*/
+.modal-quiz-name,
+.modal-quiz-name-small {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
