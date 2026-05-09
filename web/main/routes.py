@@ -7,7 +7,7 @@ from web.auth.utils import require_login
 @main.route('/')
 @main.route('/landing_page')
 def landing_page():
-    return render_template('main/landing_page.html')
+    return render_template('main/landing_page.html', title="Landing Page")
 
 # Dashboard
 @main.route('/dashboard')
@@ -24,12 +24,16 @@ def about():
 @main.route('/profile')
 @require_login
 def profile():
-    return render_template('main/profile.html')
+    username = session.get("user")
+    user = User.query.filter_by(username=username).first()
+    return render_template('main/profile.html', title="Profile", user=user)
 
 @main.route('/edit_profile')
 @require_login
 def edit_profile():
-    return render_template('main/edit_profile.html')
+    username = session.get("user")
+    user = User.query.filter_by(username=username).first()
+    return render_template('main/edit_profile.html', title="Edit Profile", user=user)
 
 @main.route('/account_settings')
 @require_login

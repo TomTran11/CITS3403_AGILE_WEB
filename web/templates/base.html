@@ -79,7 +79,7 @@
                 </div>
 
             {% else %}
-                {% if title in ['Login', 'Sign Up'] %}
+                {% if title in ['Login', 'Sign Up', 'Landing Page'] %}
                     <!-- Login / Signup page → About only -->
                     <a href="{{ url_for('main.about') }}">About</a>
                 {% else %}
