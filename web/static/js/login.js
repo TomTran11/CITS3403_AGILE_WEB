@@ -68,10 +68,27 @@ document.querySelector("#forgotForm form").addEventListener("submit", function(e
     fetch("/auth/forgot-password", {
         method: "POST",
         body: formData
-    }).catch(err => {
+    })
+    .then(async response => {
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
+
+        return data;
+    })
+    .then(data => {
         flashArea.innerHTML = `
-            <div class="alert alert-danger text-center mt-2">
-                Failed to send email
+            <div class="alert alert-success text-center mt-2 flash-alert">
+                ${data.message}
+            </div>
+        `;
+    })
+    .catch(err => {
+        flashArea.innerHTML = `
+            <div class="alert alert-danger text-center mt-2 flash-alert">
+                ${err.message}
             </div>
         `;
     });
