@@ -1,0 +1,43 @@
+/* =========================
+   MATCHING PAGE
+========================= */
+.matching-subtitle {
+    text-align: center;
+    font-size: 16px;
+    color: #888;
+    margin-top: -32px;
+    margin-bottom: 8px;
+}
+
+.matching-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 900px) {
+    .matching-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .matching-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================
+   DASHBOARD: My Matches header
+   (loaded in dashboard.html too)
+========================= */
+.dash-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.view-more-link {
+    font-size: 14px;
+    font-weight: 700;
+    color: #F28A80;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.view-more-link:hover { color: #F07066; }
