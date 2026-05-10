@@ -20,7 +20,7 @@ class Config:
     SESSION_COOKIE_SECURE = str_to_bool(os.getenv("SESSION_COOKIE_SECURE"), False)
 
     PERMANENT_SESSION_LIFETIME = timedelta(
-        seconds=int(os.getenv("SESSION_PERMANENT_LIFETIME", 1800))
+        seconds=int(os.getenv("SESSION_PERMANENT_LIFETIME", 7200))
     )
 
     WTF_CSRF_ENABLED = str_to_bool(os.getenv("CSRF_ENABLED"), True)

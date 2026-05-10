@@ -385,5 +385,277 @@ QUIZZES = {
             {"name": "Playful",           "min_score": 26, "max_score": 38},
             {"name": "Class Clown",       "min_score": 39, "max_score": 50}
         ]
+    },
+
+    "time_availability": {
+        "quiz_name": "Time & Availability",
+        "type": "direct",
+        "description": "Captures when users prefer to socialise and are available.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I am usually free in the mornings.",
+                "keyword": "morning_person",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 2,
+                "text": "I prefer doing activities in the afternoon.",
+                "keyword": "afternoon_active",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 3,
+                "text": "I prefer hanging out at night.",
+                "keyword": "night_person",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 4,
+                "text": "I am free on weekdays.",
+                "keyword": "weekday_available",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 5,
+                "text": "I am free on weekends.",
+                "keyword": "weekend_available",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 6,
+                "text": "I like spontaneous daytime plans.",
+                "keyword": "daytime_spontaneous",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 7,
+                "text": "I prefer planned hangouts.",
+                "keyword": "scheduled_social",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 8,
+                "text": "I stay up late regularly.",
+                "keyword": "late_night_active",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 9,
+                "text": "I wake up early most days.",
+                "keyword": "early_riser",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 10,
+                "text": "I prefer shorter hangouts.",
+                "keyword": "short_hangouts",
+                "assign_keyword_if_score_at_least": 4
+            }
+        ]
+    },
+
+    "social_activities": {
+        "quiz_name": "Social Activities",
+        "type": "direct",
+        "description": "Captures the types of social activities users enjoy.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I enjoy going out for coffee.",
+                "keyword": "coffee_hangouts",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 2,
+                "text": "I enjoy going out for dinner.",
+                "keyword": "dinner_hangouts",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 3,
+                "text": "I like going to bars or nightlife.",
+                "keyword": "nightlife_social",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 4,
+                "text": "I enjoy hanging out at home.",
+                "keyword": "home_hangouts",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 5,
+                "text": "I like attending university events.",
+                "keyword": "campus_events",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 6,
+                "text": "I enjoy going to the beach.",
+                "keyword": "beach_hangouts",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 7,
+                "text": "I enjoy spontaneous plans.",
+                "keyword": "spontaneous_plans",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 8,
+                "text": "I prefer organised plans.",
+                "keyword": "organised_plans",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 9,
+                "text": "I enjoy trying new places.",
+                "keyword": "explores_new_places",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 10,
+                "text": "I enjoy relaxed social activities.",
+                "keyword": "low_energy_social",
+                "assign_keyword_if_score_at_least": 4
+            }
+        ]
+    },
+
+    "friendship_expectations": {
+        "quiz_name": "Friendship Expectations",
+        "type": "direct",
+        "description": "Captures what users expect from friendships and social connections.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I like friends who check in regularly.",
+                "keyword": "likes_regular_checkins",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 2,
+                "text": "I prefer friendships that do not require constant messaging.",
+                "keyword": "low_maintenance_friendship",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 3,
+                "text": "I like friends who are comfortable making plans first.",
+                "keyword": "likes_plan_initiators",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 4,
+                "text": "I appreciate friends who are flexible when plans change.",
+                "keyword": "values_flexibility",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 5,
+                "text": "I prefer friends who are direct if something is wrong.",
+                "keyword": "prefers_direct_friends",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 6,
+                "text": "I like friendships where silence or distance does not feel awkward.",
+                "keyword": "comfortable_with_space",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 7,
+                "text": "I enjoy friendships where we can talk about personal problems.",
+                "keyword": "emotional_support_friendship",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 8,
+                "text": "I prefer friendships based around shared activities rather than deep talks.",
+                "keyword": "activity_based_friendship",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 9,
+                "text": "I like friends who encourage me to try new things.",
+                "keyword": "likes_encouraging_friends",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 10,
+                "text": "I value friendships where both people put in similar effort.",
+                "keyword": "equal_effort_friendship",
+                "assign_keyword_if_score_at_least": 4
+            }
+        ]
+    },
+
+    "travel_style": {
+        "quiz_name": "Travel & Experience Style",
+        "type": "direct",
+        "description": "Captures how users like to travel and experience new places.",
+        "questions": [
+            {
+                "question_index": 1,
+                "text": "I enjoy travelling to new countries.",
+                "keyword": "international_traveller",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 2,
+                "text": "I prefer relaxed holidays over busy itineraries.",
+                "keyword": "relaxed_traveller",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 3,
+                "text": "I like planning trips in advance.",
+                "keyword": "trip_planner",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 4,
+                "text": "I enjoy spontaneous trips with little planning.",
+                "keyword": "spontaneous_traveller",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 5,
+                "text": "I enjoy beach holidays.",
+                "keyword": "beach_traveller",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 6,
+                "text": "I enjoy city exploring and sightseeing.",
+                "keyword": "city_explorer",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 7,
+                "text": "I enjoy trying local food when travelling.",
+                "keyword": "food_explorer",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 8,
+                "text": "I like staying in nice hotels or resorts.",
+                "keyword": "comfort_traveller",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 9,
+                "text": "I prefer budget-friendly travel.",
+                "keyword": "budget_traveller",
+                "assign_keyword_if_score_at_least": 4
+            },
+            {
+                "question_index": 10,
+                "text": "I enjoy doing activities like tours or experiences while travelling.",
+                "keyword": "activity_traveller",
+                "assign_keyword_if_score_at_least": 4
+            }
+        ]
     }
 }
