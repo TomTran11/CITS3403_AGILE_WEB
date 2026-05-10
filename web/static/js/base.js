@@ -16,11 +16,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const dropdown = document.getElementById("profileDropdown");
     const menu = document.querySelector(".profile-menu");
 
-    // Toggle dropdown
+    // Notification dropdown logic
+    const notifBtn = document.querySelector(".notif-btn");
+    const notifDropdown = document.getElementById("notifDropdown");
+    const notif = document.querySelector(".notif-menu");
+
+    // Toggle profile dropdown
     if (profileBtn && dropdown) {
         profileBtn.addEventListener("click", (e) => {
             e.stopPropagation(); // prevent instant close
             dropdown.classList.toggle("open");
+
+            if (notifDropdown) {
+                notifDropdown.classList.remove("open");
+            }
+        });
+    }
+
+    // Toggle notification dropdown
+    if (notifBtn && notifDropdown) {
+        notifBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+
+            notifDropdown.classList.toggle("open");
+
+            if (dropdown) {
+                dropdown.classList.remove("open");
+            }
         });
     }
 
@@ -28,6 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", (e) => {
         if (menu && dropdown && !menu.contains(e.target)) {
             dropdown.classList.remove("open");
+        }
+
+        if (notif && notifDropdown && !notif.contains(e.target)) {
+            notifDropdown.classList.remove("open");
         }
     });
 });

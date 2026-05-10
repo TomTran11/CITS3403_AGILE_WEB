@@ -155,3 +155,9 @@ def page_not_found(e):
 @main.route('/check-session')
 def check_session():
     return {"user": session.get("user")}
+
+# Notifications page
+@main.route('/notifications')
+@require_login
+def notifications():
+    return render_template('main/notifications.html')
