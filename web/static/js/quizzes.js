@@ -197,6 +197,31 @@ async function openIntroModal(quizName) {
     }
 }
 
+//This function sets out the modal slide for when a user clicks on a quiz card from their completed quiz section, meaning they have already done it
+async function openChoiceModal(quizName) {
+    //We use the helper functions again to open the modal and to also hide the progress bar as it is not needed here
+    openModal();
+    hideModalProgress();
+
+    //We then build this modal page with the following headings and text
+    setModalContent(`
+        <div class="modal-choice">
+            <p class="modal-quiz-name" style="font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.8;margin-bottom:12px;">${formatQuizName(quizName)}</p>
+            <h2>You've already completed this quiz.</h2>
+            <p>Would you like to retake it and update your results, or view your previous keywords?</p>
+            <div class="modal-choice-btns">
+                <button class="btn-retake" id="choice-retake">Retake Quiz</button>
+                <button class="btn-view-results" id="choice-view">View My Keywords</button>
+            </div>
+        </div>
+    `);
+
+    //If the user clicks the retake button, the quiz is started all over again
+    document.getElementById("choice-retake").addEventListener("click", () => openIntroModal(quizName));
+    //If the user clicks the keywords button, their saved keywords are shown
+    document.getElementById("choice-view").addEventListener("click", () => viewKeywords(quizName));
+}
+
 //This function submits the quiz after the user has completed it
 async function submitQuiz() {
     const quizDisplay = document.getElementById("quiz-display");
