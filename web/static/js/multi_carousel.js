@@ -9,16 +9,23 @@ document.querySelectorAll(".carousel").forEach(carousel => {
     let carousel_width = $(inner)[0].scrollWidth;
     let card_width = $(items).width()+40;
     let scroll_pos = 0;
+    let current = 0
 
 
     $(next).on('click', function(){
-        scroll_pos += card_width;
-        $(inner).animate({scrollLeft: scroll_pos}, 600);
+        if (current < items.length-3){ 
+            scroll_pos += card_width;
+            $(inner).animate({scrollLeft: scroll_pos}, 600);
+            current += 1;
+        }
     });
 
     $(prev).on('click', function(){
-        scroll_pos -= card_width;
-        $(inner).animate({scrollLeft: scroll_pos}, 600);
+        if (current > 0){ 
+            scroll_pos -= card_width;
+            $(inner).animate({scrollLeft: scroll_pos}, 600);
+            current -= 1;
+        }
     });
 
 });

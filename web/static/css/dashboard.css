@@ -25,7 +25,7 @@
 .dashboard-greeting {
     font-size: 52px;
     font-weight: 800;
-    color: #F07060;
+    color: #ED553D;
     text-align: center;
 }
  
@@ -51,7 +51,7 @@
     width: auto;
     padding: 16px 32px;
     border-radius: 30px;
-    background: #FF958A;
+    background: #F79181;
     color: white;
     font-weight: 700;
     font-size: 15px;
@@ -61,7 +61,7 @@
     transition: background 0.2s;
 }
  
-.search-btn:hover { background: #F07066; }
+.search-btn:hover { background: #ED553D; }
  
 /* Section */
 .dash-section { display: flex; flex-direction: column; gap: 18px; }
@@ -72,34 +72,6 @@
     color: #555;
 }
  
-/* Slider */
-.card-slider-wrap {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
- 
-.slider-arrow {
-    padding: 10px 14px;
-    background: none;
-    border: none;
-    color: #F28A80;
-    font-size: 22px;
-    flex-shrink: 0;
-    transition: transform 0.15s;
-}
- 
-.slider-arrow:hover {
-    background: none;
-    transform: scale(1.2);
-}
- 
-.card-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    flex: 1;
-}
  
 /* User card */
 .user-card {
@@ -174,3 +146,29 @@
 .dashboard-content button { width: auto; margin-top: 0 ; }
 .dashboard-content input  { width: auto; margin: 0 ; }
 .search-btn  { width: auto; padding: 16px 32px; border-radius: 30px; }
+
+
+
+
+.carousel-inner{
+    mask-image: linear-gradient(to left,transparent 0%, black 3%, black 97%, transparent 100%);
+    display:flex;
+    text-align: center;
+    justify-content: space-evenly;
+    
+
+}
+
+.carousel-item{
+    display:block;
+    margin: 20px;
+    flex: 0 0 calc((100%/3) - 40px);
+}
+
+.carousel-control-prev-icon{
+    margin-right: 200px;
+}
+
+.carousel-control-next-icon {
+    margin-left: 200px;
+}

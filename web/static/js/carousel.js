@@ -5,20 +5,18 @@ document.querySelectorAll(".carousel").forEach(carousel => {
     const items = carousel.querySelectorAll(".carousel-item");
     const prev = carousel.querySelectorAll(".carousel-control-prev-icon");
     const next = carousel.querySelectorAll(".carousel-control-next-icon");
+    const initClasses = Array.from(carousel.classList)
+    const loop = initClasses.includes("loop");
+    const animation = initClasses.includes("animation");
+
+
 
     // VARIABLE DEFINITIONS //
     let current = 0;
     let upcoming = 0;
     let ready = true;
-    let loop = false;
-    if (Array.from(carousel.classList).includes("loop")){
-        loop = true;
-    }
-    
-    let animation = false; //when false, none of the animation related class changes are applied
-    if (Array.from(carousel.classList).includes("animation")){
-        animation = true;
-    }
+
+
     
     /*
     * this function is used to hide a carousel item to either the left or right
@@ -94,11 +92,12 @@ document.querySelectorAll(".carousel").forEach(carousel => {
     * this function moves carousel items on click of previous button
     */
     $(prev).on('click', function(){
+        
         //return if not ready
         if (ready!=true){
             return
         }
-        if (current != 0){ 
+        if (current > 0){ 
             upcoming = current - 1;
             hide('left');
             show('right'); 
@@ -111,18 +110,18 @@ document.querySelectorAll(".carousel").forEach(carousel => {
                 show('right');
             }
         }
-        
     });
 
     /*
     * this function moves carousel items on click of next button
     */
     $(next).on('click', function(){
+        
         //return if not ready
         if (ready!=true){
             return
         }
-        if (current != items.length - 1){
+        if (current < items.length - 1){
             upcoming = current + 1;
             hide('right');
             show('left');
@@ -130,7 +129,7 @@ document.querySelectorAll(".carousel").forEach(carousel => {
         else{
             // only wrap backwards if looping is allowed
             if (loop == true){
-                upcoming = 0
+                upcoming = 0;
                 hide('right');
                 show('left');
             }
