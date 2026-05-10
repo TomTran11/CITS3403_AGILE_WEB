@@ -222,6 +222,29 @@ async function openChoiceModal(quizName) {
     document.getElementById("choice-view").addEventListener("click", () => viewKeywords(quizName));
 }
 
+//This allows the user to see their keywords that got assigned once they completed a quiz
+async function viewKeywords(quizName) {
+    //We set the loading message for the user
+    setModalContent(`<div class="modal-loading">Loading your keywords...</div>`);
+    //The progress bar is hidden as its irrelevant here
+    hideModalProgress();
+ 
+    try {
+        //We request the saved keywords from the backend
+        const res = await fetch(`/quizzes/${quizName}/keywords`);
+        //If theres an error, we report it to the user
+        if (!res.ok) throw new Error("Could not fetch keywords");
+        //Then we convert the JSON response into a JS object
+        const data = await res.json();
+        //We then display the returned keyword
+        showResultsSlide(data.keywords || [], quizName);
+    //This is a error message for if the whole process fails
+    } catch (err) {
+        setModalContent(`<div class="modal-loading">Could not load your keywords.</div>`);
+        console.error(err);
+    }
+}
+
 //This function submits the quiz after the user has completed it
 async function submitQuiz() {
     const quizDisplay = document.getElementById("quiz-display");
