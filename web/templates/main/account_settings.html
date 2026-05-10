@@ -5,6 +5,7 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/account_setting.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -26,9 +27,11 @@
         {% endfor %}
     {% endwith %}
 
-    <form method="POST">
+    <form method="POST" id="accountSettingsForm" action="">
         <!-- CSRF -->
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <!-- Current password from popup -->
+        <input type="hidden" name="current_password" id="currentPasswordHidden">
 
         <!-- New Email -->
         <div class="profile-section">
@@ -37,7 +40,6 @@
                 type="email" 
                 name="email" 
                 placeholder="Enter new email"
-                required
                 style="width: 100%; padding: 12px; border-radius: 10px; border: none;"
             >
         </div>
@@ -47,7 +49,7 @@
             <label class="section-label">New Password</label>
             <input 
                 type="password" 
-                name="password" 
+                name="new_password" 
                 placeholder="Enter new password"
                 minlength="6"
                 style="width: 100%; padding: 12px; border-radius: 10px; border: none;"
@@ -56,22 +58,43 @@
 
         <!-- Confirm Password -->
         <div class="profile-section">
-            <label class="section-label">Confirm Password</label>
+            <label class="section-label">Confirm New Password</label>
             <input 
                 type="password" 
-                name="confirm_password" 
+                name="confirm_new_password" 
                 placeholder="Confirm new password"
                 minlength="6"
                 style="width: 100%; padding: 12px; border-radius: 10px; border: none;"
             >
         </div>
 
-        <!-- Submit -->
-        <button type="submit" class="edit-profile-btn">
+        <!-- Submit button now opens popup -->
+        <button type="button" class="edit-profile-btn" id="openPasswordPopup">
             Save Changes
         </button>
-
     </form>
 
+    <div id="passwordPopup" class="popup-overlay">
+        <div class="popup-box">
+            <h2>Confirm Password</h2>
+            <p>Please enter your current password to save these changes.</p>
+
+            <input 
+                type="password" 
+                id="currentPasswordInput" 
+                placeholder="Enter current password"
+            >
+
+            <div class="popup-actions">
+                <button type="button" id="cancelPopup">Cancel</button>
+                <button type="button" id="confirmSubmit">Confirm</button>
+            </div>
+        </div>
+    </div>
+
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/account_setting.js') }}"></script>
 {% endblock %}
