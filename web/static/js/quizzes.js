@@ -245,6 +245,61 @@ async function viewKeywords(quizName) {
     }
 }
 
+//This sets out the modal slides for each question in a quiz that the user is currently doing
+function showQuestion() {
+    //We get the current question object based off the question index
+    const question = currentQuiz.questions[currentQuestionIndex];
+    //We then get the total number of questions in the current quiz
+    const total = currentQuiz.questions.length;
+    //This checks if the current question is the last question of not
+    const isLast = currentQuestionIndex === total - 1;
+ 
+    //This then updates and displays the progress bar for the quiz
+    showModalProgress(currentQuestionIndex + 1, total);
+ 
+    //We then create the quiz question content on the modal
+    setModalContent(`
+        <div class="modal-question">
+            <p class="modal-quiz-name-small">${formatQuizName(currentQuizName)}</p>
+            <p class="question-prompt">How true is the following statement?</p>
+            <h2>${question.text}</h2>
+            <div class="slider-row">
+                <span class="slider-label">1</span>
+                <input type="range" class="quiz-slider" id="q-slider" min="1" max="5" value="3">
+                <span class="slider-label">5</span>
+                <span class="slider-value-display" id="slider-val">3</span>
+            </div>
+            <button class="modal-next-btn" id="next-btn">
+                ${isLast ? "Submit Quiz" : "Next →"}
+            </button>
+        </div>
+    `);
+ 
+    //We then disolay the question slider and value elements
+    const slider = document.getElementById("q-slider");
+    const valDisplay = document.getElementById("slider-val");
+ 
+    //This updates the slider value live as the user drags it
+    slider.addEventListener("input", () => {
+        valDisplay.textContent = slider.value;
+    });
+ 
+    //This handles what happens when the user moves onto the next question
+    document.getElementById("next-btn").addEventListener("click", () => {
+        //We save the user selected answer using the question index as the key
+        answers[String(question.question_index)] = Number(slider.value);
+ 
+        //If the current question is the last one of the quiz, we submit the quiz
+        if (isLast) {
+            submitQuiz();
+        } else {
+            //Else we move onto the next question
+            currentQuestionIndex++;
+            showQuestion();
+        }
+    });
+}
+
 //This function submits the quiz after the user has completed it
 async function submitQuiz() {
     const quizDisplay = document.getElementById("quiz-display");
