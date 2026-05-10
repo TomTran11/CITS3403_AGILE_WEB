@@ -11,7 +11,17 @@
 {% block content %}
 <div class="profile-content">
 
-    <div id="flash-area" style="scroll-margin-top: 100px;"></div>
+    <div id="flash-area" style="scroll-margin-top: 100px;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, msg in messages %}
+                        <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }}">
+                            {{ msg }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+    </div>
 
     <div class="profile-header">
         <div class="profile-avatar-large">
@@ -20,75 +30,66 @@
         <h1 class="profile-name">Edit Profile</h1>
     </div>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, msg in messages %}
-                <div class="flash-msg flash-{{ category }}">{{ msg }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    
 
-    <!-- Main Profile Form -->
-    <form method="POST" action="{{ url_for('main.edit_profile') }}">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="edit-profile-grid">
+        <!-- Main Profile Form -->
+        <form method="POST" action="{{ url_for('main.edit_profile') }}" class="profile-card">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-        <div class="profile-section">
-            <label class="section-label">Display Name</label>
-            <input class="profile-input" type="text" name="display_name" value="{{ user.displayname }}" required>
-        </div>
-
-        <div class="profile-section">
-            <label class="section-label">About me</label>
-            <textarea id="bioTextarea" name="bio" class="profile-input" rows="3" placeholder="Write a short bio...">{{ user.bio_entry.bio_text if user.bio_entry else '' }}</textarea>
-        </div>
-
-        <div class="profile-section">
-            <label class="section-label">Languages</label>
-
-            <div class="language-select-wrap">
-                <input id="languageSearch" class="profile-input" type="text" placeholder="Search and select languages..." autocomplete="off">
-
-                <div id="languageDropdown" class="language-dropdown"></div>
+            <div class="profile-section">
+                <label class="section-label">Display Name</label>
+                <input class="profile-input" type="text" name="display_name" value="{{ user.displayname }}" required>
             </div>
 
-            <div id="selectedLanguages" class="tag-row"></div>
+            <div class="profile-section">
+                <label class="section-label">About me</label>
+                <textarea id="bioTextarea" name="bio" class="profile-input" rows="3" placeholder="Write a short bio...">{{ user.bio_entry.bio_text if user.bio_entry else '' }}</textarea>
+            </div>
 
-            <input type="hidden" name="languages_data" id="languagesData" value="{{ user.languages | join(',') if user.languages else '' }}">
+            <div class="profile-section">
+                <label class="section-label">Languages</label>
+                <div class="language-select-wrap">
+                    <input id="languageSearch" class="profile-input" type="text" placeholder="Search and select languages..." autocomplete="off">
 
-            <small class="field-hint">Select languages from the list</small>
-        </div>
+                    <div id="languageDropdown" class="language-dropdown"></div>
+                </div>
+                <small class="field-hint">Select languages from the list</small>
+                <div id="selectedLanguages" class="tag-row"></div>
+                <input type="hidden" name="languages_data" id="languagesData" value="{{ user.languages | join(',') if user.languages else '' }}">
+            </div>
 
-        <div class="profile-section">
-            <label class="section-label">Study Units</label>
+            <div class="profile-section">
+                <label class="section-label">Study Units</label>
+                <input id="unitInput"class="profile-input" type="text" placeholder="Type unit code and press Enter, e.g. CITS3403" autocomplete="off">
+                <small class="field-hint">Press Enter after each unit code. Example: CITS3403</small>
+                <div id="selectedUnits" class="tag-row"></div>
+                <input type="hidden" name="units_data" id="unitsData" value="{{ user.units | join(',') if user.units else '' }}">
+            </div>
 
-            <input id="unitInput"class="profile-input" type="text" placeholder="Type unit code and press Enter, e.g. CITS3403" autocomplete="off">
+            <button type="submit" class="edit-profile-btn">Save Changes</button>
+        </form>
 
-            <div id="selectedUnits" class="tag-row"></div>
+        <div class="profile-divider"></div>
 
-            <input type="hidden" name="units_data" id="unitsData" value="{{ user.units | join(',') if user.units else '' }}">
+        <!-- Social Links Form -->
+        <form id="socialForm" method="POST" class="social-card">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-            <small class="field-hint">Press Enter after each unit code. Example: CITS3403</small>
-        </div>
+            <div class="profile-section">        
+                <label class="section-label">Instagram</label>
+                <input class="profile-input" name="instagram" placeholder="@username or profile link">
+                
+                <label class="section-label">LinkedIn</label>
+                <input class="profile-input" name="linkedin" placeholder="https://linkedin.com/in/username">
 
-        <button type="submit" class="edit-profile-btn">Save Changes</button>
-    </form>
+                <label class="section-label">Discord</label>
+                <input class="profile-input" name="discord" placeholder="username#1234">
+            </div>
 
-    <!-- Social Links Form -->
-    <form id="socialForm" method="POST">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
-        <div class="profile-section">
-            <label class="section-label">Social Links</label>
-
-            <input class="profile-input" name="instagram" placeholder="Instagram link">
-
-            <input class="profile-input" name="linkedin" placeholder="LinkedIn link">
-
-            <input class="profile-input" name="discord" placeholder="Discord username or link">
-        </div>
-
-        <button type="submit" class="edit-profile-btn">Save Socials</button>
-    </form>
+            <button type="submit" class="edit-profile-btn">Save Socials</button>
+        </form>
+    </div> 
 
     <a href="{{ url_for('main.profile') }}" class="cancel-link">← Back to Profile</a>
 

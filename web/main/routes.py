@@ -62,6 +62,14 @@ def edit_profile():
 
         languages = [l.strip() for l in languages_raw.split(',') if l.strip()]
         units = [u.strip().upper() for u in units_raw.split(',') if u.strip()]
+        if not languages:
+            flash('Please select at least one language.', 'danger')
+            return redirect(url_for('main.edit_profile'))
+
+        if not units:
+            flash('Please add at least one study unit.', 'danger')
+            return redirect(url_for('main.edit_profile'))
+        
         # Validate languages against languages.json
         for language in languages:
             if language not in LANGUAGE_DATA:
@@ -102,37 +110,52 @@ def update_socials():
     SocialLink.query.filter_by(user_id=user.username).delete()
 
     for p in PLATFORMS:
-        raw = request.form.get(p)
+        raw = request.form.get(p, "").strip()
+        if not raw:
+            continue
 
-        if raw:
-            value = raw.strip()
+        value = raw.strip()
+        if p == "instagram":
+            # @username
+            if value.startswith("@"):
+                value = value[1:]
 
-            if not value:
-                return jsonify({
-                    "status": "error",
-                    "message": f"{p.capitalize()} cannot be empty"
-                })
-
-            if value.lower().startswith("javascript:"):
-                return jsonify({
-                    "status": "error",
-                    "message": "Invalid link format"
-                })
-
+            # username only
             if not value.startswith("http"):
-                value = "https://" + value
+                value = f"https://www.instagram.com/{value}"
 
-            if not value.startswith("https://"):
+            # HTTPS URL validation
+            if not value.startswith("https://www.instagram.com/"):
                 return jsonify({
                     "status": "error",
-                    "message": f"{p.capitalize()} must use HTTPS"
-                })
+                    "message": "Instagram must be a valid Instagram profile link or username"
+                }), 400
 
-            db.session.add(SocialLink(
-                user_id=user.username,
-                platform=p,
-                link=value
-            ))
+        elif p == "linkedin":
+            # username only
+            if not value.startswith("http"):
+                value = f"https://www.linkedin.com/in/{value}"
+
+            # HTTPS URL validation
+            if not (value.startswith("https://www.linkedin.com/in/") or value.startswith("https://www.linkedin.com/company/")):
+                return jsonify({
+                    "status": "error",
+                    "message": "LinkedIn must be a valid LinkedIn profile or company link"
+                }), 400
+
+        elif p == "discord":
+            # Discord can be a username, not necessarily a URL
+            if len(value) > 50:
+                return jsonify({
+                    "status": "error",
+                    "message": "Discord username is too long"
+                }), 400
+
+        db.session.add(SocialLink(
+            user_id=user.username,
+            platform=p,
+            link=value
+        ))
 
     db.session.commit()
 

@@ -1,5 +1,48 @@
 document.addEventListener("DOMContentLoaded", () => {
     // =========================
+    // Flash Messages
+    // =========================
+    const flashArea = document.getElementById("flash-area");
+
+    function showFlash(message, type) {
+        if (!flashArea) {
+            return;
+        }
+
+        const flash = document.createElement("div");
+        const alertType = type === "success" ? "alert-success" : "alert-danger";
+
+        flash.className = `alert ${alertType}`;
+        flash.innerText = message;
+
+        flashArea.innerHTML = "";
+        flashArea.appendChild(flash);
+
+        flashArea.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+        setTimeout(() => {
+            flash.remove();
+        }, 3000);
+    }
+
+    // Handle Flask flash messages after normal profile form redirect
+    const existingFlash = document.querySelector("#flash-area .alert");
+
+    if (existingFlash && flashArea) {
+        flashArea.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+        setTimeout(() => {
+            existingFlash.remove();
+        }, 3000);
+    }
+
+    // =========================
     // Languages
     // =========================
     const languageSearch = document.getElementById("languageSearch");
@@ -154,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 if (!/^[A-Z]{4}[0-9]{4}$/.test(unit)) {
-                    alert("Invalid unit code. Use format like CITS3403.");
+                    showFlash("Invalid unit code. Use format like CITS3403.", "error");
                     return;
                 }
 
@@ -175,26 +218,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Social Contacts
     // =========================
     const socialForm = document.getElementById("socialForm");
-    const flashArea = document.getElementById("flash-area");
-
-    function showFlash(message, type) {
-        if (!flashArea) {
-            return;
-        }
-
-        const flash = document.createElement("div");
-        const alertType = type === "success" ? "alert-success" : "alert-danger";
-
-        flash.className = `alert ${alertType}`;
-        flash.innerText = message;
-
-        flashArea.innerHTML = "";
-        flashArea.appendChild(flash);
-
-        setTimeout(() => {
-            flash.remove();
-        }, 3000);
-    }
 
     if (socialForm) {
         socialForm.addEventListener("submit", function(e) {
@@ -210,15 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(data => {
                     if (data.status === "success") {
                         showFlash(data.message, "success");
-
                         socialForm.reset();
-
-                        if (flashArea) {
-                            flashArea.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start"
-                            });
-                        }
                     } else {
                         showFlash(data.message || "Something went wrong", "error");
                     }
