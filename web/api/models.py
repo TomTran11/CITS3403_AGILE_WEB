@@ -14,6 +14,18 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     reset_token_version = db.Column(db.Integer, default=0)
 
+class UserBio(db.Model):
+    __tablename__ = "user_bios"
+
+    bio_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(75), db.ForeignKey("users.username"), nullable=False)
+    bio_text = db.Column(db.Text, nullable=True)
+
+    user = db.relationship(
+        "User",
+        backref=db.backref("bio_entry", uselist=False)
+    )
+
 class QuizResult(db.Model):
     __tablename__ = "quiz_results"
 

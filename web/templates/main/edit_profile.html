@@ -4,6 +4,7 @@
 {% block title %}Edit Profile{% endblock %}
 
 {% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/edit_profile.css') }}"></link>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 {% endblock %}
 
@@ -35,23 +36,36 @@
 
         <div class="profile-section">
             <label class="section-label">About me</label>
-            <textarea id="bioTextarea" class="profile-input" rows="3" placeholder="Write a short bio..."></textarea>
+            <textarea id="bioTextarea" name="bio" class="profile-input" rows="3" placeholder="Write a short bio...">{{ user.bio_entry.bio_text if user.bio_entry else '' }}</textarea>
         </div>
 
         <div class="profile-section">
             <label class="section-label">Languages</label>
-            <input class="profile-input" type="text" name="languages_data"
-                   value="{{ user.languages | join(', ') if user.languages else '' }}"
-                   placeholder="e.g. English, Mandarin">
-            <small class="field-hint">Separate each with a comma</small>
+            <div class="language-select-wrap">
+                <input 
+                    id="languageSearch"
+                    class="profile-input"
+                    type="text"
+                    placeholder="Search and select languages..."
+                    autocomplete="off"
+                >
+
+                <div id="languageDropdown" class="language-dropdown"></div>
+            </div>
+
+            <div id="selectedLanguages" class="tag-row"></div>
+
+            <input type="hidden" name="languages_data" id="languagesData" value="{{ user.languages | join(',') if user.languages else '' }}">
+            <small class="field-hint">Select languages from the list</small>
         </div>
 
         <div class="profile-section">
             <label class="section-label">Study Units</label>
-            <input class="profile-input" type="text" name="units_data"
-                   value="{{ user.units | join(', ') if user.units else '' }}"
-                   placeholder="e.g. CITS3403, JAPN1401">
-            <small class="field-hint">Separate each with a comma (auto-uppercased)</small>
+            <input id="unitInput"class="profile-input" type="text" placeholder="e.g. CITS3403, JAPN1401" autocomplete="off">
+            <div id="selectedUnits" class="tag-row"></div>
+            <input type="hidden" name="units_data" id="unitsData" value="{{ user.units | join(',') if user.units else '' }}">
+
+            <small class="field-hint">Press Enter after each unit code. Example: CITS3403</small>
         </div>
 
         <button type="submit" class="edit-profile-btn">Save Changes</button>
@@ -61,18 +75,7 @@
 
 </div>
 
-<script>
-    // Bio is stored locally per username
-    const username = "{{ user.username }}";
-    const bioKey = "bio_" + username;
-    const bioTextarea = document.getElementById('bioTextarea');
-
-    // Load saved bio on page load
-    bioTextarea.value = localStorage.getItem(bioKey) || '';
-
-    // Save bio when form is submitted
-    document.querySelector('form').addEventListener('submit', function() {
-        localStorage.setItem(bioKey, bioTextarea.value);
-    });
-</script>
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/edit_profile.js') }}"></script>
 {% endblock %}

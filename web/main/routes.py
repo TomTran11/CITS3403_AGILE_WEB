@@ -1,7 +1,7 @@
 import re
 from flask import render_template, request, redirect, url_for, session, flash
 from web import db
-from web.api.models import User
+from web.api.models import User, UserBio
 from . import main
 from web.auth.utils import require_login
 
@@ -34,6 +34,9 @@ def profile():
 @main.route('/edit_profile', methods=['GET', 'POST'])
 @require_login
 def edit_profile():
+    # Restrict available languages from users
+    from web.data.language_loader import LANGUAGE_DATA
+
     username = session.get("user")
     user = User.query.filter_by(username=username).first_or_404()
 
@@ -41,6 +44,7 @@ def edit_profile():
         display_name = request.form.get('display_name', '').strip()
         languages_raw = request.form.get('languages_data', '')
         units_raw = request.form.get('units_data', '')
+        bio_raw = request.form.get('bio', '').strip()
 
         if not display_name:
             flash('Display name is required.', 'danger')
@@ -57,14 +61,33 @@ def edit_profile():
 
         languages = [l.strip() for l in languages_raw.split(',') if l.strip()]
         units = [u.strip().upper() for u in units_raw.split(',') if u.strip()]
+        # Validate languages against languages.json
+        for language in languages:
+            if language not in LANGUAGE_DATA:
+                flash(f'Invalid language selected: {language}', 'danger')
+                return redirect(url_for('main.edit_profile'))
 
+        # Validate UWA unit format, e.g. CITS3403
+        for unit in units:
+            if not re.match(r'^[A-Z]{4}[0-9]{4}$', unit):
+                flash(f'Invalid unit code: {unit}', 'danger')
+                return redirect(url_for('main.edit_profile'))
+
+        bio_entry = UserBio.query.filter_by(username=user.username).first()
         user.displayname = display_name
         user.languages = languages
         user.units = units
+
+        if bio_entry:
+            bio_entry.bio_text = bio_raw
+        else:
+            bio_entry = UserBio(username=user.username,bio_text=bio_raw)
+            db.session.add(bio_entry)
+
         db.session.commit()
 
         flash('Profile updated successfully!', 'success')
-        return redirect(url_for('main.profile'))
+        return redirect(url_for('main.edit_profile'))
 
     return render_template('main/edit_profile.html', user=user)
 
