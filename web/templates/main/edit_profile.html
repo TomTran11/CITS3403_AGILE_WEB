@@ -4,12 +4,14 @@
 {% block title %}Edit Profile{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/edit_profile.css') }}"></link>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/edit_profile.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 {% endblock %}
 
 {% block content %}
 <div class="profile-content">
+
+    <div id="flash-area" style="scroll-margin-top: 100px;"></div>
 
     <div class="profile-header">
         <div class="profile-avatar-large">
@@ -26,6 +28,7 @@
         {% endif %}
     {% endwith %}
 
+    <!-- Main Profile Form -->
     <form method="POST" action="{{ url_for('main.edit_profile') }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
@@ -41,14 +44,9 @@
 
         <div class="profile-section">
             <label class="section-label">Languages</label>
+
             <div class="language-select-wrap">
-                <input 
-                    id="languageSearch"
-                    class="profile-input"
-                    type="text"
-                    placeholder="Search and select languages..."
-                    autocomplete="off"
-                >
+                <input id="languageSearch" class="profile-input" type="text" placeholder="Search and select languages..." autocomplete="off">
 
                 <div id="languageDropdown" class="language-dropdown"></div>
             </div>
@@ -56,26 +54,47 @@
             <div id="selectedLanguages" class="tag-row"></div>
 
             <input type="hidden" name="languages_data" id="languagesData" value="{{ user.languages | join(',') if user.languages else '' }}">
+
             <small class="field-hint">Select languages from the list</small>
         </div>
 
         <div class="profile-section">
             <label class="section-label">Study Units</label>
-            <input id="unitInput"class="profile-input" type="text" placeholder="e.g. CITS3403, JAPN1401" autocomplete="off">
+
+            <input id="unitInput"class="profile-input" type="text" placeholder="Type unit code and press Enter, e.g. CITS3403" autocomplete="off">
+
             <div id="selectedUnits" class="tag-row"></div>
+
             <input type="hidden" name="units_data" id="unitsData" value="{{ user.units | join(',') if user.units else '' }}">
 
             <small class="field-hint">Press Enter after each unit code. Example: CITS3403</small>
         </div>
 
         <button type="submit" class="edit-profile-btn">Save Changes</button>
-        <a href="{{ url_for('main.profile') }}" class="cancel-link">← Back to Profile</a>
-
     </form>
 
-</div>
+    <!-- Social Links Form -->
+    <form id="socialForm" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
+        <div class="profile-section">
+            <label class="section-label">Social Links</label>
+
+            <input class="profile-input" name="instagram" placeholder="Instagram link">
+
+            <input class="profile-input" name="linkedin" placeholder="LinkedIn link">
+
+            <input class="profile-input" name="discord" placeholder="Discord username or link">
+        </div>
+
+        <button type="submit" class="edit-profile-btn">Save Socials</button>
+    </form>
+
+    <a href="{{ url_for('main.profile') }}" class="cancel-link">← Back to Profile</a>
+
+</div>
 {% endblock %}
+
 {% block scripts %}
-    <script src="{{ url_for('static', filename='js/edit_profile.js') }}"></script>
+<script src="{{ url_for('static', filename='js/edit_profile.js') }}"></script>
 {% endblock %}

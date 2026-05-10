@@ -13,17 +13,29 @@ class User(db.Model):
     units = db.Column(JSON, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     reset_token_version = db.Column(db.Integer, default=0)
+    social_links = db.relationship('SocialLink',backref='user',cascade="all, delete-orphan",lazy=True)
 
 class UserBio(db.Model):
     __tablename__ = "user_bios"
 
     bio_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(75), db.ForeignKey("users.username"), nullable=False)
+    username = db.Column(db.String(75), db.ForeignKey("users.username"), nullable=False, unique=True)
     bio_text = db.Column(db.Text, nullable=True)
 
-    user = db.relationship(
-        "User",
-        backref=db.backref("bio_entry", uselist=False)
+    user = db.relationship("User",backref=db.backref("bio_entry", uselist=False))
+
+class SocialLink(db.Model):
+    __tablename__ = "social_links"
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(75),db.ForeignKey('users.username'),nullable=False)
+
+    platform = db.Column(db.String(50), nullable=False)
+    link = db.Column(db.String(255), nullable=False)
+
+    # Ensure a user can only have one link per platform
+    __table_args__ = (
+        db.UniqueConstraint('user_id', 'platform', name='unique_user_platform'),
     )
 
 class QuizResult(db.Model):

@@ -170,4 +170,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
         renderSelectedUnits();
     }
+
+    // =========================
+    // Social Contacts
+    // =========================
+    const socialForm = document.getElementById("socialForm");
+    const flashArea = document.getElementById("flash-area");
+
+    function showFlash(message, type) {
+        if (!flashArea) {
+            return;
+        }
+
+        const flash = document.createElement("div");
+        const alertType = type === "success" ? "alert-success" : "alert-danger";
+
+        flash.className = `alert ${alertType}`;
+        flash.innerText = message;
+
+        flashArea.innerHTML = "";
+        flashArea.appendChild(flash);
+
+        setTimeout(() => {
+            flash.remove();
+        }, 3000);
+    }
+
+    if (socialForm) {
+        socialForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch("/update_socials", {
+                method: "POST",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        showFlash(data.message, "success");
+
+                        socialForm.reset();
+
+                        if (flashArea) {
+                            flashArea.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start"
+                            });
+                        }
+                    } else {
+                        showFlash(data.message || "Something went wrong", "error");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    showFlash("Server error", "error");
+                });
+        });
+    }
 });
