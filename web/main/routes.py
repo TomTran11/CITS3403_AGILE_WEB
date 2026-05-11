@@ -36,13 +36,23 @@ def dashboard():
 def about():
     return render_template('auth/about.html')
 
+# View a user's profile
+@main.route('/view_user/<username>' )
+@require_login
+def view_user(username):
+    viewed_user = User.query.filter_by(username=username).first_or_404()
+    username = session.get("user")
+    user = User.query.filter_by(username=username).first_or_404()
+    
+    return render_template('main/profile.html', user=user, viewed_user = viewed_user)
+
 # Profile (view)
 @main.route('/profile')
 @require_login
 def profile():
     username = session.get("user")
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('main/profile.html', user=user)
+    return render_template('main/profile.html', user=user, viewed_user = user)
 
 # Edit profile (GET + POST)
 @main.route('/edit_profile', methods=['GET', 'POST'])

@@ -58,7 +58,7 @@
                 <div class="carousel-item">
                 {% endif %}
                     
-                    <div class="user-card">
+                    <a href="{{ url_for('main.view_user', username = matches[i].username) }}"class="user-card">
 
                         <div class="user-card-header">
                             <div class="user-card-avatar" style="background: {{ ['#F28A80','#e07070','#FFB75C'][i]}} ">{{ matches[i].displayname[0] | upper }}</div>
@@ -73,7 +73,7 @@
 
                         <p class="user-card-bio">Short bio that is around a sentence long.</p>
                         <button class="heart-btn">♡</button>
-                    </div>
+                    </a>
                     
                 </div>
                 {% endfor %}
