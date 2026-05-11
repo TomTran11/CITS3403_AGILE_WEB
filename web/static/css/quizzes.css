@@ -79,7 +79,7 @@
     background: #ffffff;
     border: 1px solid #dddddd;
     padding: 20px;
-    cursor: point;
+    cursor: pointer;
     transition: border-color 0.2s;
     text-align: left;
     width: 100%;
