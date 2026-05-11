@@ -38,7 +38,7 @@
 
     <section class="dash-section">
         {% if matches|length == 0 %}
-            <h2 class = "dashboard-greeting" style = "font-size: 40px; margin: 30px; color:#FE9900"> you have no matches yet... </h2>
+            <h2 class = "dashboard-greeting" style = "font-size: 30px; margin: 30px; color:#FE9900"> you have no matches yet... </h2>
             <button class="search-btn" style = "font-size: 20px; margin-left: 100px; margin-right: 100px;">Take a quiz</button>
         {% else %}
 
@@ -61,8 +61,8 @@
                     <div class="user-card">
 
                         <div class="user-card-header">
-                            <div class="user-card-avatar" style="background: {{ ['#F28A80','#e07070','#FFB75C'][i] }}">?</div>
-                            <span class="user-card-name">{{ matches[i].username }}</span>
+                            <div class="user-card-avatar" style="background: {{ ['#F28A80','#e07070','#FFB75C'][i]}} ">{{ matches[i].displayname[0] | upper }}</div>
+                            <span class="user-card-name">{{ matches[i].displayname }}</span>
                         </div>
 
                         <div class="user-card-tags">

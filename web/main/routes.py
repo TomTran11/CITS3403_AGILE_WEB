@@ -21,7 +21,12 @@ def dashboard():
     threshold = request.args.get("threshold", default=10, type=int)
 
     #This calls the matching logic in service.py
-    matches = find_matches_for_user(username, threshold)
+    matches = find_matches_for_user("charlie", threshold)
+    for i in range(len(matches)):
+        item = matches[i]
+        matchedUser = User.query.filter_by(username=item["username"]).first()
+        matches[i] = matchedUser
+
     return render_template('main/dashboard.html', user=user, matches=matches)
 
 
