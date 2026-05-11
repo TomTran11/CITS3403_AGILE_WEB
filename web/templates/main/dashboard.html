@@ -71,7 +71,7 @@
                             <span class="user-tag" style="background:#e8a060"></span>
                         </div>
 
-                        <p class="user-card-bio">Short bio that is around a sentence long.</p>
+                        <p class="user-card-bio">{{ matches[i].bio_entry.bio_text if matches[i].bio_entry and matches[i].bio_entry.bio_text else 'No bio added yet.' }}</p>
                         <button class="heart-btn">♡</button>
                     </a>
                     
