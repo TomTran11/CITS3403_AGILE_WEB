@@ -51,7 +51,7 @@
     width: auto;
     padding: 16px 32px;
     border-radius: 30px;
-    background: #F79181;
+    background: #FF958A;
     color: white;
     font-weight: 700;
     font-size: 15px;
@@ -165,10 +165,19 @@
     flex: 0 0 calc((100%/3) - 40px);
 }
 
+
+
 .carousel-control-prev-icon{
     margin-right: 200px;
+    pointer-events: all;
 }
 
 .carousel-control-next-icon {
     margin-left: 200px;
+    pointer-events: all;
 }
+
+.carousel-control-prev, .carousel-control-next {
+   pointer-events: none;
+}
+
