@@ -373,10 +373,55 @@ function showResultsSlide(keywords, quizName) {
     document.getElementById("results-done-btn").addEventListener("click", closeModal);
 }
 
+//This function refreshes the quiz cards after a quiz has been completed without reloading the page
+function refreshQuizCards() {
+    //We first request the updated quiz list from the backend
+    fetch("/quizzes/")
+        //We convert the backend JSON response into a JS object
+        .then(r => r.json())
+        .then(data => {
+            //We store all the available quizzes
+            const all = data.quizzes;
+            //We store quizzes that were completed by the user
+            const done = completedQuizNames;
+            //We then filter out the quizzes that have not been completed yet by the user
+            const todo = all.filter(n => !done.includes(n));
+ 
+            //We then update the progress bar at the bottom of the completed quiz section
+            updateOverallProgress(done.length, all.length);
+ 
+            //We then get the references to the quiz page areas
+            const todoList = document.getElementById("todo-list");
+            const completedList = document.getElementById("completed-list");
+            const completedSection = document.getElementById("completed-section");
+ 
+            //We clear the current to-do quiz cards from that section
+            todoList.innerHTML = "";
+            //This message is then displayed if the user has completed all the quizzes
+            if (todo.length === 0) {
+                todoList.innerHTML = "<p class='loading-text'>All quizzes completed! 🎉</p>";
+            } else {
+                //If there are quizzes remaining, we rebuild that section with the new leftover quizzes
+                todo.forEach(n => todoList.appendChild(buildCard(n, false)));
+            }
+ 
+            //We only display the completed section of the quiz page if the user has completed 1 quiz at a minimum
+            if (done.length > 0) {
+                //This makes the completed section of the page invisible
+                completedSection.style.display = "block";
+                //This then clears the previously completed quiz cards
+                completedList.innerHTML = "";
+                //And then we update the quiz cards for the completed quiz section as the user has done another quiz
+                done.forEach(n => completedList.appendChild(buildCard(n, true)));
+            }
+        })
+        .catch(console.error);
+}
+
 //This is the helper function that helps format the quiz name to become more readable for the user
 function formatQuizName(quizName) {
     return quizName
-        //We replace all underscores with spaces and capitalise words
+        //We replace all underscores with spaces and capitalise words via the first letter
         .replaceAll("_", " ")
-        .replace(/\b\w/g, letter => letter.toUpperCase());
+        .replace(/\b\w/g, l => l.toUpperCase());
 }
