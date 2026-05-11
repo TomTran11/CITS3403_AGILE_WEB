@@ -348,6 +348,31 @@ async function submitQuiz() {
     }
 }
 
+//THis sets out the modal slide that shows the results of the just completed quiz
+function showResultsSlide(keywords, quizName) {
+    //We hide the progress bar as its irrelevant
+    hideModalProgress();
+
+    //HTML is created for each keyword, if the user has none a seperate message is displayed
+    const keywordsHtml = keywords.length > 0
+        ? keywords.map(k => `<span class="keyword-chip">${k}</span>`).join("")
+        //This is the message for when no keywords were generated
+        : `<span class="keyword-chip">No keywords generated</span>`;
+ 
+    //We then build the results modal page
+    setModalContent(`
+        <div class="modal-results">
+            <h2>Quiz Complete!</h2>
+            <p class="results-sub">Here are the keywords we generated from your answers for <strong>${formatQuizName(quizName)}</strong>.</p>
+            <div class="keywords-list">${keywordsHtml}</div>
+            <button class="results-done-btn" id="results-done-btn">Done</button>
+        </div>
+    `);
+ 
+    //Once the done button is clicked, the modal closes
+    document.getElementById("results-done-btn").addEventListener("click", closeModal);
+}
+
 //This is the helper function that helps format the quiz name to become more readable for the user
 function formatQuizName(quizName) {
     return quizName
