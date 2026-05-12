@@ -355,7 +355,7 @@ function showResultsSlide(keywords, quizName) {
 
     //HTML is created for each keyword, if the user has none a seperate message is displayed
     const keywordsHtml = keywords.length > 0
-        ? keywords.map(k => `<span class="keyword-chip">${k}</span>`).join("")
+        ? keywords.map(k => `<span class="keyword-chip">${formatQuizName(k)}</span>`).join("")
         //This is the message for when no keywords were generated
         : `<span class="keyword-chip">No keywords generated</span>`;
  

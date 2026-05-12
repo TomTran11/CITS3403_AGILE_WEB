@@ -24,7 +24,7 @@
 
 /*Quizzes overall progress bar for the user based on their completed quizzes*/
 .overall-progress-section {
-    background: #ffffff;
+    background: #fe9900;
     border: 1px solid #dddddd;
     padding: 16px;
     margin-bottom: 40px;
@@ -34,7 +34,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
-    color: #666666;
+    color: #ffffff;
     font-size: 14px;
 }
 
@@ -58,7 +58,7 @@
 .section-title {
     border-bottom: 1px solid #dddddd;
     padding-bottom: 8px;
-    color: #333333;
+    color: #f07060;
 }
 
 /*Quiz grid that contains the quiz cards for each quiz in their sections*/
@@ -76,7 +76,7 @@
 
 /*Individual quiz cards that contain quiz information*/
 .quiz-cards {
-    background: #ffffff;
+    background: #ffbc57;
     border: 1px solid #dddddd;
     padding: 20px;
     cursor: pointer;

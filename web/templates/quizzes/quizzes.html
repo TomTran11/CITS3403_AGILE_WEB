@@ -14,22 +14,22 @@
         <h1>Quizzes</h1>
         <p>Complete our awesome quizzes to help us find and suggest better friend matches.</p>
     </div>
- 
-    <!--overall user quiz progress-->
-    <div class="overall-progress-section">
-        <div class="overall-progress-label">
-            <span id="overall-progress-text">0 of 0 quizzes completed</span>
-            <span id="overall-progress-percent">0%</span>
-        </div>
-        <div class="overall-progress-bar-track">
-            <div class="overall-progress-bar-fill" id="overall-progress-fill"></div>
-        </div>
-    </div>
- 
+
     <!--the completed quiz secton-->
     <div class="quiz-section" id="completed-section" style="display:none;">
         <h2 class="section-title">Completed</h2>
         <div class="quiz-grid" id="completed-list"></div>
+
+        <!--overall user quiz progress-->
+        <div class="overall-progress-section">
+            <div class="overall-progress-label">
+                <span id="overall-progress-text">0 of 0 quizzes completed</span>
+                <span id="overall-progress-percent">0%</span>
+            </div>
+            <div class="overall-progress-bar-tracking">
+                <div class="overall-progress-bar-fill" id="overall-progress-fill"></div>
+            </div>
+        </div>
     </div>
  
     <!--section that has quizzes user still hasnt done-->
@@ -49,7 +49,7 @@
         <div class="quiz-modal-content" id="quiz-modal-content"></div>
  
         <!--the zoomed in quiz progress bar for completed questions-->
-        <div class="modal-progress-bar-track" id="modal-progress-track" style="display:none;">
+        <div class="modal-progress-bar-tracking" id="modal-progress-tracking" style="display:none;">
             <div class="modal-progress-bar-fill" id="modal-progress-fill"></div>
             <span class="modal-progress-label" id="modal-progress-label">1 / 10</span>
         </div>
