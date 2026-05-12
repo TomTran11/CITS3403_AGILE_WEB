@@ -353,3 +353,24 @@
 .modal-progress-label {
     display: none;
 }
+
+@media (max-width: 600px) {
+    .quizzes-wrapper {
+        padding: 24px 16px;
+    }
+    .quiz-modal {
+        width: 95%;
+    }
+    .modal-intro,
+    .modal-choice,
+    .modal-question,
+    .modal-results {
+        padding: 28px;
+    }
+    .quiz-grid {
+        grid-template-columns: 1fr;
+    }
+    .modal-choice-btns {
+        flex-direction: column;
+    }
+}
