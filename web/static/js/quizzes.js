@@ -139,7 +139,7 @@ function setModalContent(html) {
  
 //This helper function displays and updates the modal progress bar that appears when a user begins taking a quiz
 function showModalProgress(current, total) {
-    const track = document.getElementById("modal-progress-track");
+    const track = document.getElementById("modal-progress-tracking");
     const fill = document.getElementById("modal-progress-fill");
     const label = document.getElementById("modal-progress-label");
 
@@ -153,7 +153,7 @@ function showModalProgress(current, total) {
 
 //The hides the modal's progress bar
 function hideModalProgress() {
-    document.getElementById("modal-progress-track").style.display = "none";
+    document.getElementById("modal-progress-tracking").style.display = "none";
 }
 
 //This function sets out the introduction modal slide for when a user clicks on a quiz card
