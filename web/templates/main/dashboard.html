@@ -61,14 +61,8 @@
                     <a href="{{ url_for('main.view_user', username = matches[i].username) }}"class="user-card">
 
                         <div class="user-card-header">
-                            <div class="user-card-avatar" style="background: {{ ['#F28A80','#e07070','#FFB75C'][i]}} ">{{ matches[i].displayname[0] | upper }}</div>
+                            <div class="user-card-avatar" style="background: {{ (['#FE9900','#FFBC57','#FFB697','#F79181','#ED553D']*2)[i]}} ">{{ matches[i].displayname[0] | upper }}</div>
                             <span class="user-card-name">{{ matches[i].displayname }}</span>
-                        </div>
-
-                        <div class="user-card-tags">
-                            <span class="user-tag" style="background:#FFB75C"></span>
-                            <span class="user-tag" style="background:#F28A80"></span>
-                            <span class="user-tag" style="background:#e8a060"></span>
                         </div>
 
                         <p class="user-card-bio">{{ matches[i].bio_entry.bio_text if matches[i].bio_entry and matches[i].bio_entry.bio_text else 'No bio added yet.' }}</p>
