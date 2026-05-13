@@ -80,7 +80,9 @@ def answer_all_questions(driver, q1_value=5, q10_value=4, default_value=3):
         next_btn.click()
         time.sleep(0.5)
 
+#We firstly check if the quiz page loads correctly when navigated too
 def test_quizzes_page_loads_correctly(driver):
+    #Helper functions are used to login and navigate to the page
     login_user(driver)
     go_to_quizzes(driver)
 
@@ -100,3 +102,64 @@ def test_quizzes_page_loads_correctly(driver):
     #We also check that the overall progress bar is visible and shows the progress text
     assert driver.find_element(By.CSS_SELECTOR, ".overall-progress-section").is_displayed()
     assert "quizzes completed" in driver.find_element(By.ID, "overall-progress-text").text
+
+##We then test the modal flow for when we click on a quiz card in the completed section
+def test_completed_quiz_modal_flow(driver):
+    #We use our helper functions to login and navigate to the page
+    login_user(driver)
+    go_to_quizzes(driver)
+
+    #We then wait until the quiz cards appear in the completed list section
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#completed-list .quiz-card"))
+    )
+
+    #We then click on a completed quiz card
+    driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-card")[0].click()
+    time.sleep(1)
+
+    #A modal should then open and we confirm that it does and that 2 buttons are present, retake and view results
+    assert "active" in driver.find_element(By.ID, "quiz-overlay").get_attribute("class")
+    assert driver.find_element(By.CSS_SELECTOR, ".btn-retake").is_displayed()
+    assert driver.find_element(By.CSS_SELECTOR, ".btn-view-results").is_displayed()
+
+    #We first check if the view results button works but clicking on it
+    driver.find_element(By.CSS_SELECTOR, ".btn-view-results").click()
+    time.sleep(1)
+
+    #We then check to see if the key words are displayed properly
+    assert driver.find_element(By.CSS_SELECTOR, ".modal-results").is_displayed()
+    assert len(driver.find_elements(By.CSS_SELECTOR, ".keyword-chip")) > 0
+
+    #Next we close the modal
+    close_modal(driver)
+    time.sleep(1)
+
+    #And click to reopen the exact same quiz card and check the other button option
+    driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-card")[0].click()
+    time.sleep(1)
+
+    #We click the other button to retake the quiz
+    driver.find_element(By.CSS_SELECTOR, ".btn-retake").click()
+    time.sleep(1)
+
+    #We then check that a modal opens and that it is the question modal as we move to retake the quiz
+    assert driver.find_element(By.CSS_SELECTOR, ".modal-question").is_displayed()
+    #We also check to see if the question slider appears
+    assert driver.find_element(By.ID, "q-slider").is_displayed()
+
+    #Next we call the helper function to complete all the quiz questions
+    answer_all_questions(driver)
+
+    #After the quiz is finished we then confirm that the results modal slide is showed
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".modal-results"))
+    )
+    assert driver.find_element(By.CSS_SELECTOR, ".modal-results").is_displayed()
+
+    #We then close the modal
+    close_modal(driver)
+    time.sleep(1)
+
+    #And check that the modal is truly closed
+    assert "active" not in driver.find_element(By.ID, "quiz-overlay").get_attribute("class")
