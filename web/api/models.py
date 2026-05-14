@@ -1,5 +1,5 @@
 from sqlalchemy import JSON
-
+from datetime import datetime
 from web import db
 
 
@@ -14,7 +14,9 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     reset_token_version = db.Column(db.Integer, default=0)
     social_links = db.relationship('SocialLink',backref='user',cascade="all, delete-orphan",lazy=True)
-
+    likes_given = db.relationship("ProfileLike",foreign_keys="ProfileLike.liker_username",backref="liker",lazy="dynamic",cascade="all, delete-orphan")
+    likes_received = db.relationship("ProfileLike",foreign_keys="ProfileLike.liked_username",backref="liked",lazy="dynamic",cascade="all, delete-orphan")
+    
 class UserBio(db.Model):
     __tablename__ = "user_bios"
 
@@ -37,6 +39,31 @@ class SocialLink(db.Model):
     __table_args__ = (
         db.UniqueConstraint('user_id', 'platform', name='unique_user_platform'),
     )
+
+class ProfileLike(db.Model):
+    __tablename__ = "profile_likes"
+
+    id = db.Column(db.Integer, primary_key=True)
+    liker_username = db.Column(db.String(75),db.ForeignKey("users.username"),nullable=False,index=True)
+    liked_username = db.Column(db.String(75),db.ForeignKey("users.username"),nullable=False,index=True)
+    created_at = db.Column(db.DateTime,default=datetime.utcnow,nullable=False)
+
+    __table_args__ = (
+        db.UniqueConstraint("liker_username","liked_username",name="unique_profile_like"),
+        db.CheckConstraint("liker_username != liked_username",name="no_self_like"),
+    )
+
+class Notification(db.Model):
+    __tablename__ = "notifications"
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(75),db.ForeignKey("users.username"),nullable=False)
+    type = db.Column(db.String(50), nullable=False)  
+    message = db.Column(db.String(255), nullable=False)
+    related_user_id = db.Column(db.String(75),db.ForeignKey("users.username"),nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    user = db.relationship("User",foreign_keys=[user_id],backref="notifications")
+    related_user = db.relationship("User",foreign_keys=[related_user_id])
 
 class QuizResult(db.Model):
     __tablename__ = "quiz_results"
