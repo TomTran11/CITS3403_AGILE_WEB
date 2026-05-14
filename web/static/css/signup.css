@@ -3,8 +3,8 @@
     background: #f0c7ad;
     width: 750px;
     max-width: 90vw;
-    padding: 30px;
-    margin: 60px auto;
+    padding: 34px 32px 36px;
+    margin: 32px auto 48px;
     box-shadow: 0 12px 40px rgba(0,0,0,0.08);
     border: none;
     position: relative;
@@ -13,13 +13,16 @@
 
 .card h1 {
     text-align: center;
-    margin-bottom: 30px;
+    margin: 0 0 34px;
     color: #333;
     font-weight: 700;
 }
 
 .card form {
     padding-right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
 }
 
 /* Inputs */
@@ -51,15 +54,19 @@ input:focus {
 
 /* Tags - language */
 .selected-languages {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     gap: 6px;
     max-height: 100px;
     overflow-y: auto;
     width: 100%;
     box-sizing: border-box;
-    padding: 10px 12px;
+    margin-top: 8px;
     scrollbar-gutter: stable;
+}
+
+.selected-languages:not(:empty) {
+    display: flex;
 }
 
 .selected-languages::-webkit-scrollbar {
@@ -84,7 +91,6 @@ input:focus {
     display: flex;
     align-items: center;
     gap: 7px;
-    margin-top: 8px;
     font-weight: 600;
 }
 
@@ -102,7 +108,7 @@ input:focus {
 .dropdown-list {
     display: none;
     position: absolute;
-    top: 85%;
+    top: calc(100% + 6px);
     left: 0;
     width: 100%;
     background: white;
@@ -141,12 +147,14 @@ button:active {
 #clear, #erase {
     width: auto;
     position: absolute;
-    right: 0px;
-    top: 34px;
+    right: 12px;
+    top: 37px;
     display: none;
     color: #c08060;
     margin: 0;
+    padding: 0;
     background: transparent;
+    box-shadow: none;
 }
 
 #clear:hover, #erase:hover {
@@ -155,37 +163,47 @@ button:active {
 
 /* Row = horizontal */
 .form-row {
-    display: flex;
-    gap: 40px;
-    margin-bottom: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 40px;
+    align-items: start;
+    margin-bottom: 0;
 }
 
 .form-group {
     position: relative;
-    flex: 1;
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .form-group p {
-    margin: 8px 0 5px 0;
+    margin: 0 0 8px 4px;
     text-align: left;
     font-weight: 400;
-    margin-left: 4px;
     color: #666;
     font-size: 13px;
+    min-height: 18px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .form-group input {
+    width: 100%;
+    height: 48px;
     margin-top: 0;
     background: #f8f8f8;
     border: none;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 12px;
 }
 
 /* Submit button */
 .signup-submit {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 8px;
     padding: 14px;
     background: #FF958A;
     color: white;
@@ -205,18 +223,19 @@ button:active {
 }
 
 #unitInput {
-    width: 100%;
-    padding: 12px;
     padding-right: 80px;
-    border-radius: 10px;
 }
 
 /* Tags - units */
 .selected-units {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     gap: 6px;
     margin-top: 8px;
+}
+
+.selected-units:not(:empty) {
+    display: flex;
 }
 
 .unit_tag {
@@ -250,20 +269,15 @@ button:active {
     line-height: 1.4;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    .form-row {
-        flex-direction: column;
-    }
-}
-
 /* Tooltip icon next to labels */
 .tooltip-icon {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: help;
     color: #c08060;
-    font-size: 14px;
-    margin-left: 4px;
+    font-size: 13px;
+    margin-left: 2px;
     position: relative;
 }
 
@@ -296,4 +310,21 @@ button:active {
     border: 6px solid transparent;
     border-top-color: #444;
     z-index: 100;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .card {
+        margin: 24px auto 40px;
+        padding: 28px 22px 32px;
+    }
+
+    .card form {
+        gap: 22px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        row-gap: 22px;
+    }
 }
