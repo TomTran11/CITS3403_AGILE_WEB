@@ -1,13 +1,39 @@
 /* =========================
    ACCOUNT SETTINGS PAGE
 ========================= */
+
 .account-settings-content {
-    max-width: 860px;
+    max-width: 1050px;
+    width: 100%;
+    margin: 0 auto;
     padding: 72px 32px;
+    gap: 28px;
+}
+
+.account-settings-hero-card {
+    background: rgba(255, 255, 255, 0.28);
+    border-radius: 24px;
+    padding: 28px;
 }
 
 .account-settings-header {
-    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.account-settings-header .profile-name {
+    font-size: 48px;
+    font-weight: 900;
+    margin: 0;
+    color: #222;
+    line-height: 1;
+}
+
+.account-settings-header .profile-username {
+    font-size: 16px;
+    color: #888;
+    font-weight: 500;
 }
 
 .account-settings-card {
@@ -34,6 +60,7 @@
 /* =========================
    PASSWORD CONFIRM POPUP
 ========================= */
+
 .popup-overlay {
     position: fixed;
     inset: 0;
