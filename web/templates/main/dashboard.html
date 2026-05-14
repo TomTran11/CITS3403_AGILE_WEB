@@ -57,18 +57,22 @@
                 {% else %}
                 <div class="carousel-item">
                 {% endif %}
-                    
-                    <a href="{{ url_for('main.view_user', username = matches[i].username) }}"class="user-card">
+                    <div class="user-card-wrap">
+                        <a href="{{ url_for('main.view_user', username = matches[i].username) }}"class="user-card">
 
-                        <div class="user-card-header">
-                            <div class="user-card-avatar" style="background: {{ (['#FE9900','#FFBC57','#FFB697','#F79181','#ED553D']*2)[i]}} ">{{ matches[i].displayname[0] | upper }}</div>
-                            <span class="user-card-name">{{ matches[i].displayname }}</span>
-                        </div>
+                            <div class="user-card-header">
+                                <div class="user-card-avatar" style="background: {{ (['#FE9900','#FFBC57','#FFB697','#F79181','#ED553D']*2)[i]}} ">{{ matches[i].displayname[0] | upper }}</div>
+                                <span class="user-card-name">{{ matches[i].displayname }}</span>
+                            </div>
 
-                        <p class="user-card-bio">{{ matches[i].bio_entry.bio_text if matches[i].bio_entry and matches[i].bio_entry.bio_text else 'No bio added yet.' }}</p>
-                        <button class="heart-btn">♡</button>
-                    </a>
-                    
+                            <p class="user-card-bio">{{ matches[i].bio_entry.bio_text if matches[i].bio_entry and matches[i].bio_entry.bio_text else 'No bio added yet.' }}</p>
+                        </a>
+                        <button class="heart-btn {% if matches[i].username in liked_usernames %}liked{% endif %}" 
+                                type="button" data-username="{{ matches[i].username }}" 
+                                data-liked="{{ 'true' if matches[i].username in liked_usernames else 'false' }}">
+                                {{ '♥' if matches[i].username in liked_usernames else '♡' }}
+                        </button>
+                    </div>
                 </div>
                 {% endfor %}
                 
@@ -87,10 +91,10 @@
     </section>
 
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="{{ url_for('static', filename='js/carousel.js') }}"></script>
-<script src="{{ url_for('static', filename='js/multi_carousel.js') }}"></script>
-
-
+{% endblock %}
+{% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/carousel.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/multi_carousel.js') }}"></script>
+    <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
 {% endblock %}
