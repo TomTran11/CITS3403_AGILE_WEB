@@ -2,15 +2,16 @@
 .card {
     background: #f0c7ad;
     width: 750px;
+    max-width: 90vw;
     padding: 30px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 10px 30px rgba(0,0,0,1);
-    position: absolute;
+    margin: 60px auto;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    border: none;
+    position: relative;
+    border-radius: 20px;
 }
 
-.card h1{
+.card h1 {
     text-align: center;
     margin-bottom: 30px;
     color: #333;
@@ -18,17 +19,18 @@
 }
 
 .card form {
-    padding-right: 100px;
+    padding-right: 0;
 }
 
-/* Inputs fields*/
+/* Inputs */
 input {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     transition: all 0.2s ease;
 }
 
 input:focus {
     outline: none;
+    box-shadow: 0 6px 18px rgba(255, 149, 138, 0.25);
 }
 
 /* Dropdown container */
@@ -39,7 +41,6 @@ input:focus {
     justify-content: center;
 }
 
-/* Inside box */
 .box {
     border: none;
     outline: none;
@@ -48,7 +49,7 @@ input:focus {
     min-width: 120px;
 }
 
-/* Tags */
+/* Tags - language */
 .selected-languages {
     display: flex;
     flex-wrap: wrap;
@@ -75,26 +76,26 @@ input:focus {
 }
 
 .lang_tag {
-    background: #f4a261;
-    padding: 5px 10px;
-    border-radius: 8px;
+    background: #FF958A;
+    padding: 5px 12px;
+    border-radius: 20px;
     font-size: 13px;
     color: white;
     display: flex;
     align-items: center;
     gap: 7px;
     margin-top: 8px;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .lang_tag span {
     cursor: pointer;
     font-weight: bold;
-    color: #888;
+    color: rgba(255,255,255,0.7);
 }
 
 .lang_tag span:hover {
-    color: red;
+    color: white;
 }
 
 /* Dropdown */
@@ -104,12 +105,9 @@ input:focus {
     top: 85%;
     left: 0;
     width: 100%;
-
     background: white;
     border-radius: 12px;
-
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-
     max-height: 200px;
     overflow-y: auto;
     z-index: 10;
@@ -118,13 +116,15 @@ input:focus {
 .dropdown-list div {
     padding: 10px;
     cursor: pointer;
+    transition: background 0.15s;
 }
 
 .dropdown-list div:hover {
-    background: #f5f5f5;
+    background: #FFF0EA;
+    color: #F28A80;
 }
 
-/* ALl Button */
+/* All buttons */
 button {
     border: none;
     border-radius: 10px;
@@ -138,15 +138,19 @@ button:active {
 }
 
 /* Clear button */
-#clear, #erase{
-    width:auto;
-    position:absolute;
-    right:0px;
-    top:34px;
+#clear, #erase {
+    width: auto;
+    position: absolute;
+    right: 0px;
+    top: 34px;
     display: none;
-    color: #000000;
-    margin: 0px 0px 0px 0px;
+    color: #c08060;
+    margin: 0;
     background: transparent;
+}
+
+#clear:hover, #erase:hover {
+    color: #F07066;
 }
 
 /* Row = horizontal */
@@ -156,7 +160,6 @@ button:active {
     margin-bottom: 15px;
 }
 
-/* Each field = vertical (label on top) */
 .form-group {
     position: relative;
     flex: 1;
@@ -165,7 +168,7 @@ button:active {
 }
 
 .form-group p {
-    margin: 8px 0 5px 0px;
+    margin: 8px 0 5px 0;
     text-align: left;
     font-weight: 400;
     margin-left: 4px;
@@ -174,44 +177,31 @@ button:active {
 }
 
 .form-group input {
-    margin-top: 0px;
+    margin-top: 0;
     background: #f8f8f8;
-    border: 1px solid #eee;
+    border: none;
 }
 
-/* Arrow button */
-.submit-col {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 90px;
+/* Submit button */
+.signup-submit {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: #FF958A;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 6px 16px rgba(255, 149, 138, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.submit-col button {
-    height: 100%;
-    width: 90px;
-    background: linear-gradient(180deg, #f47c6b, #e76f51);
-    border-radius: 0 10px 10px 0;
-    margin: 0;
-    padding: 0;
-    box-shadow: 
-        -6px 0 20px rgba(0,0,0,0.15),
-        inset 0 0 10px rgba(255,255,255,0.2);
-    font-size: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-style: solid;
-    border-color: rgba(0, 0, 0, 0.3);
-    border-width: 1px 1px 1px 5px;
-}
-
-.submit-col button:hover {
-    transform: translateX(-3px);
-    box-shadow: 
-        -10px 0 30px rgba(0,0,0,0.25),
-        inset 0 0 15px rgba(255,255,255,0.3);
+.signup-submit:hover {
+    background: #F07066;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(240, 112, 102, 0.35);
 }
 
 #unitInput {
@@ -221,7 +211,7 @@ button:active {
     border-radius: 10px;
 }
 
-/* Tags */
+/* Tags - units */
 .selected-units {
     display: flex;
     flex-wrap: wrap;
@@ -230,14 +220,15 @@ button:active {
 }
 
 .unit_tag {
-    background: #f4a261;
-    padding: 5px 10px;
+    background: #F28A80;
+    padding: 5px 12px;
     border-radius: 20px;
     font-size: 13px;
     color: white;
     display: flex;
     align-items: center;
     gap: 6px;
+    font-weight: 600;
 }
 
 .flash-alert {
@@ -247,6 +238,16 @@ button:active {
 .flash-hide {
     opacity: 0;
     transform: translateY(-10px);
+}
+
+.lang-hint {
+    display: block;
+    font-size: 11px;
+    color: #888;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    text-align: right;
+    line-height: 1.4;
 }
 
 /* Responsive */

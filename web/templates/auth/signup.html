@@ -72,6 +72,8 @@
             </div>
         </div>
 
+        <small class="lang-hint">*If your language is not listed, please select the closest available option (e.g. Mandarin → Chinese).</small>
+
         <!-- Row 3 -->
         <div class="form-row">
             <div class="form-group">
@@ -95,23 +97,15 @@
             </div>
         </div>
 
-        <!-- Arrow submit -->
-        <div class="submit-col">
-            <button type="submit">
-                →
-            </button>
-        </div>
+        <!-- Submit -->
+        <button type="submit" class="signup-submit">Sign Up</button>
 
     </form>
 
-    <p>
-        *If your language is not listed, please select the closest available option (e.g. Mandarin → Chinese).
-    </p>
-
-    <p style=" color: #555; text-align: center;">
+    <p style="color: #777; text-align: center; margin-top: 24px;">
         Already have an account?
         <a href="{{ url_for('auth.login') }}" 
-        style="margin-left: 4px; color:#ff2200; font-weight: normal;">
+        style="margin-left: 4px; color: #F28A80; font-weight: normal;">
             Login
         </a>
     </p>
