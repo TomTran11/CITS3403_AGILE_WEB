@@ -6,6 +6,7 @@ from web.api.models import User, SocialLink, UserBio
 from . import main
 from web.matching.service import find_matches_for_user
 from web.auth.utils import require_login
+from web.main.services import like_user, unlike_user,get_liked_usernames
 
 @main.route('/')
 @main.route('/landing_page')
@@ -21,13 +22,15 @@ def dashboard():
     threshold = request.args.get("threshold", default=10, type=int)
 
     #This calls the matching logic in service.py
-    matches = find_matches_for_user("charlie", threshold)
+    matches = find_matches_for_user(username, threshold)
     for i in range(len(matches)):
         item = matches[i]
         matchedUser = User.query.filter_by(username=item["username"]).first()
         matches[i] = matchedUser
 
-    return render_template('main/dashboard.html', user=user, matches=matches)
+    # Get everyone this current user has already liked
+    liked_usernames = get_liked_usernames(username)
+    return render_template('main/dashboard.html', user=user, matches=matches, liked_usernames=liked_usernames)
 
 
 
@@ -263,6 +266,18 @@ def notifications():
 def page_not_found(e):
     return f"{request.path} not exist", 404
 
-@main.route('/check-session')
-def check_session():
-    return {"user": session.get("user")}
+@main.route("/profile/<username>/like", methods=["POST"])
+@require_login
+def like_profile(username):
+    current_username = session.get("user")
+    result = like_user(liker_username=current_username,liked_username=username)
+    status_code = result.pop("status_code")
+    return jsonify(result), status_code
+
+@main.route("/profile/<username>/unlike", methods=["POST"])
+@require_login
+def unlike_profile(username):
+    current_username = session.get("user")
+    result = unlike_user(liker_username=current_username,liked_username=username)
+    status_code = result.pop("status_code")
+    return jsonify(result), status_code
