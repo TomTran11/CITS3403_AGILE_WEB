@@ -170,10 +170,6 @@ def account_settings():
     username = session.get("user")
     user = User.query.filter_by(username=username).first()
 
-    if not user:
-        flash("User not found. Please log in again.", "danger")
-        return redirect(url_for("auth.login"))
-
     if request.method == "POST":
         email = request.form.get("email", "").strip()
         new_password = request.form.get("new_password", "")
@@ -234,7 +230,9 @@ def account_settings():
 @main.route('/notifications')
 @require_login
 def notifications():
-    return render_template('main/notifications.html')
+    username = session.get("user")
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('main/notifications.html', user=user)
 
 @main.app_errorhandler(404)
 def page_not_found(e):
