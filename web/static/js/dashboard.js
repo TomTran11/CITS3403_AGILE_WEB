@@ -33,9 +33,30 @@ function updateHeartButton(button, liked) {
 
 
 function showMatchMessage(isMatch) {
-    if (isMatch) {
-        alert("It's a match!");
+    if (!isMatch) {
+        return;
     }
+
+    const flashWrapper = document.querySelector(".flash-wrapper");
+
+    if (!flashWrapper) {
+        console.log("It's a match!");
+        return;
+    }
+
+    const flashMessage = document.createElement("div");
+    flashMessage.className = "alert alert-success text-center flash-alert";
+    flashMessage.textContent = "It's a match! Notification added.";
+
+    flashWrapper.appendChild(flashMessage);
+
+    setTimeout(function() {
+        flashMessage.classList.add("flash-hide");
+    }, 2500);
+
+    setTimeout(function() {
+        flashMessage.remove();
+    }, 3500);
 }
 
 
@@ -71,9 +92,24 @@ async function handleHeartClick(event) {
 
         updateHeartButton(button, data.liked);
         showMatchMessage(data.match);
+
     } catch (error) {
         console.error(error);
-        alert("Could not update like.");
+
+        const flashWrapper = document.querySelector(".flash-wrapper");
+
+        if (flashWrapper) {
+            const errorMessage = document.createElement("div");
+            errorMessage.className = "alert alert-danger text-center flash-alert";
+            errorMessage.textContent = "Could not update like.";
+            flashWrapper.appendChild(errorMessage);
+
+            setTimeout(function() {
+                errorMessage.remove();
+            }, 3500);
+        } else {
+            alert("Could not update like.");
+        }
     }
 }
 
@@ -87,6 +123,4 @@ function setupHeartButtons() {
 }
 
 
-document.addEventListener("DOMContentLoaded", function() {
-    setupHeartButtons();
-});
+document.addEventListener("DOMContentLoaded", setupHeartButtons);

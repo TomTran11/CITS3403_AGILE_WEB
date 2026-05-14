@@ -17,13 +17,17 @@
 <div class="dashboard-content">
 
     <!-- FLASH MESSAGES -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }} text-center flash-alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endwith %}
+    <div class="flash-wrapper">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} text-center flash-alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
 
     <!-- GREETING -->
     <h1 class="dashboard-greeting">Hello, {{ user.displayname }} !</h1>
