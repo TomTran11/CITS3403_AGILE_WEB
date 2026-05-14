@@ -1,5 +1,5 @@
 from web import db
-from web.api.models import User, ProfileLike
+from web.api.models import User, ProfileLike, Notification
 
 def get_liked_usernames(username):
     likes = ProfileLike.query.filter_by(liker_username=username).all()
@@ -31,14 +31,26 @@ def like_user(liker_username, liked_username):
             "status_code": 404
         }
 
+    new_like_created = False
     existing_like = ProfileLike.query.filter_by(liker_username=liker_username,liked_username=liked_username).first()
     if not existing_like:
         new_like = ProfileLike(liker_username=liker_username,liked_username=liked_username)
         db.session.add(new_like)
         db.session.commit()
+        new_like_created = True
 
     is_match = has_mutual_like(liker_username, liked_username)
 
+    if is_match and new_like_created:
+        liker_user = User.query.filter_by(username=liker_username).first()
+        notification_for_liker = Notification(user_id=liker_username,type="match",message=f"You matched with {liked_user.displayname}!",related_user_id=liked_username)
+
+        notification_for_liked = Notification(user_id=liked_username,type="match",message=f"You matched with {liker_user.displayname}!",related_user_id=liker_username)
+
+        db.session.add_all([notification_for_liker, notification_for_liked])
+        db.session.commit()
+
+    db.session.commit()
     return {
         "success": True,
         "message": "Profile liked.",

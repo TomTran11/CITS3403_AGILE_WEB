@@ -2,7 +2,7 @@ import re
 from flask import jsonify, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import check_password_hash, generate_password_hash
 from web import db
-from web.api.models import User, SocialLink, UserBio
+from web.api.models import User, SocialLink, UserBio, Notification
 from . import main
 from web.matching.service import find_matches_for_user
 from web.auth.utils import require_login
@@ -260,7 +260,18 @@ def account_settings():
 @main.route('/notifications')
 @require_login
 def notifications():
-    return render_template('main/notifications.html')
+    current_username = session.get("user")
+    notifications = Notification.query.filter_by(user_id=current_username).order_by(Notification.created_at.desc()).all()
+    related_ids = {n.related_user_id for n in notifications if n.related_user_id}
+    related_map = {}
+    if related_ids:
+        users = User.query.filter(User.username.in_(related_ids)).all()
+        related_map = {u.username: u.displayname for u in users}
+
+    for n in notifications:
+        n.related_displayname = related_map.get(n.related_user_id) if n.related_user_id else None
+
+    return render_template("main/notifications.html", notifications=notifications)
 
 @main.app_errorhandler(404)
 def page_not_found(e):
@@ -272,6 +283,8 @@ def like_profile(username):
     current_username = session.get("user")
     result = like_user(liker_username=current_username,liked_username=username)
     status_code = result.pop("status_code")
+    if result.get("match"):
+        flash(f"It's a match with {username}!", "success")
     return jsonify(result), status_code
 
 @main.route("/profile/<username>/unlike", methods=["POST"])
