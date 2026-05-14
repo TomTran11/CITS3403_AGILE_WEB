@@ -1,20 +1,80 @@
+/* =========================
+   ACCOUNT SETTINGS PAGE
+========================= */
+
+.account-settings-content {
+    max-width: 1050px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 72px 32px;
+    gap: 28px;
+}
+
+.account-settings-hero-card {
+    background: rgba(255, 255, 255, 0.28);
+    border-radius: 24px;
+    padding: 28px;
+}
+
+.account-settings-header {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.account-settings-header .profile-name {
+    font-size: 48px;
+    font-weight: 900;
+    margin: 0;
+    color: #222;
+    line-height: 1;
+}
+
+.account-settings-header .profile-username {
+    font-size: 16px;
+    color: #888;
+    font-weight: 500;
+}
+
+.account-settings-card {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 24px;
+    padding: 32px;
+}
+
+.account-settings-card .profile-section {
+    margin-bottom: 22px;
+}
+
+.account-settings-card .edit-profile-btn {
+    width: 100%;
+}
+
+.flash-alert {
+    margin-bottom: 8px;
+}
+
+/* =========================
+   PASSWORD CONFIRM POPUP
+========================= */
+
 .popup-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.45);
+    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-
-    display: flex;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-
     transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
-/* Show popup */
 .popup-overlay.show {
     opacity: 1;
     visibility: visible;
@@ -22,43 +82,38 @@
 }
 
 .popup-box {
-    background: white;
+    width: min(420px, calc(100% - 32px));
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 24px;
     padding: 32px;
-    border-radius: 20px;
-    width: 380px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
     text-align: center;
-
-    /* Slide animation starts lower */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
     transform: translateY(40px);
     opacity: 0;
-
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* When popup is shown, slide into place */
 .popup-overlay.show .popup-box {
     transform: translateY(0);
     opacity: 1;
 }
 
 .popup-box h2 {
-    margin-bottom: 10px;
-    color: #2b2b2b;
+    margin: 0 0 10px;
+    color: #2a2a2a;
+    font-size: 26px;
+    font-weight: 800;
 }
 
 .popup-box p {
+    margin: 0 0 20px;
     color: #666;
-    margin-bottom: 20px;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
-.popup-box input {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
+.popup-box .profile-input {
     margin-bottom: 20px;
-    box-sizing: border-box;
 }
 
 .popup-actions {
@@ -69,10 +124,12 @@
 
 .popup-actions button {
     border: none;
-    border-radius: 25px;
+    border-radius: 999px;
     padding: 12px 24px;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 700;
+    font-family: inherit;
+    transition: background 0.2s, opacity 0.2s;
 }
 
 #cancelPopup {
@@ -81,7 +138,7 @@
 }
 
 #confirmSubmit {
-    background: #ff8a82;
+    background: #FF958A;
     color: white;
 }
 
@@ -90,5 +147,33 @@
 }
 
 #confirmSubmit:hover {
-    background: #f2766d;
+    background: #F07066;
+}
+
+@media (max-width: 800px) {
+    .account-settings-content {
+        padding: 56px 24px;
+    }
+
+    .account-settings-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+    }
+
+    .account-settings-header .profile-name {
+        font-size: 38px;
+    }
+
+    .account-settings-card {
+        padding: 26px;
+    }
+
+    .popup-actions {
+        flex-direction: column;
+    }
+
+    .popup-actions button {
+        width: 100%;
+    }
 }
