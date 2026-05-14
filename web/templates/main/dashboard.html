@@ -23,10 +23,10 @@
     <h1 class="dashboard-greeting">Hello, {{ user.displayname }} !</h1>
 
     <!-- SEARCH BAR -->
-    <div class="search-bar-wrap">
-        <input class="search-bar" type="text" placeholder="Search for study partners...">
-        <button class="search-btn">Search</button>
-    </div>
+    <form class="search-bar-wrap" action="{{ url_for('main.search') }}" method="GET">
+        <input class="search-bar" type="text" name="q" placeholder="Search for study partners...">
+        <button type="submit" class="search-btn">Search</button>
+    </form>
 
     <!-- RECOMMENDED -->
     <section class="dash-section">
