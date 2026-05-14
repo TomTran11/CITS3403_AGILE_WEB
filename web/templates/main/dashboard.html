@@ -39,7 +39,7 @@
     <section class="dash-section">
         {% if matches|length == 0 %}
             <h2 class = "dashboard-greeting" style = "font-size: 30px; margin: 30px; color:#FE9900"> you have no matches yet... </h2>
-            <button class="search-btn" style = "font-size: 20px; margin-left: 100px; margin-right: 100px;">Take a quiz</button>
+            <a href="{{ url_for('quizzes.quizzes_page') }}" class="search-btn" style = "font-size: 20px; margin-left: 100px; margin-right: 100px; text-decoration: none; display: inline-block;">Take a quiz</a>
         {% else %}
 
         <h2 class="dash-section-title">Recommended</h2>
