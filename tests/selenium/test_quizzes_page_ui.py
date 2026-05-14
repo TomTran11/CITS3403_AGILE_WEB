@@ -163,3 +163,47 @@ def test_completed_quiz_modal_flow(driver):
 
     #And check that the modal is truly closed
     assert "active" not in driver.find_element(By.ID, "quiz-overlay").get_attribute("class")
+
+#We then test the full flow for a todo quiz card
+def test_todo_quiz_full_flow(driver):
+    login_user(driver)
+    go_to_quizzes(driver)
+
+    #We wait until a quiz card loads into the to-do section
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#todo-list .quiz-card"))
+    )
+
+    #We look for the time availability quiz card as charlie hasnt done it yet
+    todo_cards = driver.find_elements(By.CSS_SELECTOR, "#todo-list .quiz-card")
+    time_availability_card = next(
+        card for card in todo_cards
+        if "Time Availability" in card.find_element(By.CSS_SELECTOR, ".quiz-card-name").text
+    )
+
+    #We then open the selected quiz card
+    time_availability_card.click()
+    time.sleep(1)
+
+    #We check that the intro modal slide is opened with the begin button
+    assert driver.find_element(By.CSS_SELECTOR, ".modal-intro").is_displayed()
+    begin_btn = driver.find_element(By.ID, "begin-btn")
+    assert begin_btn.is_displayed()
+
+    #We then click the begin button
+    begin_btn.click()
+    time.sleep(1)
+
+    #And check that the question modal slide appears with the slider
+    assert driver.find_element(By.CSS_SELECTOR, ".modal-question").is_displayed()
+    assert driver.find_element(By.ID, "q-slider").is_displayed()
+
+    #We call the helper function to answer all 10 questions
+    answer_all_questions(driver)
+
+    #We then confirm the results slide appears with exactly 2 keyword chips
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".modal-results"))
+    )
+    assert driver.find_element(By.CSS_SELECTOR, ".modal-results").is_displayed()
+    assert len(driver.find_elements(By.CSS_SELECTOR, ".keyword-chip")) == 2
