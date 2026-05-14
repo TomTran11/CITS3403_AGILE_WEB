@@ -256,3 +256,44 @@ button:active {
         flex-direction: column;
     }
 }
+
+/* Tooltip icon next to labels */
+.tooltip-icon {
+    display: inline-block;
+    cursor: help;
+    color: #c08060;
+    font-size: 14px;
+    margin-left: 4px;
+    position: relative;
+}
+
+.tooltip-icon:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #444;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    width: 260px;
+    z-index: 100;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    white-space: normal;
+    text-align: left;
+}
+
+.tooltip-icon:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #444;
+    z-index: 100;
+}
