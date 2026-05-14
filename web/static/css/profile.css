@@ -278,26 +278,145 @@
     width: 100%;
 }
 
-@media (max-width: 800px) {
-    .profile-view-content .profile-header {
-        flex-direction: column;
-        align-items: flex-start;
+/* =========================
+   PROFILE PAGE — RESPONSIVE
+   (scoped to .profile-view-content so edit/account pages aren't affected)
+========================= */
+
+/* Tablet & smaller (≤ 1024px) */
+@media (max-width: 1024px) {
+    .profile-view-content {
+        padding: 60px 40px !important;
+        max-width: 900px;
     }
 
     .profile-view-content .profile-name {
+        font-size: 44px !important;
+    }
+
+    .profile-details-grid {
+        gap: 20px;
+    }
+
+    .profile-view-card {
+        padding: 26px;
+    }
+}
+
+/* Small tablet / large mobile (≤ 768px) */
+@media (max-width: 768px) {
+    .profile-view-content {
+        padding: 48px 28px !important;
+        gap: 28px;
+    }
+
+    .profile-view-content .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 22px;
+        margin-bottom: 24px;
+    }
+
+    .profile-view-content .profile-avatar-large {
+        width: 96px;
+        height: 96px;
+        min-width: 96px;
         font-size: 38px;
+    }
+
+    .profile-view-content .profile-name {
+        font-size: 38px !important;
+    }
+
+    .profile-view-content .profile-username {
+        font-size: 15px;
     }
 
     .profile-details-grid {
         grid-template-columns: 1fr;
+        gap: 18px;
     }
 
     .profile-social-card {
         grid-column: auto;
     }
 
+    .profile-bio-box {
+        font-size: 15px;
+        padding: 18px 20px;
+    }
+
     .profile-view-content .edit-profile-btn,
     .profile-view-content .profile-edit-btn {
         width: 100%;
+        min-width: 0;
+    }
+}
+
+/* Mobile (≤ 560px) */
+@media (max-width: 560px) {
+    .profile-view-content {
+        padding: 36px 18px !important;
+        gap: 24px;
+    }
+
+    .profile-view-card {
+        padding: 22px;
+        border-radius: 20px;
+    }
+
+    .profile-view-content .profile-avatar-large {
+        width: 82px;
+        height: 82px;
+        min-width: 82px;
+        font-size: 32px;
+    }
+
+    .profile-view-content .profile-name {
+        font-size: 30px !important;
+    }
+
+    .profile-view-content .profile-username {
+        font-size: 14px;
+    }
+
+    .profile-view-content .section-label {
+        font-size: 12px;
+        letter-spacing: 1.5px;
+    }
+
+    .profile-view-content .tag {
+        font-size: 13px;
+        padding: 9px 18px;
+    }
+
+    .profile-bio-box {
+        font-size: 14px;
+        padding: 16px 18px;
+    }
+
+    .edit-profile-btn {
+        font-size: 15px;
+        padding: 14px 28px;
+    }
+}
+
+/* Tiny mobile (≤ 360px) */
+@media (max-width: 360px) {
+    .profile-view-content {
+        padding: 28px 14px !important;
+    }
+
+    .profile-view-content .profile-name {
+        font-size: 26px !important;
+    }
+
+    .profile-view-card {
+        padding: 18px;
+    }
+
+    .profile-view-content .tag {
+        font-size: 12px;
+        padding: 8px 14px;
     }
 }
