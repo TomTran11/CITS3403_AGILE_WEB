@@ -19,9 +19,6 @@ def dashboard():
     user = User.query.filter_by(username=username).first()
     return render_template('main/dashboard.html', user=user)
 
-@main.route('/about')
-def about():
-    return render_template('auth/about.html')
 
 # Profile (view)
 @main.route('/profile')
