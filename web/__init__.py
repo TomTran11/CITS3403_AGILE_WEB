@@ -17,10 +17,13 @@ debug = os.getenv("FLASK_DEBUG", "false").lower() == "true"
 
 if testing:
     app.config.from_object(TestingConfig)
+    print("Using Testing config")
 elif debug:
     app.config.from_object(DevelopmentConfig)
+    print("Using Production config")
 else:
     app.config.from_object(ProductionConfig)
+    print("Using Development config")
 
 mail.init_app(app)
 db.init_app(app)
