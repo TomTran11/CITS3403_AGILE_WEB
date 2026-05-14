@@ -2,21 +2,59 @@
 
 {% block title %} Quizzes {% endblock %}
 
-{% block content %}
-<section class="quizzes-page">
-    <h1>Quizzes</h1>
-    <p>Complete our awesome quizzes to help us find and suggest better friend matches.</p>
-
-    <div id="quiz-list">
-        <p>Loading quizzes...</p>
-    </div>
-
-    <div id="quiz-display">
-        <p>Please select a quiz to begin, and have fun!</p>
-    </div>
-</section>
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/quizzes.css') }}">
 {% endblock %}
 
-{% block scripts %}
+{% block content %}
+<div class="quizzes-wrapper">
+ 
+    <!--header-->
+    <div class="quizzes-header">
+        <h1>Quizzes</h1>
+        <p>Complete our awesome quizzes to help us find and suggest better friend matches.</p>
+    </div>
+
+    <!--the completed quiz secton-->
+    <div class="quiz-section" id="completed-section" style="display:none;">
+        <h2 class="section-title">Completed</h2>
+        <div class="quiz-grid" id="completed-list"></div>
+
+        <!--overall user quiz progress-->
+        <div class="overall-progress-section">
+            <div class="overall-progress-label">
+                <span id="overall-progress-text">0 of 0 quizzes completed</span>
+                <span id="overall-progress-percent">0%</span>
+            </div>
+            <div class="overall-progress-bar-tracking">
+                <div class="overall-progress-bar-fill" id="overall-progress-fill"></div>
+            </div>
+        </div>
+    </div>
+ 
+    <!--section that has quizzes user still hasnt done-->
+    <div class="quiz-section" id="todo-section">
+        <h2 class="section-title">To Do</h2>
+        <div class="quiz-grid" id="todo-list">
+            <p class="loading-text">Loading quizzes...</p>
+        </div>
+    </div>
+ 
+</div>
+ 
+<!--the selected quiz zoomed in modal-->
+<div class="quiz-overlay" id="quiz-overlay">
+    <div class="quiz-modal" id="quiz-modal">
+        <button class="quiz-close-btn" id="quiz-close-btn">&times;</button>
+        <div class="quiz-modal-content" id="quiz-modal-content"></div>
+ 
+        <!--the zoomed in quiz progress bar for completed questions-->
+        <div class="modal-progress-bar-tracking" id="modal-progress-tracking" style="display:none;">
+            <div class="modal-progress-bar-fill" id="modal-progress-fill"></div>
+            <span class="modal-progress-label" id="modal-progress-label">1 / 10</span>
+        </div>
+    </div>
+</div>
+ 
 <script src="{{ url_for('static', filename='js/quizzes.js') }}"></script>
 {% endblock %}
