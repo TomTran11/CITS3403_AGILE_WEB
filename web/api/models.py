@@ -1,5 +1,5 @@
 from sqlalchemy import JSON
-
+from datetime import datetime
 from web import db
 
 
@@ -14,7 +14,9 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     reset_token_version = db.Column(db.Integer, default=0)
     social_links = db.relationship('SocialLink',backref='user',cascade="all, delete-orphan",lazy=True)
-
+    likes_given = db.relationship("ProfileLike",foreign_keys="ProfileLike.liker_username",backref="liker",lazy="dynamic",cascade="all, delete-orphan")
+    likes_received = db.relationship("ProfileLike",foreign_keys="ProfileLike.liked_username",backref="liked",lazy="dynamic",cascade="all, delete-orphan")
+    
 class UserBio(db.Model):
     __tablename__ = "user_bios"
 
@@ -36,6 +38,19 @@ class SocialLink(db.Model):
     # Ensure a user can only have one link per platform
     __table_args__ = (
         db.UniqueConstraint('user_id', 'platform', name='unique_user_platform'),
+    )
+
+class ProfileLike(db.Model):
+    __tablename__ = "profile_likes"
+
+    id = db.Column(db.Integer, primary_key=True)
+    liker_username = db.Column(db.String(75),db.ForeignKey("users.username"),nullable=False,index=True)
+    liked_username = db.Column(db.String(75),db.ForeignKey("users.username"),nullable=False,index=True)
+    created_at = db.Column(db.DateTime,default=datetime.utcnow,nullable=False)
+
+    __table_args__ = (
+        db.UniqueConstraint("liker_username","liked_username",name="unique_profile_like"),
+        db.CheckConstraint("liker_username != liked_username",name="no_self_like"),
     )
 
 class QuizResult(db.Model):
