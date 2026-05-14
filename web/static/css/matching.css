@@ -15,13 +15,6 @@
     gap: 24px;
 }
 
-@media (max-width: 900px) {
-    .matching-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 600px) {
-    .matching-grid { grid-template-columns: 1fr; }
-}
-
 /* =========================
    DASHBOARD: My Matches header
    (loaded in dashboard.html too)
@@ -41,3 +34,83 @@
 }
 
 .view-more-link:hover { color: #F07066; }
+
+/* =========================
+   MATCHING PAGE — RESPONSIVE
+   (scoped to .matching-content so dashboard isn't affected)
+========================= */
+
+/* Tablet & smaller (≤ 1024px) */
+@media (max-width: 1024px) {
+    .matching-content {
+        padding: 50px 40px !important;
+        gap: 36px !important;
+    }
+    .matching-content .dashboard-greeting {
+        font-size: 44px !important;
+    }
+    .matching-content .matching-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+/* Small tablet / large mobile (≤ 768px) */
+@media (max-width: 768px) {
+    .matching-content {
+        padding: 40px 28px !important;
+        gap: 28px !important;
+    }
+    .matching-content .dashboard-greeting {
+        font-size: 36px !important;
+    }
+    .matching-content .matching-subtitle {
+        font-size: 14px;
+        margin-top: -20px;
+    }
+    .matching-content .matching-grid {
+        gap: 16px;
+    }
+    .matching-content .user-card {
+        padding: 16px;
+    }
+}
+
+/* Mobile (≤ 560px) */
+@media (max-width: 560px) {
+    .matching-content {
+        padding: 32px 18px !important;
+        gap: 24px !important;
+    }
+    .matching-content .dashboard-greeting {
+        font-size: 28px !important;
+    }
+    .matching-content .matching-subtitle {
+        font-size: 13px;
+        margin-top: -16px;
+    }
+    .matching-content .matching-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    .matching-content .user-card-name {
+        font-size: 15px;
+    }
+    .matching-content .user-card-bio {
+        font-size: 13px;
+    }
+    .matching-content .heart-btn {
+        font-size: 24px;
+        padding: 6px;
+    }
+}
+
+/* Tiny mobile (≤ 360px) */
+@media (max-width: 360px) {
+    .matching-content {
+        padding: 24px 14px !important;
+    }
+    .matching-content .dashboard-greeting {
+        font-size: 24px !important;
+    }
+}

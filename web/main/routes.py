@@ -274,7 +274,7 @@ def notifications():
     return render_template("main/notifications.html", notifications=notifications)
 
 # Matching page (full list of matches)
-@main.route('/matching')
+@main.route('/matches')
 @require_login
 def matching():
     return render_template('main/matching.html')
