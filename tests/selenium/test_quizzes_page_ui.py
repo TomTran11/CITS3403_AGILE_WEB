@@ -207,3 +207,50 @@ def test_todo_quiz_full_flow(driver):
     )
     assert driver.find_element(By.CSS_SELECTOR, ".modal-results").is_displayed()
     assert len(driver.find_elements(By.CSS_SELECTOR, ".keyword-chip")) == 2
+
+#Finally we check that the sections update correctly after a quiz submission
+def test_sections_update_after_submission(driver):
+    login_user(driver)
+    go_to_quizzes(driver)
+
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#todo-list .quiz-card"))
+    )
+
+    #We record the state of the progress bar and completed quiz card numbers to have as a comparison point
+    initial_progress = driver.find_element(By.ID, "overall-progress-percent").text
+    initial_completed_count = len(driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-card"))
+
+    #We find and click the time availability quiz card
+    todo_cards = driver.find_elements(By.CSS_SELECTOR, "#todo-list .quiz-card")
+    time_availability_card = next(
+        card for card in todo_cards
+        if "Time Availability" in card.find_element(By.CSS_SELECTOR, ".quiz-card-name").text
+    )
+    time_availability_card.click()
+    time.sleep(1)
+
+    #We complete the quiz by calling the helper function
+    driver.find_element(By.ID, "begin-btn").click()
+    time.sleep(1)
+    answer_all_questions(driver)
+
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".modal-results"))
+    )
+
+    #We close the modal
+    close_modal(driver)
+    time.sleep(2)
+
+    #We check the progress bar percentage has increased
+    assert driver.find_element(By.ID, "overall-progress-percent").text != initial_progress
+
+    #THen we check the completed section has one more card
+    updated_completed_count = len(driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-card"))
+    assert updated_completed_count == initial_completed_count + 1
+
+    #We check that there are no duplicate cards anywhere on the page
+    all_cards = driver.find_elements(By.CSS_SELECTOR, ".quiz-card")
+    card_names = [c.find_element(By.CSS_SELECTOR, ".quiz-card-name").text for c in all_cards]
+    assert len(card_names) == len(set(card_names))
