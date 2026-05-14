@@ -28,7 +28,7 @@ class SocialLink(db.Model):
     __tablename__ = "social_links"
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.String(75),db.ForeignKey('users.username'),nullable=False)
+    user_id = db.Column(db.String(75),db.ForeignKey('users.username'),nullable=False, index=True)
 
     platform = db.Column(db.String(50), nullable=False)
     link = db.Column(db.String(255), nullable=False)
