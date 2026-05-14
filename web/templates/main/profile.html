@@ -14,17 +14,17 @@
     <div class="profile-view-card profile-hero-card">
         <div class="profile-header">
             <div class="profile-avatar-large">
-                {{ user.displayname[0] | upper }}
+                {{ viewed_user.displayname[0] | upper }}
             </div>
 
             <div class="profile-name-block">
-                <h1 class="profile-name">{{ user.displayname }}</h1>
-                <span class="profile-username">@{{ user.username }}</span>
+                <h1 class="profile-name">{{ viewed_user.displayname }}</h1>
+                <span class="profile-username">@{{ viewed_user.username }}</span>
             </div>
         </div>
 
         <div class="profile-bio-box" id="bioBox">
-            {{ user.bio_entry.bio_text if user.bio_entry and user.bio_entry.bio_text else 'No bio added yet.' }}
+            {{ viewed_user.bio_entry.bio_text if viewed_user.bio_entry and viewed_user.bio_entry.bio_text else 'No bio added yet.' }}
         </div>
     </div>
 
@@ -36,8 +36,8 @@
             <label class="section-label">Languages</label>
 
             <div class="tag-row">
-                {% if user.languages %}
-                    {% for lang in user.languages %}
+                {% if viewed_user.languages %}
+                    {% for lang in viewed_user.languages %}
                         <span class="tag tag-language">{{ lang }}</span>
                     {% endfor %}
                 {% else %}
@@ -51,8 +51,8 @@
             <label class="section-label">Study Units</label>
 
             <div class="tag-row">
-                {% if user.units %}
-                    {% for unit in user.units %}
+                {% if viewed_user.units %}
+                    {% for unit in viewed_user.units %}
                         <span class="tag tag-unit">{{ unit }}</span>
                     {% endfor %}
                 {% else %}
@@ -66,8 +66,8 @@
             <label class="section-label">Social Links</label>
 
             <div class="tag-row">
-                {% if user.social_links %}
-                    {% for social in user.social_links %}
+                {% if viewed_user.social_links %}
+                    {% for social in viewed_user.social_links %}
                         {% if social.platform == 'discord' %}
                             <span class="tag tag-social">
                                 Discord: {{ social.link }}
@@ -90,10 +90,11 @@
         </div>
 
     </div>
-
-    <a href="{{ url_for('main.edit_profile') }}" class="edit-profile-btn profile-edit-btn">
-        Edit Profile
-    </a>
+    {% if user.username == viewed_user.username %}
+        <a href="{{ url_for('main.edit_profile') }}" class="edit-profile-btn profile-edit-btn">
+            Edit Profile
+        </a>
+    {% endif %}
 
 </div>
 {% endblock %}

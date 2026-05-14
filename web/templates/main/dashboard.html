@@ -4,20 +4,30 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block styles %}
+
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
 {% endblock %}
+
 
 {% block content %}
 <div class="dashboard-content">
 
     <!-- FLASH MESSAGES -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }} text-center flash-alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endwith %}
+    <div class="flash-wrapper">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} text-center flash-alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
 
     <!-- GREETING -->
     <h1 class="dashboard-greeting">Hello, {{ user.displayname }} !</h1>
@@ -29,56 +39,66 @@
     </form>
 
     <!-- RECOMMENDED -->
-    <section class="dash-section">
-        <h2 class="dash-section-title">Recommended</h2>
-        <div class="card-slider-wrap">
-            <button class="slider-arrow left">&#9664;</button>
-            <div class="card-row">
-                {% for i in range(3) %}
-                <div class="user-card">
-                    <div class="user-card-header">
-                        <div class="user-card-avatar" style="background: {{ ['#F28A80','#FFB75C','#e07070'][i] }}">?</div>
-                        <span class="user-card-name">Name Lastname</span>
-                    </div>
-                    <div class="user-card-tags">
-                        <span class="user-tag" style="background:#FFB75C"></span>
-                        <span class="user-tag" style="background:#F28A80"></span>
-                        <span class="user-tag" style="background:#e8a060"></span>
-                    </div>
-                    <p class="user-card-bio">Short bio that is around a sentence long.</p>
-                    <button class="heart-btn">♡</button>
-                </div>
-                {% endfor %}
-            </div>
-            <button class="slider-arrow right">&#9654;</button>
-        </div>
-    </section>
 
-    <!-- RECENT -->
     <section class="dash-section">
-        <h2 class="dash-section-title">Recent</h2>
-        <div class="card-slider-wrap">
-            <button class="slider-arrow left">&#9664;</button>
-            <div class="card-row">
-                {% for i in range(3) %}
-                <div class="user-card">
-                    <div class="user-card-header">
-                        <div class="user-card-avatar" style="background: {{ ['#F28A80','#e07070','#FFB75C'][i] }}">?</div>
-                        <span class="user-card-name">Name Lastname</span>
+        {% if matches|length == 0 %}
+            <h2 class = "dashboard-greeting" style = "font-size: 30px; margin: 30px; color:#FE9900"> you have no matches yet... </h2>
+            <a href="{{ url_for('quizzes.quizzes_page') }}" class="search-btn" style = "font-size: 20px; margin-left: 100px; margin-right: 100px; text-decoration: none; display: inline-block;">Take a quiz</a>
+        {% else %}
+
+        <h2 class="dash-section-title">Recommended</h2>
+        
+        <div id="dashRecommendedCarousel" class="carousel" data-ride="carousel" data-wrap="false" style="width: 90%; align-self: center;">
+
+
+            <div class="carousel-inner">
+                
+
+                {% for i in range(matches|length) %}
+                
+                {% if i == 0 %}
+                <div class="carousel-item active">
+                {% else %}
+                <div class="carousel-item">
+                {% endif %}
+                    <div class="user-card-wrap">
+                        <a href="{{ url_for('main.view_user', username = matches[i].username) }}"class="user-card">
+
+                            <div class="user-card-header">
+                                <div class="user-card-avatar" style="background: {{ (['#FE9900','#FFBC57','#FFB697','#F79181','#ED553D']*2)[i]}} ">{{ matches[i].displayname[0] | upper }}</div>
+                                <span class="user-card-name">{{ matches[i].displayname }}</span>
+                            </div>
+
+                            <p class="user-card-bio">{{ matches[i].bio_entry.bio_text if matches[i].bio_entry and matches[i].bio_entry.bio_text else 'No bio added yet.' }}</p>
+                        </a>
+                        <button class="heart-btn {% if matches[i].username in liked_usernames %}liked{% endif %}" 
+                                type="button" data-username="{{ matches[i].username }}" 
+                                data-liked="{{ 'true' if matches[i].username in liked_usernames else 'false' }}">
+                                {{ '♥' if matches[i].username in liked_usernames else '♡' }}
+                        </button>
                     </div>
-                    <div class="user-card-tags">
-                        <span class="user-tag" style="background:#FFB75C"></span>
-                        <span class="user-tag" style="background:#F28A80"></span>
-                        <span class="user-tag" style="background:#e8a060"></span>
-                    </div>
-                    <p class="user-card-bio">Short bio that is around a sentence long.</p>
-                    <button class="heart-btn">♡</button>
                 </div>
                 {% endfor %}
+                
             </div>
-            <button class="slider-arrow right">&#9654;</button>
+            <a class="carousel-control-prev" href="#recommendedCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+
+            </a>
+            <a class="carousel-control-next" href="#recommendedCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+
+            </a>
         </div>
+        {% endif %}
+
     </section>
 
 </div>
+{% endblock %}
+{% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/carousel.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/multi_carousel.js') }}"></script>
+    <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
 {% endblock %}

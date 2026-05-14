@@ -2,9 +2,11 @@ import re
 from flask import jsonify, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import check_password_hash, generate_password_hash
 from web import db
-from web.api.models import User, SocialLink, UserBio
+from web.api.models import User, SocialLink, UserBio, Notification
 from . import main
+from web.matching.service import find_matches_for_user
 from web.auth.utils import require_login
+from web.main.services import like_user, unlike_user,get_liked_usernames
 
 @main.route('/')
 @main.route('/landing_page')
@@ -17,11 +19,35 @@ def landing_page():
 def dashboard():
     username = session.get("user")
     user = User.query.filter_by(username=username).first()
-    return render_template('main/dashboard.html', user=user)
+    threshold = request.args.get("threshold", default=10, type=int)
+
+    #This calls the matching logic in service.py
+    matches = find_matches_for_user(username, threshold)
+    for i in range(len(matches)):
+        item = matches[i]
+        matchedUser = User.query.filter_by(username=item["username"]).first()
+        matches[i] = matchedUser
+
+    # Get everyone this current user has already liked
+    liked_usernames = get_liked_usernames(username)
+    return render_template('main/dashboard.html', user=user, matches=matches, liked_usernames=liked_usernames)
+
+
+
 
 @main.route('/about')
 def about():
     return render_template('auth/about.html')
+
+# View a user's profile
+@main.route('/view_user/<username>' )
+@require_login
+def view_user(username):
+    viewed_user = User.query.filter_by(username=username).first_or_404()
+    username = session.get("user")
+    user = User.query.filter_by(username=username).first_or_404()
+    
+    return render_template('main/profile.html', user=user, viewed_user = viewed_user)
 
 # Profile (view)
 @main.route('/profile')
@@ -29,7 +55,7 @@ def about():
 def profile():
     username = session.get("user")
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('main/profile.html', user=user)
+    return render_template('main/profile.html', user=user, viewed_user = user)
 
 # Edit profile (GET + POST)
 @main.route('/edit_profile', methods=['GET', 'POST'])
@@ -234,7 +260,18 @@ def account_settings():
 @main.route('/notifications')
 @require_login
 def notifications():
-    return render_template('main/notifications.html')
+    current_username = session.get("user")
+    notifications = Notification.query.filter_by(user_id=current_username).order_by(Notification.created_at.desc()).all()
+    related_ids = {n.related_user_id for n in notifications if n.related_user_id}
+    related_map = {}
+    if related_ids:
+        users = User.query.filter(User.username.in_(related_ids)).all()
+        related_map = {u.username: u.displayname for u in users}
+
+    for n in notifications:
+        n.related_displayname = related_map.get(n.related_user_id) if n.related_user_id else None
+
+    return render_template("main/notifications.html", notifications=notifications)
 
 @main.app_errorhandler(404)
 def page_not_found(e):
@@ -265,3 +302,21 @@ def search():
             results.append(u)
  
     return render_template('main/search.html', query=query, results=results)
+
+@main.route("/profile/<username>/like", methods=["POST"])
+@require_login
+def like_profile(username):
+    current_username = session.get("user")
+    result = like_user(liker_username=current_username,liked_username=username)
+    status_code = result.pop("status_code")
+    if result.get("match"):
+        flash(f"It's a match with {username}!", "success")
+    return jsonify(result), status_code
+
+@main.route("/profile/<username>/unlike", methods=["POST"])
+@require_login
+def unlike_profile(username):
+    current_username = session.get("user")
+    result = unlike_user(liker_username=current_username,liked_username=username)
+    status_code = result.pop("status_code")
+    return jsonify(result), status_code

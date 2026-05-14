@@ -18,7 +18,8 @@ class Config:
     SESSION_COOKIE_HTTPONLY = str_to_bool(os.getenv("SESSION_COOKIE_HTTPONLY"), True)
     SESSION_COOKIE_SAMESITE = os.getenv("SESSION_COOKIE_SAMESITE", "Lax")
     SESSION_COOKIE_SECURE = str_to_bool(os.getenv("SESSION_COOKIE_SECURE"), False)
-
+    SESSION_REFRESH_EACH_REQUEST = True
+    
     PERMANENT_SESSION_LIFETIME = timedelta(
         seconds=int(os.getenv("SESSION_PERMANENT_LIFETIME", 7200))
     )

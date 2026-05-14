@@ -42,22 +42,26 @@
                 <div class="notif-menu">
                     <button class="notif-btn"type="button">
                         <i class="bi bi-bell-fill"></i>
-                        <span class="notif-badge" id="notifBadge">3</span>
+                        {% if unread_notification_count and unread_notification_count > 0 %}
+                            <span class="notif-badge" id="notifBadge">
+                                {{ unread_notification_count }}
+                            </span>
+                        {% endif %}
                     </button>
                     <div class="notif-dropdown" id="notifDropdown">
                         <div class="notif-header">Notifications</div>
-                        <div class="notif-item unread">
-                            <span class="notif-dot"></span>
-                            <span>[username1] liked your profile</span>
-                        </div>
-                        <div class="notif-item unread">
-                            <span class="notif-dot"></span>
-                            <span>[username2] liked your profile</span>
-                        </div>
-                        <div class="notif-item unread">
-                            <span class="notif-dot"></span>
-                            <span>[username3] liked your profile</span>
-                        </div>
+                        {% if recent_notifications %}
+                            {% for notification in recent_notifications %}
+                                <div class="notif-item {% if not notification.is_read %}unread{% endif %}">
+                                    <span class="notif-dot"></span>
+                                    <span>{{ notification.message }}</span>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="notif-item">
+                                <span>No notifications yet.</span>
+                            </div>
+                        {% endif %}
                         <a href="{{ url_for('main.notifications') }}" class="notif-view-more">View more notifications →</a>
                     </div>
                 </div>

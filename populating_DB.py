@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash
 
 from web import app, db
-from web.api.models import User, QuizResult, UserKeyword
+from web.api.models import User, QuizResult, UserKeyword, ProfileLike
 from web.quizzes.definitions import QUIZZES
 from web.quizzes.service import generate_keywords
 
@@ -64,6 +64,16 @@ populated_user_answers = {
     }
 }
 
+populated_profile_likes = [
+    {"liker_username": "charlie", "liked_username": "alex"},
+    {"liker_username": "alex", "liked_username": "charlie"},
+
+    {"liker_username": "sam", "liked_username": "jordan"},
+    {"liker_username": "jordan", "liked_username": "sam"},
+
+    {"liker_username": "charlie", "liked_username": "jordan"},
+]
+
 #This function then actually creates the users using our fake data
 def create_populate_users():
     #We loop through each fake user and check if their username already exists in the DB
@@ -112,6 +122,34 @@ def clear_populated_quiz_data():
     ).delete(synchronize_session=False)
 
     #We then save the deletions in the DB
+    db.session.commit()
+
+# Clear old fake likes
+def clear_populated_profile_likes():
+    populated_usernames = [user["username"] for user in populate_users]
+
+    ProfileLike.query.filter(
+        ProfileLike.liker_username.in_(populated_usernames)
+    ).delete(synchronize_session=False)
+
+    db.session.commit()
+
+# Create fake likes
+def populate_profile_likes():
+    for like_data in populated_profile_likes:
+        existing_like = ProfileLike.query.filter_by(
+            liker_username=like_data["liker_username"],
+            liked_username=like_data["liked_username"]
+        ).first()
+
+        if not existing_like:
+            profile_like = ProfileLike(
+                liker_username=like_data["liker_username"],
+                liked_username=like_data["liked_username"]
+            )
+
+            db.session.add(profile_like)
+
     db.session.commit()
 
     #This is a helper function that just converts the quiz answer list into a format the quiz service expects
@@ -184,10 +222,13 @@ def main():
         db.create_all()
         #Create/Update the fake users
         create_populate_users()
+        #Clear old profile likes
+        clear_populated_profile_likes()
         #Delete old quiz answers and key words for the fake users
         clear_populated_quiz_data()
         #Add new quiz answers and keywords for the fake users
         populate_quiz_data()
+        populate_profile_likes()
 
         #We then display a success message
         print("The database has been populated successfully.")
