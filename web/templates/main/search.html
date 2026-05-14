@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block wrapper_class %}profile-page{% endblock %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-content search-content">
+
+    <h1 class="dashboard-greeting">Search</h1>
+
+    <!-- Search bar (so user can search again from results page) -->
+    <form class="search-bar-wrap" action="{{ url_for('main.search') }}" method="GET">
+        <input class="search-bar" type="text" name="q"
+               value="{{ query }}" placeholder="Search by name, language, or unit...">
+        <button type="submit" class="search-btn">Search</button>
+    </form>
+
+    {% if query %}
+        <p class="search-meta">
+            {% if results %}
+                Found <strong>{{ results|length }}</strong> result{{ 's' if results|length != 1 else '' }} for "<strong>{{ query }}</strong>"
+            {% else %}
+                No results for "<strong>{{ query }}</strong>"
+            {% endif %}
+        </p>
+    {% endif %}
+
+    {% if results %}
+        <div class="matching-grid">
+            {% for u in results %}
+            <div class="user-card-wrap">
+                <a href="{{ url_for('main.view_user', username=u.username) }}" class="user-card">
+                    <div class="user-card-header">
+                        <div class="user-card-avatar" style="background: {{ (['#FE9900','#FFBC57','#FFB697','#F79181','#ED553D']*4)[loop.index0] }}">
+                            {{ u.displayname[0] | upper }}
+                        </div>
+                        <span class="user-card-name">{{ u.displayname }}</span>
+                    </div>
+                    <p class="user-card-bio">@{{ u.username }}</p>
+                    {% if u.units %}
+                    <div class="user-card-tags">
+                        {% for unit in u.units[:3] %}
+                            <span class="search-tag">{{ unit }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    {% elif query %}
+        <div class="search-empty">
+            <p class="search-empty-title">No matches found</p>
+            <p class="search-empty-subtitle">Try a different name, language, or unit code.</p>
+        </div>
+    {% endif %}
+
+    <a href="{{ url_for('main.dashboard') }}" class="cancel-link" style="text-align:center; display:block; margin-top:20px;">← Back to Dashboard</a>
+
+</div>
+{% endblock %}
