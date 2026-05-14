@@ -53,6 +53,18 @@ class ProfileLike(db.Model):
         db.CheckConstraint("liker_username != liked_username",name="no_self_like"),
     )
 
+class Notification(db.Model):
+    __tablename__ = "notifications"
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(75),db.ForeignKey("users.username"),nullable=False)
+    type = db.Column(db.String(50), nullable=False)  
+    message = db.Column(db.String(255), nullable=False)
+    related_user_id = db.Column(db.String(75),db.ForeignKey("users.username"),nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    user = db.relationship("User",foreign_keys=[user_id],backref="notifications")
+    related_user = db.relationship("User",foreign_keys=[related_user_id])
+
 class QuizResult(db.Model):
     __tablename__ = "quiz_results"
 
