@@ -19,11 +19,15 @@
    EMPTY STATE (no matches yet)
 ========================= */
 .matching-empty {
+    width: 100%;
+    max-width: 760px;
+    margin: 24px auto 0;
     text-align: center;
-    padding: 60px 32px;
-    background: rgba(255, 255, 255, 0.74);
-    border-radius: 24px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    padding: 56px 32px;
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid rgba(255, 149, 138, 0.18);
+    border-radius: 28px;
+    box-shadow: 0 8px 24px rgba(240, 112, 96, 0.10);
 }
 
 .matching-empty-icon {
@@ -32,17 +36,17 @@
 }
 
 .matching-empty-title {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 800;
-    color: #333;
+    color: #F07060;
     margin: 0 0 12px 0;
 }
 
 .matching-empty-subtitle {
     font-size: 16px;
-    color: #666;
+    color: #777;
     margin: 0 auto 28px;
-    max-width: 460px;
+    max-width: 440px;
     line-height: 1.5;
 }
 
@@ -185,48 +189,6 @@
         padding: 24px 14px !important;
     }
     .matching-content .dashboard-greeting { font-size: 24px !important; }
-}
-
-/* =========================
-   EMPTY STATE + QUIZ CTA
-========================= */
-.matching-empty {
-    text-align: center;
-    padding: 60px 24px;
-    background: #f5cebc;
-    border-radius: 24px;
-}
-
-.matching-empty-title {
-    font-size: 26px;
-    font-weight: 700;
-    color: #c04030;
-    margin: 0 0 8px 0;
-}
-
-.matching-empty-subtitle {
-    font-size: 16px;
-    color: #885a4a;
-    margin: 0 0 24px 0;
-}
-
-.quiz-cta-btn {
-    display: inline-block;
-    background: #FF958A;
-    color: white;
-    font-weight: 700;
-    font-size: 16px;
-    padding: 14px 36px;
-    border-radius: 30px;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.2s;
-    box-shadow: 0 4px 14px rgba(255, 149, 138, 0.3);
-}
-
-.quiz-cta-btn:hover {
-    background: #F07066;
-    color: white;
-    transform: translateY(-2px);
 }
 
 /* Persistent CTA shown when matches exist */
