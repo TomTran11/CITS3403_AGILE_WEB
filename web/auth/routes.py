@@ -122,7 +122,7 @@ def forgot_password():
     if user:
         current_app.email_service.send_reset_email(user)
 
-    return jsonify({"message": "ok"})
+    return jsonify({"message": "If the email exists, a reset link has been sent."}), 200
 
 # RESET PASSWORD
 @auth.route('/reset-password/<token>', methods=['GET', 'POST'])

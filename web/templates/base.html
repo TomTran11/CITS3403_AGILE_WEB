@@ -73,18 +73,19 @@
                         <a href="{{ url_for('main.profile') }}">View Profile</a>
                         <a href="{{ url_for('main.edit_profile') }}">Edit Profile</a>
                         <a href="{{ url_for('main.account_settings') }}">Account Settings</a>
+                        <a href="{{ url_for('quizzes.quizzes_page') }}">Quizzes</a>
                         <div class="dropdown-divider"></div>
                         <a href="{{ url_for('auth.logout') }}" class="dropdown-logout">Logout</a>
                     </div>
                 </div>
 
             {% else %}
-                {% if title in ['Login', 'Sign Up'] %}
+                {% if title in ['Login', 'Sign Up', 'Landing Page'] %}
                     <!-- Login / Signup page → About only -->
-                    <a href="{{ url_for('main.about') }}">About</a>
+                    <a href="{{ url_for('auth.about') }}">About</a>
                 {% else %}
                     <!-- Other pages (not logged in) -->
-                    <a href="{{ url_for('main.about') }}">About</a>
+                    <a href="{{ url_for('auth.about') }}">About</a>
                     <a href="{{ url_for('auth.login') }}">Login</a>
                     <a href="{{ url_for('auth.signup') }}" class="btn">Sign Up</a>
                 {% endif %}
