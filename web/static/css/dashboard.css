@@ -74,6 +74,8 @@
  
  
 /* User card */
+
+
 .user-card {
     background: rgba(255, 255, 255, 0.74);
     border-radius: 20px;
@@ -179,6 +181,18 @@
     margin: 20px;
     flex: 0 0 calc((100%/3) - 40px);
     position: relative;
+}
+
+@media screen and (max-width: 900px){
+    .carousel-item{
+    flex: 0 0 calc((100%/2) - 40px);
+}
+}
+
+@media screen and (max-width: 650px){
+    .carousel-item{
+    flex: 0 0 calc((100%) - 40px);
+}
 }
 
 
