@@ -6,7 +6,7 @@ from web.api.models import User, SocialLink, UserBio, Notification
 from . import main
 from web.matching.service import find_matches_for_user
 from web.auth.utils import require_login
-from web.main.services import like_user, unlike_user,get_liked_usernames, update_user_socials, delete_user_social
+from web.main.services import like_user, unlike_user,get_liked_usernames, has_mutual_like ,update_user_socials, delete_user_social
 
 @main.route('/')
 @main.route('/landing_page')
@@ -56,6 +56,24 @@ def profile():
     username = session.get("user")
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('main/profile.html', user=user, viewed_user = user)
+
+@main.route("/profile/<displayname>", methods=["GET"])
+@require_login
+def view_profile(displayname):
+    current_username = session.get("user")
+    current_user = User.query.filter_by(username=current_username).first_or_404()
+    other_user = User.query.filter_by(displayname=displayname).first_or_404()
+    
+    # View owned profile
+    if other_user.username == current_username:
+        return redirect(url_for("main.profile"))
+
+    # View others profile
+    if not has_mutual_like(current_user.username, other_user.username):
+        flash("You can only view social contacts for users you have matched with.", "warning")
+        return redirect(url_for("main.dashboard"))
+
+    return render_template('main/profile.html', user=current_user, viewed_user=other_user)
 
 # Edit profile (GET + POST)
 @main.route('/edit_profile', methods=['GET', 'POST'])
