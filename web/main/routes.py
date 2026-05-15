@@ -285,6 +285,32 @@ def notifications():
 def page_not_found(e):
     return f"{request.path} not exist", 404
 
+@main.route('/check-session')
+def check_session():
+    return {"user": session.get("user")}
+
+@main.route('/search')
+@require_login
+def search():
+    query = request.args.get('q', '').strip()
+    current_username = session.get('user')
+ 
+    if not query:
+        return render_template('main/search.html', query='', results=[])
+ 
+    query_lower = query.lower()
+    all_users = User.query.filter(User.username != current_username).all()
+ 
+    results = []
+    for u in all_users:
+        if (query_lower in (u.username or '').lower()
+            or query_lower in (u.displayname or '').lower()
+            or (u.languages and any(query_lower in (l or '').lower() for l in u.languages))
+            or (u.units and any(query_lower in (un or '').lower() for un in u.units))):
+            results.append(u)
+ 
+    return render_template('main/search.html', query=query, results=results)
+
 @main.route("/profile/<username>/like", methods=["POST"])
 @require_login
 def like_profile(username):

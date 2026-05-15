@@ -1,0 +1,91 @@
+/* =========================
+   SEARCH PAGE
+========================= */
+.search-meta {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+}
+
+.matching-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.search-tag {
+    background: #FFE8E0;
+    color: #c04030;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+/* Empty state */
+.search-empty {
+    text-align: center;
+    padding: 60px 20px;
+    background: #f5cebc;
+    border-radius: 24px;
+}
+
+.search-empty-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #c04030;
+    margin: 0 0 8px 0;
+}
+
+.search-empty-subtitle {
+    font-size: 15px;
+    color: #885a4a;
+}
+
+/* =========================
+   SEARCH PAGE — RESPONSIVE
+   (scoped to .search-content)
+========================= */
+@media (max-width: 1024px) {
+    .search-content {
+        padding: 50px 40px !important;
+        gap: 32px !important;
+    }
+    .search-content .dashboard-greeting { font-size: 44px !important; }
+    .search-content .matching-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-content {
+        padding: 40px 28px !important;
+        gap: 24px !important;
+    }
+    .search-content .dashboard-greeting { font-size: 36px !important; }
+    .search-content .search-meta { font-size: 14px; }
+    .search-content .matching-grid { gap: 16px; }
+    .search-content .user-card { padding: 16px; }
+}
+
+@media (max-width: 560px) {
+    .search-content {
+        padding: 32px 18px !important;
+        gap: 20px !important;
+    }
+    .search-content .dashboard-greeting { font-size: 28px !important; }
+    .search-content .matching-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    .search-content .search-bar { font-size: 14px; padding: 14px 18px; }
+    .search-content .search-btn { padding: 14px 24px; font-size: 14px; }
+}
+
+@media (max-width: 360px) {
+    .search-content {
+        padding: 24px 14px !important;
+    }
+    .search-content .dashboard-greeting { font-size: 24px !important; }
+}
