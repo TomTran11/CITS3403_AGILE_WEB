@@ -1,10 +1,12 @@
 from functools import wraps
-from flask import session, redirect, url_for
+from flask import session, redirect, url_for, flash
 
 def require_login(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not session.get("user"):
+            session.clear()
+            flash("Your session has expired. Please log in again.", "warning")
             return redirect(url_for('auth.login'))
         return f(*args, **kwargs)
     return decorated_function

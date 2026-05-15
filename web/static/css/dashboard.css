@@ -25,7 +25,7 @@
 .dashboard-greeting {
     font-size: 52px;
     font-weight: 800;
-    color: #F07060;
+    color: #ED553D;
     text-align: center;
 }
  
@@ -61,7 +61,7 @@
     transition: background 0.2s;
 }
  
-.search-btn:hover { background: #F07066; }
+.search-btn:hover { background: #ED553D; }
  
 /* Section */
 .dash-section { display: flex; flex-direction: column; gap: 18px; }
@@ -72,47 +72,32 @@
     color: #555;
 }
  
-/* Slider */
-.card-slider-wrap {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
- 
-.slider-arrow {
-    padding: 10px 14px;
-    background: none;
-    border: none;
-    color: #F28A80;
-    font-size: 22px;
-    flex-shrink: 0;
-    transition: transform 0.15s;
-}
- 
-.slider-arrow:hover {
-    background: none;
-    transform: scale(1.2);
-}
- 
-.card-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    flex: 1;
-}
  
 /* User card */
 .user-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.74);
     border-radius: 20px;
+    height: 100%;
+    width: 100%;
+    table-layout : fixed;
+    overflow: hidden;
+    overflow-wrap:anywhere;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 12px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.07);
     position: relative;
+    text-align: left;
+    white-space:initial
 }
- 
+
+.user-card:hover {
+    background: white;
+}
+
+.user-card-wrap {position: relative;width: 100%;height: 100%;}
+
 .user-card-header {
     display: flex;
     align-items: center;
@@ -159,18 +144,56 @@
 }
  
 .heart-btn {
-    background: none;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 50;
+    height: 38px;
+    background: transparent;
     border: none;
     font-size: 20px;
-    color: #ddd;
+    color:#F28A80 ;
     padding: 0;
     align-self: flex-end;
     transition: color 0.2s;
 }
  
-.heart-btn:hover { background: none; color: #F28A80; }
+.heart-btn:hover { background: none; color: #F28A80; transform: scale(1.08);}
 .heart-btn.liked  { color: #F28A80; }
 /* base.css의 button/input 전역 스타일 override */
 .dashboard-content button { width: auto; margin-top: 0 ; }
 .dashboard-content input  { width: auto; margin: 0 ; }
 .search-btn  { width: auto; padding: 16px 32px; border-radius: 30px; }
+
+.carousel-inner{
+    mask-image: linear-gradient(to left,transparent 0%, black 3%, black 97%, transparent 100%);
+    display:flex;
+    text-align: center;
+    justify-content: space-evenly;
+    
+
+}
+
+.carousel-item{
+    display:block;
+    margin: 20px;
+    flex: 0 0 calc((100%/3) - 40px);
+    position: relative;
+}
+
+
+
+.carousel-control-prev-icon{
+    margin-right: 200px;
+    pointer-events: all;
+}
+
+.carousel-control-next-icon {
+    margin-left: 200px;
+    pointer-events: all;
+}
+
+.carousel-control-prev, .carousel-control-next {
+   pointer-events: none;
+}
+

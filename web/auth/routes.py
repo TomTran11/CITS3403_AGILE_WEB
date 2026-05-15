@@ -16,6 +16,8 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         if user and check_password_hash(user.password, password):
+            session.clear()
+            session.permanent=True
             session["user"] = user.username
             flash("Login successful!", "success")
             return redirect(url_for('main.dashboard'))
@@ -23,7 +25,6 @@ def login():
         flash("Invalid username or password.", "danger")
         return render_template('auth/login.html', title="Login")
     
-    session.pop("user", None)
     return render_template('auth/login.html', title="Login")
 
 
@@ -96,7 +97,6 @@ def signup():
         flash('Account created successfully!', 'success')
         return redirect(url_for('auth.login'))
 
-    session.pop("user", None)
     return render_template('auth/signup.html', title="Sign Up")
 
 # LOGOUT
