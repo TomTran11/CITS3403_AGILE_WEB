@@ -97,13 +97,13 @@ body {
 
 .carousel-control-prev-icon:after {
     content: "\25C0";
-    font-size: 4vw;
+    font-size: clamp(20px, 4vw, 50px);
     align-items: center;
 }
 
 .carousel-control-next-icon:after {
     content: "\25B6"; 
-    font-size: 4vw;
+    font-size: clamp(20px, 4vw, 50px);
     opacity: 1;
     justify-content: center;
 }

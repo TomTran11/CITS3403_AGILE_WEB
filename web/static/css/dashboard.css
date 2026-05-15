@@ -166,23 +166,12 @@
 .heart-btn.liked  { color: #F28A80; }
 /* base.css의 button/input 전역 스타일 override */
 .dashboard-content button { width: auto; margin-top: 0 ; }
-.dashboard-content input  { width: auto; margin: 0 ; }
+.dashboard-content input  {margin: 0 ; }
 .search-btn  { width: auto; padding: 16px 32px; border-radius: 30px; }
 
 
 
 /* carousel */
-
-.carousel-indicators li{
-    width: 10px;
-    height: 10px;
-    border-radius: 100%;
-    background-color: #F79181;
-    
-}
-
-
-
 
 
 .carousel-inner{
