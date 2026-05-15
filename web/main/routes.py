@@ -11,7 +11,7 @@ from web.main.services import like_user, unlike_user,get_liked_usernames
 @main.route('/')
 @main.route('/landing_page')
 def landing_page():
-    return render_template('main/landing_page.html')
+    return render_template('main/landing_page.html', title="Landing Page")
 
 # Dashboard
 @main.route('/dashboard')
@@ -35,9 +35,6 @@ def dashboard():
 
 
 
-@main.route('/about')
-def about():
-    return render_template('auth/about.html')
 
 # View a user's profile
 @main.route('/view_user/<username>' )
@@ -195,10 +192,6 @@ def update_socials():
 def account_settings():
     username = session.get("user")
     user = User.query.filter_by(username=username).first()
-
-    if not user:
-        flash("User not found. Please log in again.", "danger")
-        return redirect(url_for("auth.login"))
 
     if request.method == "POST":
         email = request.form.get("email", "").strip()
