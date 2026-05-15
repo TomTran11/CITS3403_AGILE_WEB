@@ -12,13 +12,13 @@
 <div class="dashboard-content matching-content">
 
     <h1 class="dashboard-greeting">My Matches</h1>
-    <p class="matching-subtitle">Find study partners based on your quiz answers !</p>
+    <p class="matching-subtitle">Find study partners based on your quiz answers</p>
 
     {% if not matches or matches|length == 0 %}
         <!-- EMPTY STATE: No matches yet -->
         <div class="matching-empty">
             <p class="matching-empty-title">No matches yet</p>
-            <p class="matching-empty-subtitle">Take some quizzes so we can find study partners that match your vibe!</p>
+            <p class="matching-empty-subtitle">TTake a quiz to find study partners who match your vibe!</p>
             <a href="{{ url_for('quizzes.quizzes_page') }}" class="quiz-cta-btn">Take a quiz</a>
         </div>
     {% else %}
