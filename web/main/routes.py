@@ -287,7 +287,32 @@ def notifications():
 @main.route('/matches')
 @require_login
 def matching():
-    return render_template('main/matching.html')
+    username = session.get("user")
+    user = User.query.filter_by(username=username).first()
+    threshold = request.args.get("threshold", default=10, type=int)
+ 
+    # Determine if the user has taken any quizzes
+    # (needed to distinguish "no quizzes done" from "no matches found")
+    has_quizzes = bool(get_answers_for_user(username))
+ 
+    # Get matches — will be [] if user hasn't taken quizzes OR no users meet threshold
+    matches = find_matches_for_user(username, threshold)
+    # Enrich each match dict with the full User object (same pattern as dashboard)
+    for i in range(len(matches)):
+        item = matches[i]
+        matchedUser = User.query.filter_by(username=item["username"]).first()
+        matches[i] = matchedUser
+ 
+    liked_usernames = get_liked_usernames(username)
+ 
+    return render_template(
+        'main/matching.html',
+        user=user,
+        matches=matches,
+        liked_usernames=liked_usernames,
+        has_quizzes=has_quizzes
+    )
+ 
 
 @main.app_errorhandler(404)
 def page_not_found(e):
