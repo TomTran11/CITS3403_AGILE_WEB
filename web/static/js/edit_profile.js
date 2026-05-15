@@ -28,6 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     }
 
+    // Expose showFlash globally for use in other functions
+    window.showFlash = showFlash;
     // Handle Flask flash messages after normal profile form redirect
     const existingFlash = document.querySelector("#flash-area .alert");
 
@@ -245,3 +247,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+function deleteSocial(platform) {
+    fetch(`/delete_social/${platform}`, {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": document.querySelector('input[name="csrf_token"]').value
+        }
+    })
+    .then(async response => {
+        const data = await response.json();
+
+        if (!response.ok) {
+            showFlash(data.message || "Could not delete social link", "error");
+            return;
+        }
+
+        const input = document.querySelector(`input[name="${platform}"]`);
+        if (input) input.value = "";
+
+        showFlash(data.message, "success");
+    })
+    .catch(() => {
+        showFlash("Something went wrong while deleting social link", "error");
+    });
+}

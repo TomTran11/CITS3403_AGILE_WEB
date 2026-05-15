@@ -6,7 +6,7 @@ from web.api.models import User, SocialLink, UserBio, Notification
 from . import main
 from web.matching.service import find_matches_for_user
 from web.auth.utils import require_login
-from web.main.services import like_user, unlike_user,get_liked_usernames
+from web.main.services import like_user, unlike_user,get_liked_usernames, update_user_socials, delete_user_social
 
 @main.route('/')
 @main.route('/landing_page')
@@ -130,66 +130,62 @@ def edit_profile():
 @require_login
 def update_socials():
     user = User.query.get(session["user"])
-    PLATFORMS = ["instagram", "linkedin", "discord"]
 
-    # clear existing
-    SocialLink.query.filter_by(user_id=user.username).delete()
+    try:
+        update_user_socials(user, request.form)
 
-    for p in PLATFORMS:
-        raw = request.form.get(p, "").strip()
-        if not raw:
-            continue
+        return jsonify({
+            "status": "success",
+            "message": "Social links updated successfully!"
+        })
 
-        value = raw.strip()
-        if p == "instagram":
-            # @username
-            if value.startswith("@"):
-                value = value[1:]
+    except ValueError as e:
+        db.session.rollback()
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 400
 
-            # username only
-            if not value.startswith("http"):
-                value = f"https://www.instagram.com/{value}"
+    except Exception:
+        db.session.rollback()
+        return jsonify({
+            "status": "error",
+            "message": "Something went wrong while updating social links"
+        }), 500
 
-            # HTTPS URL validation
-            if not value.startswith("https://www.instagram.com/"):
-                return jsonify({
-                    "status": "error",
-                    "message": "Instagram must be a valid Instagram profile link or username"
-                }), 400
 
-        elif p == "linkedin":
-            # username only
-            if not value.startswith("http"):
-                value = f"https://www.linkedin.com/in/{value}"
+@main.route("/delete_social/<platform>", methods=["POST"])
+@require_login
+def delete_social(platform):
+    user = User.query.get(session["user"])
 
-            # HTTPS URL validation
-            if not (value.startswith("https://www.linkedin.com/in/") or value.startswith("https://www.linkedin.com/company/")):
-                return jsonify({
-                    "status": "error",
-                    "message": "LinkedIn must be a valid LinkedIn profile or company link"
-                }), 400
+    try:
+        deleted = delete_user_social(user, platform)
 
-        elif p == "discord":
-            # Discord can be a username, not necessarily a URL
-            if len(value) > 50:
-                return jsonify({
-                    "status": "error",
-                    "message": "Discord username is too long"
-                }), 400
+        if not deleted:
+            return jsonify({
+                "status": "error",
+                "message": "Social link not found"
+            }), 404
 
-        db.session.add(SocialLink(
-            user_id=user.username,
-            platform=p,
-            link=value
-        ))
+        return jsonify({
+            "status": "success",
+            "message": f"{platform.title()} removed successfully"
+        })
 
-    db.session.commit()
+    except ValueError as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 400
 
-    return jsonify({
-        "status": "success",
-        "message": "Social links updated successfully!"
-    })
-
+    except Exception:
+        db.session.rollback()
+        return jsonify({
+            "status": "error",
+            "message": "Something went wrong while deleting social link"
+        }), 500
+    
 @main.route("/account_settings", methods=["GET", "POST"])
 @require_login
 def account_settings():

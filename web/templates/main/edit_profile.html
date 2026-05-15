@@ -78,15 +78,26 @@
 
             <div class="profile-section">        
                 <label class="section-label">Instagram</label>
-                <input class="profile-input" name="instagram" placeholder="@username or profile link">
+                <div class="social-input-row">
+                    <input class="profile-input" name="instagram" placeholder="@username or profile link">
+                    <button class="remove-btn" type="button" onclick="deleteSocial('instagram')">Remove</button>
+                </div>
+                
                 
                 <label class="section-label">LinkedIn</label>
-                <input class="profile-input" name="linkedin" placeholder="https://linkedin.com/in/username">
+                <div class="social-input-row">
+                    <input class="profile-input" name="linkedin" placeholder="https://linkedin.com/in/username">
+                    <button class="remove-btn" type="button" onclick="deleteSocial('linkedin')">Remove</button>
+                </div>
 
                 <label class="section-label">Discord</label>
-                <input class="profile-input" name="discord" placeholder="username#1234">
+                <div class="social-input-row">
+                    <input class="profile-input" name="discord" placeholder="username#1234">
+                    <button class="remove-btn" type="button" onclick="deleteSocial('discord')">Remove</button>
+                </div>
             </div>
 
+            <small class="field-hint">Only change the fields you want to update</small>
             <button type="submit" class="edit-profile-btn">Save Socials</button>
         </form>
     </div> 
