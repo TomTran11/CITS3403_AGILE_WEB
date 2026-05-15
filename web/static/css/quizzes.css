@@ -245,9 +245,17 @@
     line-height: 1.2;
 }
 
-/* Question prompt */
-.modal-question h2,
+/* Question prompt — small light intro */
 .modal-question .question-prompt {
+    color: #999;
+    margin: 0 0 12px 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Actual question — bold and dark for emphasis */
+.modal-question h2 {
     color: #2a2a2a;
     margin: 0 0 18px 0;
     font-weight: 800;
