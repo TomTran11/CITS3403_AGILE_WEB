@@ -42,7 +42,10 @@
             <a href="{{ url_for('quizzes.quizzes_page') }}" class="search-btn" style="font-size: 20px; margin-left: 100px; margin-right: 100px; text-decoration: none; display: inline-block;">Take a quiz</a>
         {% else %}
 
-        <h2 class="dash-section-title">Recommended</h2>
+        <div class="dash-section-header">
+            <h2 class="dash-section-title">My Matches</h2>
+            <a href="{{ url_for('main.matching') }}" class="view-more-link">View more →</a>
+        </div>
         
         <div id="dashRecommendedCarousel" class="carousel" data-ride="carousel" data-wrap="false" style="width: 90%; align-self: center;">
 
