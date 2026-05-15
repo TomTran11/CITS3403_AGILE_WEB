@@ -19,7 +19,10 @@
 
             <div class="profile-name-block">
                 <h1 class="profile-name">{{ viewed_user.displayname }}</h1>
-                <span class="profile-username">@{{ viewed_user.username }}</span>
+                {% if viewed_user.username == user.username %}
+                    <span class="profile-username">@{{ viewed_user.username }}</span>
+                    <span class="profile-username">@{{ viewed_user.email }}</span>
+                {% endif %}
             </div>
         </div>
 

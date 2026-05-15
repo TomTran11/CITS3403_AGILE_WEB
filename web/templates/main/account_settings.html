@@ -9,70 +9,76 @@
 {% endblock %}
 
 {% block content %}
-<div class="profile-content">
+<div class="profile-content account-settings-content">
 
-    <div class="profile-header">
+    <div id="flash-area" style="scroll-margin-top: 100px;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} flash-alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="profile-header account-settings-header">
         <div class="profile-avatar-large">
             {{ user.displayname[0] | upper }}
         </div>
-        <h1 class="profile-name">Account Settings</h1>
+    
+        <div class="profile-name-block">
+            <h1 class="profile-name">Account Settings</h1>
+            <span class="profile-username">Update your email and password</span>
+        </div>
     </div>
 
-    <!-- FLASH MESSAGES -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }} text-center mt-2 flash-alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endwith %}
-
-    <form method="POST" id="accountSettingsForm" action="">
+    <form method="POST" id="accountSettingsForm" action="" class="profile-card account-settings-card">
         <!-- CSRF -->
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
         <!-- Current password from popup -->
         <input type="hidden" name="current_password" id="currentPasswordHidden">
 
-        <!-- New Email -->
         <div class="profile-section">
             <label class="section-label">New Email</label>
             <input 
+                class="profile-input"
                 type="email" 
                 name="email" 
                 placeholder="Enter new email"
-                style="width: 100%; padding: 12px; border-radius: 10px; border: none;"
             >
         </div>
 
-        <!-- New Password -->
         <div class="profile-section">
             <label class="section-label">New Password</label>
             <input 
+                class="profile-input"
                 type="password" 
                 name="new_password" 
                 placeholder="Enter new password"
                 minlength="6"
-                style="width: 100%; padding: 12px; border-radius: 10px; border: none;"
             >
         </div>
 
-        <!-- Confirm Password -->
         <div class="profile-section">
             <label class="section-label">Confirm New Password</label>
             <input 
+                class="profile-input"
                 type="password" 
                 name="confirm_new_password" 
                 placeholder="Confirm new password"
                 minlength="6"
-                style="width: 100%; padding: 12px; border-radius: 10px; border: none;"
             >
         </div>
 
-        <!-- Submit button now opens popup -->
         <button type="button" class="edit-profile-btn" id="openPasswordPopup">
             Save Changes
         </button>
     </form>
+
+    <a href="{{ url_for('main.profile') }}" class="cancel-link">← Back to Profile</a>
 
     <div id="passwordPopup" class="popup-overlay">
         <div class="popup-box">
@@ -80,6 +86,7 @@
             <p>Please enter your current password to save these changes.</p>
 
             <input 
+                class="profile-input"
                 type="password" 
                 id="currentPasswordInput" 
                 placeholder="Enter current password"

@@ -6,12 +6,14 @@ from web.api.models import User, SocialLink, UserBio, Notification
 from . import main
 from web.matching.service import find_matches_for_user
 from web.auth.utils import require_login
-from web.main.services import like_user, unlike_user,get_liked_usernames
+from web.main.services import like_user, unlike_user,get_liked_usernames, has_mutual_like ,update_user_socials, delete_user_social
+from web.matching.service import find_matches_for_user, get_answers_for_user
+
 
 @main.route('/')
 @main.route('/landing_page')
 def landing_page():
-    return render_template('main/landing_page.html')
+    return render_template('main/landing_page.html', title="Landing Page")
 
 # Dashboard
 @main.route('/dashboard')
@@ -35,9 +37,6 @@ def dashboard():
 
 
 
-@main.route('/about')
-def about():
-    return render_template('auth/about.html')
 
 # View a user's profile
 @main.route('/view_user/<username>' )
@@ -56,6 +55,24 @@ def profile():
     username = session.get("user")
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('main/profile.html', user=user, viewed_user = user)
+
+@main.route("/profile/<displayname>", methods=["GET"])
+@require_login
+def view_profile(displayname):
+    current_username = session.get("user")
+    current_user = User.query.filter_by(username=current_username).first_or_404()
+    other_user = User.query.filter_by(displayname=displayname).first_or_404()
+    
+    # View owned profile
+    if other_user.username == current_username:
+        return redirect(url_for("main.profile"))
+
+    # View others profile
+    if not has_mutual_like(current_user.username, other_user.username):
+        flash("You can only view social contacts for users you have matched with.", "warning")
+        return redirect(url_for("main.dashboard"))
+
+    return render_template('main/profile.html', user=current_user, viewed_user=other_user)
 
 # Edit profile (GET + POST)
 @main.route('/edit_profile', methods=['GET', 'POST'])
@@ -130,75 +147,67 @@ def edit_profile():
 @require_login
 def update_socials():
     user = User.query.get(session["user"])
-    PLATFORMS = ["instagram", "linkedin", "discord"]
 
-    # clear existing
-    SocialLink.query.filter_by(user_id=user.username).delete()
+    try:
+        update_user_socials(user, request.form)
 
-    for p in PLATFORMS:
-        raw = request.form.get(p, "").strip()
-        if not raw:
-            continue
+        return jsonify({
+            "status": "success",
+            "message": "Social links updated successfully!"
+        })
 
-        value = raw.strip()
-        if p == "instagram":
-            # @username
-            if value.startswith("@"):
-                value = value[1:]
+    except ValueError as e:
+        db.session.rollback()
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 400
 
-            # username only
-            if not value.startswith("http"):
-                value = f"https://www.instagram.com/{value}"
+    except Exception:
+        db.session.rollback()
+        return jsonify({
+            "status": "error",
+            "message": "Something went wrong while updating social links"
+        }), 500
 
-            # HTTPS URL validation
-            if not value.startswith("https://www.instagram.com/"):
-                return jsonify({
-                    "status": "error",
-                    "message": "Instagram must be a valid Instagram profile link or username"
-                }), 400
 
-        elif p == "linkedin":
-            # username only
-            if not value.startswith("http"):
-                value = f"https://www.linkedin.com/in/{value}"
+@main.route("/delete_social/<platform>", methods=["POST"])
+@require_login
+def delete_social(platform):
+    user = User.query.get(session["user"])
 
-            # HTTPS URL validation
-            if not (value.startswith("https://www.linkedin.com/in/") or value.startswith("https://www.linkedin.com/company/")):
-                return jsonify({
-                    "status": "error",
-                    "message": "LinkedIn must be a valid LinkedIn profile or company link"
-                }), 400
+    try:
+        deleted = delete_user_social(user, platform)
 
-        elif p == "discord":
-            # Discord can be a username, not necessarily a URL
-            if len(value) > 50:
-                return jsonify({
-                    "status": "error",
-                    "message": "Discord username is too long"
-                }), 400
+        if not deleted:
+            return jsonify({
+                "status": "error",
+                "message": "Social link not found"
+            }), 404
 
-        db.session.add(SocialLink(
-            user_id=user.username,
-            platform=p,
-            link=value
-        ))
+        return jsonify({
+            "status": "success",
+            "message": f"{platform.title()} removed successfully"
+        })
 
-    db.session.commit()
+    except ValueError as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 400
 
-    return jsonify({
-        "status": "success",
-        "message": "Social links updated successfully!"
-    })
-
+    except Exception:
+        db.session.rollback()
+        return jsonify({
+            "status": "error",
+            "message": "Something went wrong while deleting social link"
+        }), 500
+    
 @main.route("/account_settings", methods=["GET", "POST"])
 @require_login
 def account_settings():
     username = session.get("user")
     user = User.query.filter_by(username=username).first()
-
-    if not user:
-        flash("User not found. Please log in again.", "danger")
-        return redirect(url_for("auth.login"))
 
     if request.method == "POST":
         email = request.form.get("email", "").strip()
@@ -261,6 +270,7 @@ def account_settings():
 @require_login
 def notifications():
     current_username = session.get("user")
+    user = User.query.filter_by(username=current_username).first_or_404()
     notifications = Notification.query.filter_by(user_id=current_username).order_by(Notification.created_at.desc()).all()
     related_ids = {n.related_user_id for n in notifications if n.related_user_id}
     related_map = {}
@@ -271,7 +281,7 @@ def notifications():
     for n in notifications:
         n.related_displayname = related_map.get(n.related_user_id) if n.related_user_id else None
 
-    return render_template("main/notifications.html", notifications=notifications)
+    return render_template("main/notifications.html", user=user, notifications=notifications)
 
 # Matching page (full list of matches)
 @main.route('/matches')
@@ -282,6 +292,32 @@ def matching():
 @main.app_errorhandler(404)
 def page_not_found(e):
     return f"{request.path} not exist", 404
+
+@main.route('/check-session')
+def check_session():
+    return {"user": session.get("user")}
+
+@main.route('/search')
+@require_login
+def search():
+    query = request.args.get('q', '').strip()
+    current_username = session.get('user')
+ 
+    if not query:
+        return render_template('main/search.html', query='', results=[])
+ 
+    query_lower = query.lower()
+    all_users = User.query.filter(User.username != current_username).all()
+ 
+    results = []
+    for u in all_users:
+        if (query_lower in (u.username or '').lower()
+            or query_lower in (u.displayname or '').lower()
+            or (u.languages and any(query_lower in (l or '').lower() for l in u.languages))
+            or (u.units and any(query_lower in (un or '').lower() for un in u.units))):
+            results.append(u)
+ 
+    return render_template('main/search.html', query=query, results=results)
 
 @main.route("/profile/<username>/like", methods=["POST"])
 @require_login

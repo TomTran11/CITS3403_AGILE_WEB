@@ -80,6 +80,8 @@
 }
 
 /* User card */
+
+
 .user-card {
     background: rgba(255, 255, 255, 0.74);
     border-radius: 20px;
@@ -210,6 +212,21 @@
 }
 
 .carousel-control-prev-icon {
+@media screen and (max-width: 900px){
+    .carousel-item{
+    flex: 0 0 calc((100%/2) - 40px);
+}
+}
+
+@media screen and (max-width: 650px){
+    .carousel-item{
+    flex: 0 0 calc((100%) - 40px);
+}
+}
+
+
+
+.carousel-control-prev-icon{
     margin-right: 200px;
     pointer-events: all;
 }
