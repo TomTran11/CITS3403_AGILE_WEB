@@ -11,7 +11,7 @@ from web.main.services import like_user, unlike_user,get_liked_usernames, has_mu
 @main.route('/')
 @main.route('/landing_page')
 def landing_page():
-    return render_template('main/landing_page.html')
+    return render_template('main/landing_page.html', title="Landing Page")
 
 # Dashboard
 @main.route('/dashboard')
@@ -35,9 +35,6 @@ def dashboard():
 
 
 
-@main.route('/about')
-def about():
-    return render_template('auth/about.html')
 
 # View a user's profile
 @main.route('/view_user/<username>' )
@@ -210,10 +207,6 @@ def account_settings():
     username = session.get("user")
     user = User.query.filter_by(username=username).first()
 
-    if not user:
-        flash("User not found. Please log in again.", "danger")
-        return redirect(url_for("auth.login"))
-
     if request.method == "POST":
         email = request.form.get("email", "").strip()
         new_password = request.form.get("new_password", "")
@@ -275,6 +268,7 @@ def account_settings():
 @require_login
 def notifications():
     current_username = session.get("user")
+    user = User.query.filter_by(username=current_username).first_or_404()
     notifications = Notification.query.filter_by(user_id=current_username).order_by(Notification.created_at.desc()).all()
     related_ids = {n.related_user_id for n in notifications if n.related_user_id}
     related_map = {}
@@ -285,7 +279,7 @@ def notifications():
     for n in notifications:
         n.related_displayname = related_map.get(n.related_user_id) if n.related_user_id else None
 
-    return render_template("main/notifications.html", notifications=notifications)
+    return render_template("main/notifications.html", user=user, notifications=notifications)
 
 @main.app_errorhandler(404)
 def page_not_found(e):
