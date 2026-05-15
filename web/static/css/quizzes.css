@@ -1,248 +1,333 @@
-/*basic quiz page styling*/
+/* =========================
+   QUIZZES PAGE
+========================= */
 .quizzes-wrapper {
-    max-width: 1000px;
+    max-width: 1100px;
     width: 100%;
     margin: 0 auto;
-    padding: 40px 24px;
+    padding: 60px 64px;
     font-family: Arial, sans-serif;
-    color: #333333;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
+/* Header */
 .quizzes-header {
-    margin-bottom: 30px;
+    text-align: center;
 }
 
 .quizzes-header h1 {
+    font-size: 52px;
+    font-weight: 800;
     color: #F07060;
-    margin-bottom: 8px;
+    margin: 0 0 12px 0;
 }
 
 .quizzes-header p {
-    color: #666666;
-    margin-top: 0;
+    color: #888;
+    font-size: 16px;
+    margin: 0;
 }
 
-/*Quizzes overall progress bar for the user based on their completed quizzes*/
+/* Overall progress (peach container, salmon fill) */
 .overall-progress-section {
-    background: #fe9900;
-    border: 1px solid #dddddd;
-    padding: 16px;
-    margin-bottom: 40px;
+    background: #f5cebc;
+    border: none;
+    padding: 24px 32px;
+    border-radius: 20px;
 }
 
 .overall-progress-label {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
-    color: #ffffff;
+    margin-bottom: 12px;
+    color: #885a4a;
     font-size: 14px;
+    font-weight: 700;
 }
 
-.overall-prograss-bar-tracking {
-    background: #eeeeee;
-    height: 10px;
+.overall-progress-bar-tracking {
+    background: rgba(255,255,255,0.6);
+    height: 12px;
+    border-radius: 999px;
+    overflow: hidden;
 }
 
-.overall-progress-bar-filling {
+.overall-progress-bar-fill {
     height: 100%;
     width: 0%;
-    background: #f07060;
+    background: #FF958A;
+    border-radius: 999px;
     transition: width 0.5s ease;
 }
 
-/*Seperated quiz sections between completed quizzes and to do quizzes for the user*/
+/* Section */
 .quiz-section {
-    margin-bottom: 40px;
+    display: block;
+    margin-bottom: 0;
 }
 
 .section-title {
-    border-bottom: 1px solid #dddddd;
-    padding-bottom: 8px;
-    color: #f07060;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.12em !important;
+    color: #c08060 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
 }
 
-/*Quiz grid that contains the quiz cards for each quiz in their sections*/
+.quiz-section .quiz-grid {
+    margin-top: 40px !important;
+}
+
+.quiz-section .overall-progress-section {
+    margin-top: 40px !important;
+}
+
+/* Quiz grid */
 .quiz-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 16px;
-    margin-top: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
 }
 
 .loading-text {
-    color: #666666;
-    margin-top: 0;
-}
-
-/*Individual quiz cards that contain quiz information*/
-.quiz-cards {
-    background: #ffbc57;
-    border: 1px solid #dddddd;
-    padding: 20px;
-    cursor: pointer;
-    transition: border-color 0.2s;
-    text-align: left;
-    width: 100%;
-}
-
-.quiz-card:hover {
-    border-color: #f07060;
-}
-
-.quiz-card-name {
-    font-weight: bold;
-    margin-bottom: 8px;
-    margin-top: 0;
-    font-size: 15px;
-    color: #333333;
-}
-
-.quiz-card-desc {
-    color: #666666;
-    margin-bottom: 12px;
-    margin-top: 0;
+    color: #888;
+    margin: 0;
     font-size: 14px;
 }
 
+/* Quiz card */
+.quiz-card,
+.quiz-cards {
+    background: white;
+    border: none;
+    padding: 24px 26px;
+    cursor: pointer;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s, transform 0.15s;
+    text-align: left;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.quiz-card:hover,
+.quiz-cards:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+/* TITLE — biggest, boldest, darkest */
+.quiz-cards-name,
+.quiz-card-name {
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    color: #2a2a2a !important;
+    margin: 0 !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* DESCRIPTION — muted, lighter, smaller */
+.quiz-cards-desc,
+.quiz-card-desc {
+    color: #888 !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+    line-height: 1.6 !important;
+    flex: 1;
+}
+
+/* BADGE — small colored pill at bottom */
+.quiz-cards-badge,
 .quiz-card-badge {
-    display: inline-block;
-    background: #f07060;
-    color: #ffffff;
-    padding: 4px 10px;
-    font-size: 0.8rem;
+    display: inline-block !important;
+    width: fit-content !important;
+    padding: 6px 14px !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    border-radius: 999px !important;
+    background: #FF958A !important;
+    color: white !important;
+    margin: 8px 0 0 0 !important;
+    line-height: 1.3 !important;
+    align-self: flex-start;
 }
 
+/* "To do" / "Not started" variant — softer peach */
+.quiz-cards-badge.todo,
 .quiz-card-badge.todo {
-    background: #eeeeee;
-    color: #666666;
+    background: #ffe0d6 !important;
+    color: #c08060 !important;
 }
 
-/*This is the modal overlay that we will use for when a quiz card has been selected*/
+/* =========================
+   MODAL
+========================= */
 .quiz-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: #333333;
+    background: rgba(50, 30, 20, 0.55);
+    backdrop-filter: blur(4px);
     align-items: center;
     justify-content: center;
     z-index: 1000;
 }
 
-.quiz-overlay.active {
-    display: flex;
-}
+.quiz-overlay.active { display: flex; }
 
 .quiz-modal {
-    background: #ffffff;
-    width: 80%;
+    background: white;
+    width: 90%;
     max-width: 700px;
     max-height: 85vh;
     overflow-y: auto;
     position: relative;
     display: flex;
     flex-direction: column;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
 }
 
-/*This is the modal overlay close button that will override the extended base.css button styles*/
 .quiz-close-btn {
     position: absolute;
-    top: 10px;
-    right: 14px;
+    top: 16px;
+    right: 20px;
     border: none;
-    background: none;
-    font-size: 1.5rem;
+    background: rgba(255,255,255,0.2);
+    font-size: 1.4rem;
     cursor: pointer;
-    color: #ffffff;
-    width: auto;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
     margin-top: 0;
     padding: 0;
     z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
 }
 
 .quiz-close-btn:hover {
-    background: none;
+    background: rgba(255,255,255,0.35);
 }
 
-/*This is the different slide that will exist in the modal when the user selects a quiz card*/
+/* Modal slides */
 .modal-intro,
 .modal-choice,
 .modal-question,
 .modal-results {
-    padding: 40px;
+    padding: 48px 44px;
+    background: white;
+    color: #2a2a2a;
 }
 
-.modal-intro,
-.modal-question {
-    background: #ffb75c;
-    color: #ffffff;
-}
-
-.modal-choice,
-.modal-results {
-    background: #f07060;
-    color: #ffffff;
-}
-
-/*We then override the extended base.css h2 color for inside the modal slides.*/
 .modal-intro h2,
 .modal-choice h2,
-.modal-question h2,
 .modal-results h2 {
-    color: #ffffff;
-    margin-top: 0;
+    color: #F07066;
+    margin: 0 0 14px 0;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 1.2;
 }
 
-/*We also override the extended base.css p margin for inside the modal slides.*/
+/* Question prompt — small light intro */
+.modal-question .question-prompt {
+    color: #999;
+    margin: 0 0 12px 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Actual question — bold and dark for emphasis */
+.modal-question h2 {
+    color: #2a2a2a;
+    margin: 0 0 18px 0;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 1.35;
+}
+
 .modal-intro p,
 .modal-choice p,
-.modal-question p,
 .modal-results p {
     margin-top: 0;
-    font-size: 14px;
-    color: #ffffff;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
 }
 
-/*This is the selected quiz name that goes above th heading in the modal*/
+.modal-question p {
+    margin-top: 0;
+    font-size: 14px;
+    color: #999;
+    line-height: 1.55;
+    font-weight: 500;
+}
+
 .modal-quiz-name,
 .modal-quiz-name-small {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    opacity: 0.8;
-    margin-bottom: 10px;
+    color: #c08060;
+    opacity: 1;
+    margin-bottom: 16px;
+    display: block;
 }
 
 .modal-meta {
-    opacity: 0.8;
-    margin-bottom: 24px;
+    color: #888;
+    margin-bottom: 28px;
+    font-size: 14px;
 }
 
-/*This is for the modal buttons and also overrides the extended base.css button styles.*/
+/* Modal buttons */
 .modal-begin-btn,
 .modal-next-btn,
 .results-done-btn,
 .modal-choice-btns button {
-    padding: 10px 20px;
+    padding: 12px 28px;
     border: none;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 700;
     width: auto;
-    margin-top: 16px;
-    border-radius: 10px;
+    margin-top: 18px;
+    border-radius: 30px;
+    font-size: 15px;
+    transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
 }
 
 .modal-begin-btn,
 .modal-next-btn,
 .results-done-btn {
-    background: #ffffff;
-    color: #f07060;
+    background: #FF958A;
+    color: white;
+    box-shadow: 0 4px 14px rgba(255, 149, 138, 0.3);
 }
 
 .modal-begin-btn:hover,
 .modal-next-btn:hover,
 .results-done-btn:hover {
-    background: #f8f8f8;
+    background: #F07066;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(240, 112, 102, 0.4);
 }
 
 .modal-choice-btns {
@@ -253,57 +338,156 @@
 }
 
 .btn-retake {
-    background: #ffffff;
-    color: #f07060;
+    background: #FF958A;
+    color: white;
 }
 
 .btn-retake:hover {
-    background: #f8f8f8;
+    background: #F07066;
 }
 
 .btn-view-results {
     background: transparent;
-    color: #ffffff;
-    border: 2px solid #ffffff !important;
+    color: #F28A80;
+    border: 2px solid #F28A80 !important;
 }
 
 .btn-view-results:hover {
-    background: #333333;
+    background: #FFF0EA;
+    color: #F07066;
 }
 
-/*This is the modal slider that the user will use to answer quesstions on a 1-5 scale, it overrides the extended base.css input styles.*/
+/* Close button — soft peach circle */
+.quiz-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    border: none;
+    background: #f5cebc;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #c08060;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-top: 0;
+    padding: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+}
+
+.quiz-close-btn:hover {
+    background: #FF958A;
+    color: white;
+}
+
+/* Slider */
 .slider-row {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin: 30px 0;
+    gap: 18px;
+    margin: 36px 0 20px;
 }
 
 .quiz-slider {
+    -webkit-appearance: none;
+    appearance: none;
     flex: 1;
     width: 100%;
+    height: 8px;
     padding: 0;
     margin: 0;
-    border-radius: 0;
+    background: transparent;
     cursor: pointer;
 }
 
-.slider-label {
-    font-size: 1rem;
-    font-weight: bold;
-    opacity: 0.85;
+/* WebKit (Chrome, Safari) — track */
+.quiz-slider::-webkit-slider-runnable-track {
+    height: 8px;
+    background: #FFE0D6;
+    border-radius: 999px;
+    border: none;
 }
 
-.slider-value-display {
-    font-weight: bold;
-    font-size: 1.2rem;
-    min-width: 24px;
+/* WebKit — thumb */
+.quiz-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    margin-top: -7px;
+    background: white;
+    border: 3px solid #FF958A;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(255, 149, 138, 0.4);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.quiz-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 14px rgba(255, 149, 138, 0.6);
+}
+
+/* Firefox — track */
+.quiz-slider::-moz-range-track {
+    height: 8px;
+    background: #FFE0D6;
+    border-radius: 999px;
+    border: none;
+}
+
+.quiz-slider::-moz-range-progress {
+    background: #FF958A;
+    height: 8px;
+    border-radius: 999px;
+}
+
+.quiz-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    background: white;
+    border: 3px solid #FF958A;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(255, 149, 138, 0.4);
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+
+.quiz-slider::-moz-range-thumb:hover {
+    transform: scale(1.15);
+}
+
+.quiz-slider:focus {
+    outline: none;
+}
+
+.slider-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #c08060;
+    min-width: 14px;
     text-align: center;
 }
 
-/*This is the modal results slide for after a user has completed a quiz*/
+.slider-value-display {
+    font-weight: 800;
+    font-size: 1.25rem;
+    min-width: 44px;
+    text-align: center;
+    background: #FF958A;
+    color: white;
+    border-radius: 12px;
+    padding: 8px 14px;
+    box-shadow: 0 3px 10px rgba(255, 149, 138, 0.3);
+}
+
+/* Results */
 .results-sub {
-    opacity: 0.9;
+    color: #666;
     margin-bottom: 20px;
 }
 
@@ -311,66 +495,73 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .keyword-chip {
-    background: #333333;
-    border: 1px solid #666666;
+    background: #FFE8E0;
+    border: 1px solid #FFD0C2;
     padding: 6px 14px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #c04030;
     border-radius: 999px;
 }
 
-/*And this is the modal loading slide*/
-.modal-loading {
-    padding: 60px 40px;
-    text-align: center;
-    color: #666666;
-}
-
-.modal-loading p {
-    color: #666666;
-    margin-top: 0;
-}
-
-/*This is the progress bar for the quiz as the user does it and it goes at the bottom of the modal*/
-.modal-progress-bar-track {
+/* Modal progress bar */
+.modal-progress-bar-track,
+.modal-progress-bar-tracking {
     height: 6px;
-    background: #eeeeee;
+    background: #f0e0d6;
     flex-shrink: 0;
 }
 
 .modal-progress-bar-fill {
     height: 100%;
     width: 0%;
-    background: #f07060;
+    background: #FF958A;
     transition: width 0.4s ease;
 }
 
-.modal-progress-label {
-    display: none;
+/* Loading */
+.modal-loading {
+    padding: 60px 40px;
+    text-align: center;
+    color: #888;
+}
+
+.modal-loading p {
+    color: #888;
+    margin-top: 0;
+}
+
+.modal-progress-label { display: none; }
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+    .quizzes-wrapper {
+        padding: 40px 32px;
+    }
+    .quizzes-header h1 { font-size: 40px; }
 }
 
 @media (max-width: 600px) {
     .quizzes-wrapper {
-        padding: 24px 16px;
+        padding: 32px 18px;
+        gap: 24px;
     }
-    .quiz-modal {
-        width: 95%;
-    }
+    .quizzes-header h1 { font-size: 32px; }
+    .quizzes-header p { font-size: 14px; }
+    .quiz-modal { width: 95%; }
     .modal-intro,
     .modal-choice,
     .modal-question,
     .modal-results {
-        padding: 28px;
+        padding: 32px 24px;
     }
-    .quiz-grid {
-        grid-template-columns: 1fr;
-    }
-    .modal-choice-btns {
-        flex-direction: column;
-    }
+    .quiz-grid { grid-template-columns: 1fr; }
+    .modal-choice-btns { flex-direction: column; }
+    .modal-choice-btns button { width: 100%; }
 }
