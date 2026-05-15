@@ -223,3 +223,24 @@
 .carousel-control-next {
     pointer-events: none;
 }
+
+
+/* Dashboard section header */
+.dash-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view-more-link {
+    color: #F28A80;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.view-more-link:hover {
+    color: #ED553D;
+    transform: translateX(2px);
+}
