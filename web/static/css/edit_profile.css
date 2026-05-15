@@ -96,3 +96,157 @@
     color: #b8745f;
     font-size: 14px;
 }
+
+/* =========================
+   EDIT PROFILE PAGE — RESPONSIVE
+   (scoped to .edit-profile-grid so profile/account pages aren't affected)
+========================= */
+
+/* Medium desktop / tablet (≤ 1200px) */
+@media (max-width: 1200px) {
+    .edit-profile-grid {
+        grid-template-columns: minmax(520px, 2fr) 1px minmax(300px, 1fr);
+        gap: 28px;
+        max-width: 1000px;
+    }
+
+    .profile-divider {
+        min-height: 880px;
+    }
+}
+
+/* Tablet & smaller (≤ 1024px) */
+@media (max-width: 1024px) {
+    .profile-content {
+        padding: 60px 40px !important;
+    }
+
+    .profile-content .profile-name {
+        font-size: 48px;
+    }
+
+    .edit-profile-grid {
+        grid-template-columns: 1fr;
+        max-width: 720px;
+        gap: 28px;
+    }
+
+    .profile-divider {
+        display: none;
+    }
+
+    .social-card {
+        max-width: none;
+    }
+}
+
+/* Small tablet / large mobile (≤ 768px) */
+@media (max-width: 768px) {
+    .profile-content {
+        padding: 48px 28px !important;
+        gap: 28px;
+    }
+
+    .profile-content .profile-header {
+        gap: 24px;
+    }
+
+    .profile-content .profile-avatar-large {
+        width: 96px;
+        height: 96px;
+        min-width: 96px;
+        font-size: 38px;
+    }
+
+    .profile-content .profile-name {
+        font-size: 38px;
+    }
+
+    .profile-card,
+    .social-card {
+        padding: 26px;
+        border-radius: 22px;
+    }
+
+    .profile-input {
+        padding: 15px 18px;
+        font-size: 15px;
+    }
+}
+
+/* Mobile (≤ 560px) */
+@media (max-width: 560px) {
+    .profile-content {
+        padding: 36px 18px !important;
+        gap: 24px;
+    }
+
+    .profile-content .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+    }
+
+    .profile-content .profile-avatar-large {
+        width: 82px;
+        height: 82px;
+        min-width: 82px;
+        font-size: 32px;
+    }
+
+    .profile-content .profile-name {
+        font-size: 30px;
+    }
+
+    .profile-card,
+    .social-card {
+        padding: 22px;
+        border-radius: 20px;
+    }
+
+    .section-label {
+        font-size: 12px;
+        letter-spacing: 0.08em;
+    }
+
+    .profile-input {
+        padding: 14px 16px;
+        font-size: 14px;
+        border-radius: 14px;
+    }
+
+    .field-hint {
+        font-size: 10px;
+    }
+
+    .edit-profile-btn {
+        width: 100%;
+        min-width: 0;
+        font-size: 15px;
+        padding: 14px 26px;
+    }
+
+    .cancel-link {
+        margin-left: 0;
+    }
+}
+
+/* Tiny mobile (≤ 360px) */
+@media (max-width: 360px) {
+    .profile-content {
+        padding: 28px 14px !important;
+    }
+
+    .profile-content .profile-name {
+        font-size: 26px;
+    }
+
+    .profile-card,
+    .social-card {
+        padding: 18px;
+    }
+
+    .profile-input {
+        font-size: 13px;
+    }
+}
