@@ -14,15 +14,24 @@
     <h1 class="dashboard-greeting">My Matches</h1>
     <p class="matching-subtitle">Find study partners based on your quiz answers</p>
 
-    {% if not matches or matches|length == 0 %}
-        <!-- EMPTY STATE: No matches yet -->
+    {% if not has_quizzes %}
+        <!-- STATE 1: User hasn't taken any quizzes yet -->
         <div class="matching-empty">
             <p class="matching-empty-title">No matches yet</p>
             <p class="matching-empty-subtitle">Take a quiz to find study partners who match your vibe!</p>
             <a href="{{ url_for('quizzes.quizzes_page') }}" class="quiz-cta-btn">Take a quiz</a>
         </div>
+
+    {% elif not matches or matches|length == 0 %}
+        <!-- STATE 2: User has taken quizzes but no matches found -->
+        <div class="matching-empty">
+            <p class="matching-empty-title">No matches found yet</p>
+            <p class="matching-empty-subtitle">We couldn't find study partners that match your quiz answers yet. Try taking more quizzes — new users join every day!</p>
+            <a href="{{ url_for('quizzes.quizzes_page') }}" class="quiz-cta-btn">Take more quizzes</a>
+        </div>
+
     {% else %}
-        <!-- MATCH RESULTS -->
+        <!-- STATE 3: User has matches -->
         <div class="matching-grid">
             {% for match in matches %}
             <div class="user-card-wrap">
@@ -46,7 +55,7 @@
             {% endfor %}
         </div>
 
-        <!-- Persistent CTA -->
+        <!-- Persistent CTA when matches exist -->
         <div class="quiz-cta-footer">
             <p>Want more matches?</p>
             <a href="{{ url_for('quizzes.quizzes_page') }}" class="quiz-cta-link">Take more quizzes →</a>
