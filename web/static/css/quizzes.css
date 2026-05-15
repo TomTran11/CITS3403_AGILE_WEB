@@ -10,7 +10,7 @@
     color: #333;
     display: flex;
     flex-direction: column;
-    gap: 36px;
+    gap: 40px;
 }
 
 /* Header */
@@ -66,7 +66,7 @@
 /* Section */
 .quiz-section {
     display: block;
-    margin-bottom: 60px;
+    margin-bottom: 0;
 }
 
 .section-title {
@@ -81,11 +81,11 @@
 }
 
 .quiz-section .quiz-grid {
-    margin-top: 56px !important;
+    margin-top: 40px !important;
 }
 
 .quiz-section .overall-progress-section {
-    margin-top: 56px !important;
+    margin-top: 40px !important;
 }
 
 /* Quiz grid */
@@ -231,37 +231,42 @@
 .modal-question,
 .modal-results {
     padding: 44px 40px;
-}
-
-.modal-intro,
-.modal-question {
-    background: #FFB75C;
-    color: white;
-}
-
-.modal-choice,
-.modal-results {
-    background: linear-gradient(135deg, #F07060, #FF958A);
-    color: white;
+    background: #fafafa;
+    color: #2a2a2a;
 }
 
 .modal-intro h2,
 .modal-choice h2,
-.modal-question h2,
 .modal-results h2 {
-    color: white;
+    color: #F07066;
     margin: 0 0 12px 0;
     font-weight: 800;
     font-size: 26px;
 }
 
+/* Question prompt: keep accent salmon */
+.modal-question h2,
+.modal-question .question-prompt {
+    color: #2a2a2a;
+    margin: 0 0 16px 0;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 1.35;
+}
+
 .modal-intro p,
 .modal-choice p,
-.modal-question p,
 .modal-results p {
     margin-top: 0;
     font-size: 15px;
-    color: rgba(255,255,255,0.9);
+    color: #666;
+    line-height: 1.55;
+}
+
+.modal-question p {
+    margin-top: 0;
+    font-size: 15px;
+    color: #888;
     line-height: 1.55;
 }
 
@@ -271,12 +276,13 @@
     font-weight: 800;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    opacity: 0.85;
-    margin-bottom: 10px;
+    color: #F28A80;
+    opacity: 1;
+    margin-bottom: 14px;
 }
 
 .modal-meta {
-    opacity: 0.85;
+    color: #888;
     margin-bottom: 26px;
 }
 
@@ -293,23 +299,23 @@
     margin-top: 18px;
     border-radius: 30px;
     font-size: 15px;
-    transition: transform 0.15s, box-shadow 0.2s;
+    transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
 }
 
 .modal-begin-btn,
 .modal-next-btn,
 .results-done-btn {
-    background: white;
-    color: #F07060;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    background: #FF958A;
+    color: white;
+    box-shadow: 0 4px 14px rgba(255, 149, 138, 0.3);
 }
 
 .modal-begin-btn:hover,
 .modal-next-btn:hover,
 .results-done-btn:hover {
-    background: white;
+    background: #F07066;
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    box-shadow: 0 6px 18px rgba(240, 112, 102, 0.4);
 }
 
 .modal-choice-btns {
@@ -320,20 +326,50 @@
 }
 
 .btn-retake {
-    background: white;
-    color: #F07060;
+    background: #FF958A;
+    color: white;
 }
 
-.btn-retake:hover { background: #FFF5F0; }
+.btn-retake:hover {
+    background: #F07066;
+}
 
 .btn-view-results {
     background: transparent;
-    color: white;
-    border: 2px solid white !important;
+    color: #F28A80;
+    border: 2px solid #F28A80 !important;
 }
 
 .btn-view-results:hover {
-    background: rgba(255,255,255,0.15);
+    background: #FFF0EA;
+    color: #F07066;
+}
+
+/* Close button — soft peach circle */
+.quiz-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    border: none;
+    background: #f5cebc;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #c08060;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-top: 0;
+    padding: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+}
+
+.quiz-close-btn:hover {
+    background: #FF958A;
+    color: white;
 }
 
 /* Slider */
@@ -350,13 +386,14 @@
     padding: 0;
     margin: 0;
     cursor: pointer;
-    accent-color: white;
+    accent-color: #FF958A;
+    background: transparent;
 }
 
 .slider-label {
     font-size: 0.95rem;
     font-weight: 700;
-    opacity: 0.9;
+    color: #888;
 }
 
 .slider-value-display {
@@ -364,14 +401,15 @@
     font-size: 1.3rem;
     min-width: 28px;
     text-align: center;
-    background: rgba(255,255,255,0.2);
-    border-radius: 8px;
-    padding: 4px 10px;
+    background: #FF958A;
+    color: white;
+    border-radius: 10px;
+    padding: 6px 12px;
 }
 
 /* Results */
 .results-sub {
-    opacity: 0.9;
+    color: #666;
     margin-bottom: 20px;
 }
 
@@ -383,13 +421,28 @@
 }
 
 .keyword-chip {
-    background: rgba(255,255,255,0.22);
-    border: 1px solid rgba(255,255,255,0.3);
+    background: #FFE8E0;
+    border: 1px solid #FFD0C2;
     padding: 6px 14px;
     font-size: 0.85rem;
-    font-weight: 600;
-    color: white;
+    font-weight: 700;
+    color: #c04030;
     border-radius: 999px;
+}
+
+/* Modal progress bar */
+.modal-progress-bar-track,
+.modal-progress-bar-tracking {
+    height: 6px;
+    background: #f0e0d6;
+    flex-shrink: 0;
+}
+
+.modal-progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: #FF958A;
+    transition: width 0.4s ease;
 }
 
 /* Loading */
@@ -402,21 +455,6 @@
 .modal-loading p {
     color: #888;
     margin-top: 0;
-}
-
-/* Modal progress bar */
-.modal-progress-bar-track,
-.modal-progress-bar-tracking {
-    height: 6px;
-    background: rgba(255,255,255,0.2);
-    flex-shrink: 0;
-}
-
-.modal-progress-bar-fill {
-    height: 100%;
-    width: 0%;
-    background: white;
-    transition: width 0.4s ease;
 }
 
 .modal-progress-label { display: none; }
