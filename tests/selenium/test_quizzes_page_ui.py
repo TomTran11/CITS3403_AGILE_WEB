@@ -90,7 +90,7 @@ def test_quizzes_page_loads_correctly(driver):
 
     #We wait for the quiz cards to load into their sections
     WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, ".quiz-card"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".quiz-cards"))
     )
 
     #We then check that both sections are visible
@@ -98,8 +98,8 @@ def test_quizzes_page_loads_correctly(driver):
     assert driver.find_element(By.ID, "todo-section").is_displayed()
 
     #We check that each section has quiz cards in them
-    assert len(driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-card")) > 0
-    assert len(driver.find_elements(By.CSS_SELECTOR, "#todo-list .quiz-card")) > 0
+    assert len(driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-cards")) > 0
+    assert len(driver.find_elements(By.CSS_SELECTOR, "#todo-list .quiz-cards")) > 0
 
     #We also check that the overall progress bar is visible and shows the progress text
     assert driver.find_element(By.CSS_SELECTOR, ".overall-progress-section").is_displayed()
@@ -113,11 +113,11 @@ def test_completed_quiz_modal_flow(driver):
 
     #We then wait until the quiz cards appear in the completed list section
     WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#completed-list .quiz-card"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#completed-list .quiz-cards"))
     )
 
     #We then click on a completed quiz card
-    driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-card")[0].click()
+    driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-cards")[0].click()
     time.sleep(1)
 
     #A modal should then open and we confirm that it does and that 2 buttons are present, retake and view results
@@ -138,7 +138,7 @@ def test_completed_quiz_modal_flow(driver):
     time.sleep(1)
 
     #And click to reopen the exact same quiz card and check the other button option
-    driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-card")[0].click()
+    driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-cards")[0].click()
     time.sleep(1)
 
     #We click the other button to retake the quiz
@@ -173,14 +173,14 @@ def test_todo_quiz_full_flow(driver):
 
     #We wait until a quiz card loads into the to-do section
     WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#todo-list .quiz-card"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#todo-list .quiz-cards"))
     )
 
     #We look for the time availability quiz card as charlie hasnt done it yet
-    todo_cards = driver.find_elements(By.CSS_SELECTOR, "#todo-list .quiz-card")
+    todo_cards = driver.find_elements(By.CSS_SELECTOR, "#todo-list .quiz-cards")
     time_availability_card = next(
         card for card in todo_cards
-        if "Time Availability" in card.find_element(By.CSS_SELECTOR, ".quiz-card-name").text
+        if "Time Availability" in card.find_element(By.CSS_SELECTOR, ".quiz-cards-name").text
     )
 
     #We then open the selected quiz card
@@ -216,18 +216,18 @@ def test_sections_update_after_submission(driver):
     go_to_quizzes(driver)
 
     WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, "#todo-list .quiz-card"))
+        EC.presence_of_element_located((By.CSS_SELECTOR, "#todo-list .quiz-cards"))
     )
 
     #We record the state of the progress bar and completed quiz card numbers to have as a comparison point
     initial_progress = driver.find_element(By.ID, "overall-progress-percent").text
-    initial_completed_count = len(driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-card"))
+    initial_completed_count = len(driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-cards"))
 
     #We find and click the time availability quiz card
-    todo_cards = driver.find_elements(By.CSS_SELECTOR, "#todo-list .quiz-card")
+    todo_cards = driver.find_elements(By.CSS_SELECTOR, "#todo-list .quiz-cards")
     time_availability_card = next(
         card for card in todo_cards
-        if "Time Availability" in card.find_element(By.CSS_SELECTOR, ".quiz-card-name").text
+        if "Time Availability" in card.find_element(By.CSS_SELECTOR, ".quiz-cards-name").text
     )
     time_availability_card.click()
     time.sleep(1)
@@ -249,10 +249,10 @@ def test_sections_update_after_submission(driver):
     assert driver.find_element(By.ID, "overall-progress-percent").text != initial_progress
 
     #THen we check the completed section has one more card
-    updated_completed_count = len(driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-card"))
+    updated_completed_count = len(driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-cards"))
     assert updated_completed_count == initial_completed_count + 1
 
     #We check that there are no duplicate cards anywhere on the page
-    all_cards = driver.find_elements(By.CSS_SELECTOR, ".quiz-card")
-    card_names = [c.find_element(By.CSS_SELECTOR, ".quiz-card-name").text for c in all_cards]
+    all_cards = driver.find_elements(By.CSS_SELECTOR, ".quiz-cards")
+    card_names = [c.find_element(By.CSS_SELECTOR, ".quiz-cards-name").text for c in all_cards]
     assert len(card_names) == len(set(card_names))
