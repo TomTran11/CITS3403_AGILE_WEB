@@ -37,7 +37,6 @@
     border: none;
     padding: 24px 32px;
     border-radius: 20px;
-    margin-top: 16px;
 }
 
 .overall-progress-label {
@@ -66,21 +65,27 @@
 
 /* Section */
 .quiz-section {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    margin-bottom: 20px;
+    display: block;
+    margin-bottom: 60px;
 }
 
 .section-title {
-    font-size: 13px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: #c08060;
-    margin: 0 0 4px 0;
-    padding: 0;
-    border: none;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.12em !important;
+    color: #c08060 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.quiz-section .quiz-grid {
+    margin-top: 56px !important;
+}
+
+.quiz-section .overall-progress-section {
+    margin-top: 56px !important;
 }
 
 /* Quiz grid */
