@@ -119,10 +119,11 @@
 .remove-btn:hover {
     text-decoration: underline;
     background-color: transparent;
+}
+
 /* =========================
    EDIT PROFILE PAGE — RESPONSIVE
    (scoped to .edit-profile-grid so profile/account pages aren't affected)
-========================= */
 
 /* Medium desktop / tablet (≤ 1200px) */
 @media (max-width: 1200px) {
