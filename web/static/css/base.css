@@ -72,11 +72,14 @@ body {
 ========================= */
 
 
+
 .carousel-indicators li{
-    width: 10px;
-    height: 10px;
-    min-height: 5px;
-    min-width: 5px;
+    width: 1vw;
+    height: 1vw;
+    border-width: 0px;
+    margin: 1vw;
+
+
 
     border-radius: 100%;
     background-color: #F79181;
