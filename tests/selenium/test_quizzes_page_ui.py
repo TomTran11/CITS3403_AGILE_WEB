@@ -117,7 +117,10 @@ def test_completed_quiz_modal_flow(driver):
     )
 
     #We then click on a completed quiz card
-    driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-cards")[0].click()
+    completed_card = driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-cards")[0]
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", completed_card)
+    time.sleep(0.5)
+    completed_card.click()
     time.sleep(1)
 
     #A modal should then open and we confirm that it does and that 2 buttons are present, retake and view results
@@ -135,15 +138,34 @@ def test_completed_quiz_modal_flow(driver):
 
     #Next we close the modal
     close_modal(driver)
-    time.sleep(1)
+    WebDriverWait(driver, 5).until(
+        lambda d: "active" not in d.find_element(By.ID, "quiz-overlay").get_attribute("class")
+    )
+    time.sleep(0.5)
 
     #And click to reopen the exact same quiz card and check the other button option
-    driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-cards")[0].click()
+    completed_card = driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-cards")[0]
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", completed_card)
+    time.sleep(0.5)
+    completed_card.click()
     time.sleep(1)
 
-    #We click the other button to retake the quiz
+    #We click the retake button
     driver.find_element(By.CSS_SELECTOR, ".btn-retake").click()
+    #And wait for the question modal to appear on the screen
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".modal-intro"))
+    )
+    assert driver.find_element(By.CSS_SELECTOR, ".modal-intro").is_displayed()
+
+    #We then click the begin button to start the quiz
+    driver.find_element(By.ID, "begin-btn").click()
     time.sleep(1)
+
+    #We then wait for the modal question slide to appear
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".modal-question"))
+    )
 
     #We then check that a modal opens and that it is the question modal as we move to retake the quiz
     assert driver.find_element(By.CSS_SELECTOR, ".modal-question").is_displayed()
@@ -184,8 +206,15 @@ def test_todo_quiz_full_flow(driver):
     )
 
     #We then open the selected quiz card
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", time_availability_card)
+    time.sleep(0.5)
     time_availability_card.click()
-    time.sleep(1)
+
+    #We then also wait for the modal overlay to become active
+    WebDriverWait(driver, 10).until(
+        lambda d: "active" in d.find_element(By.ID, "quiz-overlay").get_attribute("class")
+    )
+    time.sleep(0.5)
 
     #We check that the intro modal slide is opened with the begin button
     assert driver.find_element(By.CSS_SELECTOR, ".modal-intro").is_displayed()
@@ -229,8 +258,15 @@ def test_sections_update_after_submission(driver):
         card for card in todo_cards
         if "Time Availability" in card.find_element(By.CSS_SELECTOR, ".quiz-cards-name").text
     )
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", time_availability_card)
+    time.sleep(0.5)
     time_availability_card.click()
-    time.sleep(1)
+
+    #We then also wait for the modal overlay to become active
+    WebDriverWait(driver, 10).until(
+        lambda d: "active" in d.find_element(By.ID, "quiz-overlay").get_attribute("class")
+    )
+    time.sleep(0.5)
 
     #We complete the quiz by calling the helper function
     driver.find_element(By.ID, "begin-btn").click()
