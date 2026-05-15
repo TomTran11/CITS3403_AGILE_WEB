@@ -14,23 +14,44 @@
     <h1 class="dashboard-greeting">My Matches</h1>
     <p class="matching-subtitle">People who match your vibe ✨</p>
 
-    <div class="matching-grid">
-        {% for i in range(9) %}
-        <div class="user-card">
-            <div class="user-card-header">
-                <div class="user-card-avatar" style="background: {{ ['#F28A80','#FFB75C','#e07070'][i % 3] }}">?</div>
-                <span class="user-card-name">Name Lastname</span>
-            </div>
-            <div class="user-card-tags">
-                <span class="user-tag" style="background:#FFB75C"></span>
-                <span class="user-tag" style="background:#F28A80"></span>
-                <span class="user-tag" style="background:#e8a060"></span>
-            </div>
-            <p class="user-card-bio">Short bio that is around a sentence long.</p>
-            <button class="heart-btn">♡</button>
+    {% if not matches or matches|length == 0 %}
+        <!-- EMPTY STATE: No matches yet -->
+        <div class="matching-empty">
+            <p class="matching-empty-title">No matches yet</p>
+            <p class="matching-empty-subtitle">Take some quizzes so we can find study partners that match your vibe!</p>
+            <a href="{{ url_for('quizzes.quizzes_page') }}" class="quiz-cta-btn">Take a quiz</a>
         </div>
-        {% endfor %}
-    </div>
+    {% else %}
+        <!-- MATCH RESULTS -->
+        <div class="matching-grid">
+            {% for match in matches %}
+            <div class="user-card-wrap">
+                <a href="{{ url_for('main.view_user', username=match.username) }}" class="user-card">
+                    <div class="user-card-header">
+                        <div class="user-card-avatar" style="background: {{ (['#FE9900','#FFBC57','#FFB697','#F79181','#ED553D']*4)[loop.index0] }}">
+                            {{ match.displayname[0] | upper }}
+                        </div>
+                        <span class="user-card-name">{{ match.displayname }}</span>
+                    </div>
+                    <p class="user-card-bio">
+                        {{ match.bio_entry.bio_text if match.bio_entry and match.bio_entry.bio_text else 'No bio added yet.' }}
+                    </p>
+                </a>
+                <button class="heart-btn {% if match.username in liked_usernames %}liked{% endif %}"
+                        type="button" data-username="{{ match.username }}"
+                        data-liked="{{ 'true' if match.username in liked_usernames else 'false' }}">
+                    {{ '♥' if match.username in liked_usernames else '♡' }}
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Persistent CTA -->
+        <div class="quiz-cta-footer">
+            <p>Want more matches?</p>
+            <a href="{{ url_for('quizzes.quizzes_page') }}" class="quiz-cta-link">Take more quizzes →</a>
+        </div>
+    {% endif %}
 
     <a href="{{ url_for('main.dashboard') }}" class="cancel-link" style="text-align:center; display:block; margin-top:20px;">← Back to Dashboard</a>
 
