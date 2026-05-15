@@ -71,15 +71,17 @@ body {
    CAROUSEL
 ========================= */
 
+
 .carousel-indicators li{
     width: 10px;
     height: 10px;
+    min-height: 5px;
+    min-width: 5px;
+
     border-radius: 100%;
     background-color: #F79181;
     
 }
-
-
 
 
 .carousel-control-prev-icon,
@@ -90,74 +92,51 @@ body {
 }
 
 
-
-
 .carousel-control-prev-icon:after {
     content: "\25C0";
-    font-size: 50px;
+    font-size: 4vw;
     align-items: center;
 }
 
 .carousel-control-next-icon:after {
     content: "\25B6"; 
-    font-size: 50px;
+    font-size: 4vw;
     opacity: 1;
     justify-content: center;
 }
 
-.carousel-inner {
-    
 
+.carousel-inner {
+    width: 100%;
+    height: 87.4%;
     box-sizing: border-box;
     text-align: left;
-
-    
+    overflow: show;
 }
+
 
 
 .carousel-image {
+    object-fit: cover;
     float: left;
     border-radius: 30%;
-    width: 300px;
-    height: 300px;
-    margin-top: 50px;
-    margin-left: 200px;
- 
+    width: 22vw;
+    height: 22vw;
+    margin-left: 15%;
+    margin-top: 5%;
 }
 
 .carousel-text {
-    
-    margin: 50px;
-    margin-top: 100px;
-    line-height: 1.2;
+    margin: 4vw;
+    margin-top: 10vw;
+    line-height: 3vw;
     display: inline-block;
     color: #333;
     font-weight: bold;
-
 }
 
 
-/* =========================
-   LANDING
-========================= */
 
-.landing .btn {
-    background: #FFBC57;
-    color: white;
-    border-color:#FFDBCC;
-    border-width: 3px;
-    border-radius: 30px;
-    padding: 8px 50px;
-    margin: 20px 20px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.landing .btn:hover {
-    background: #ED553D;
-    border-color:#ED553D;
-    
-}
 
 .nav-right .btn:hover { background: #E57368; }
 

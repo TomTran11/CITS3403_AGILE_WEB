@@ -1,0 +1,34 @@
+h1{
+    font-size: 4vw
+}
+
+h2{
+    font-size: 3vw
+}
+
+
+h5{
+    font-size: 1.75vw
+}
+
+/* =========================
+   Button
+========================= */
+
+.landing .btn {
+    background: #FFBC57;
+    color: white;
+    border-color:#FFDBCC;
+    border-width: 0.25vw;
+    border-radius: 7vw;
+    padding: 1vw 3.5vw;
+    margin: 1.5vw 1.5vw;
+    font-size: 1.75vw;
+    font-weight: bold;
+}
+
+.landing .btn:hover {
+    background: #ED553D;
+    border-color:#ED553D;
+    
+}
