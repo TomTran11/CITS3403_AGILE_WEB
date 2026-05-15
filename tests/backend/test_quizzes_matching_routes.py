@@ -51,7 +51,7 @@ def login(client, username):
 
 def test_matching_requires_login(client):
     response = client.get("/matching/", follow_redirects=False)
-    assert response.status_code in [302, 303]
+    assert response.status_code == 401
 
 
 def test_no_quiz_answers_returns_empty_matches(client, app):
