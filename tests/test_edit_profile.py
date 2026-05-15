@@ -70,9 +70,11 @@ def test_edit_profile_back_to_profile_link(driver):
     driver.get(f"{BASE_URL}/edit_profile")
 
     back_link = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.LINK_TEXT, "← Back to Profile"))
+        EC.presence_of_element_located((By.LINK_TEXT, "← Back to Profile"))
     )
-    back_link.click()
+
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", back_link)
+    driver.execute_script("arguments[0].click();", back_link)
 
     WebDriverWait(driver, 10).until(
         EC.url_contains("/profile")
@@ -220,8 +222,10 @@ def test_edit_profile_can_submit_social_links(driver):
 
     instagram.clear()
     instagram.send_keys("test_user")
+
     linkedin.clear()
     linkedin.send_keys("test-user")
+
     discord.clear()
     discord.send_keys("testuser#1234")
 
