@@ -114,7 +114,7 @@ def about():
 def forgot_password():
     email = request.form.get('email', '').strip().lower()
 
-    if not email or not re.match(r'^[0-9]{6}@student\.uwa\.edu\.au$', email):
+    if not email or not re.match(r'^[0-9]{8}@student\.uwa\.edu\.au$', email):
         return jsonify({"error": "Invalid email"}), 400
 
     user = User.query.filter_by(email=email).first()

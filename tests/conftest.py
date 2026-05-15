@@ -95,45 +95,31 @@ def logged_in_client(client, app):
 //                                                                         //
 /////////////////////////////////////////////////////////////////////////////
 """
-
-"""
-    Creates a Selenium browser driver.
-
-    Default browser: Chrome
-
-    Run with different browsers:
-
-        BROWSER=chrome pytest tests/selenium/test_login_ui.py
-        BROWSER=firefox pytest tests/selenium/test_login_ui.py
-        BROWSER=edge pytest tests/selenium/test_login_ui.py
-        BROWSER=safari pytest tests/selenium/test_login_ui.py
-
-    Safari only works on macOS.
-    """
 @pytest.fixture
 def driver():
     browser = os.getenv("BROWSER", "chrome").lower()
+    headless = os.getenv("HEADLESS", "false").lower() == "true"
+    browser_binary = os.getenv("BROWSER_BINARY")
 
     if browser == "firefox":
         options = FirefoxOptions()
 
-        # Use this if do NOT want the browser window to open
-        # options.add_argument("--headless")
+        if browser_binary:
+            options.binary_location = browser_binary
 
-        # Only use this if Selenium cannot find Firefox automatically
-        # options.binary_location = "/usr/bin/firefox"
+        if headless:
+            options.add_argument("--headless")
 
         driver = webdriver.Firefox(options=options)
 
     elif browser == "edge":
         options = EdgeOptions()
 
-        # Use this if do NOT want the browser window to open
-        # options.add_argument("--headless=new")
+        if browser_binary:
+            options.binary_location = browser_binary
 
-        # Only use this if Edge is installed inside WSL/Linux
-        # options.binary_location = "/usr/bin/microsoft-edge"
-        # options.binary_location = "/usr/bin/microsoft-edge-stable"
+        if headless:
+            options.add_argument("--headless=new")
 
         options.add_argument("--window-size=1200,900")
         options.add_argument("--no-sandbox")
@@ -142,25 +128,21 @@ def driver():
         driver = webdriver.Edge(options=options)
 
     elif browser == "safari":
-        options = SafariOptions()
-
-        # Safari only works on macOS.
-        # Before using Safari, run this once on Mac:
+        # Safari does not support normal headless mode.
+        # Run once before using Safari:
         # safaridriver --enable
-        #
-        # Also enable:
-        # Safari > Develop > Allow Remote Automation
-
+        # Then enable Safari > Develop > Allow Remote Automation
+        options = SafariOptions()
         driver = webdriver.Safari(options=options)
 
     else:
         options = ChromeOptions()
 
-        # Only use this if Selenium cannot find Chrome automatically
-        options.binary_location = "/usr/bin/google-chrome"
+        if browser_binary:
+            options.binary_location = browser_binary
 
-        # Use this if do NOT want the browser window to open
-        # options.add_argument("--headless=new")
+        if headless:
+            options.add_argument("--headless=new")
 
         options.add_argument("--window-size=1200,900")
         options.add_argument("--no-sandbox")

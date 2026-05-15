@@ -111,10 +111,10 @@ They are used to test:
 Selenium tests are slower than backend tests because they use a real browser.
 
 1. Before running Selenium tests, start the Flask server in one terminal:
-
+(This is because the testing selenium is running on port 60000)
 ```bash
 
-flask --app web run
+flask --app web run --host=0.0.0.0 --port=6000
 
 ```
 

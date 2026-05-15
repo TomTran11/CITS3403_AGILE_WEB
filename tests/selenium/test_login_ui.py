@@ -13,7 +13,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-BASE_URL = "http://127.0.0.1:5000"
+BASE_URL = "http://127.0.0.1:60000"
 
 
 def test_login_page_loads(driver):

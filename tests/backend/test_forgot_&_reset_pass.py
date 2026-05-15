@@ -18,7 +18,7 @@ from web import db
 from web.api.models import User
 
 # Helper function to create a test user
-def create_test_user(username="resetuser", email="123456@student.uwa.edu.au"):
+def create_test_user(username="resetuser", email="12345678@student.uwa.edu.au"):
     user = User(
         username=username,
         displayname="Reset User",
@@ -44,22 +44,22 @@ def test_forgot_password_invalid_email_rejected(client):
 
 def test_forgot_password_valid_email_format_accepted(client):
     response = client.post("/auth/forgot-password", data={
-        "email": "123456@student.uwa.edu.au"
+        "email": "12345678@student.uwa.edu.au"
     })
 
     assert response.status_code == 200
     assert response.is_json
-    assert response.get_json()["message"] == "ok"
+    assert response.get_json()["message"] == "If the email exists, a reset link has been sent."
 
 def test_forgot_password_existing_user_calls_email_service(client, monkeypatch):
     with client.application.app_context():
-        create_test_user(username="resetuser", email="654321@student.uwa.edu.au")
+        create_test_user(username="resetuser", email="12345678@student.uwa.edu.au")
 
     email_called = {"called": False}
 
     def fake_send_reset_email(user):
         email_called["called"] = True
-        assert user.email == "654321@student.uwa.edu.au" 
+        assert user.email == "12345678@student.uwa.edu.au" 
 
     monkeypatch.setattr(
         client.application.email_service,
@@ -68,11 +68,11 @@ def test_forgot_password_existing_user_calls_email_service(client, monkeypatch):
     )
 
     response = client.post("/auth/forgot-password", data={
-        "email": "654321@student.uwa.edu.au"
+        "email": "12345678@student.uwa.edu.au"
     })
 
     assert response.status_code == 200 
-    assert response.get_json()["message"] == "ok"
+    assert response.get_json()["message"] == "If the email exists, a reset link has been sent."
     assert email_called["called"] is True
 
 def test_reset_password_invalid_token_get_redirects_to_login(client):

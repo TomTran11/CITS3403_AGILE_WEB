@@ -12,10 +12,8 @@ import os
 db = SQLAlchemy()
 csrf = CSRFProtect()
 mail = Mail()
-def create_app():
+def create_app(config_name):
     app = Flask(__name__)
-    config_name=os.getenv("FlASK_CONFIG","development").lower()
-
     if config_name =="testing":
         app.config.from_object(TestingConfig)
         print("Using Testing config (explicit)")
@@ -63,4 +61,4 @@ def create_app():
     return app
 
 # create module-level app for convenience
-app = create_app()
+app = create_app(os.getenv("FlASK_CONFIG","development").lower())
