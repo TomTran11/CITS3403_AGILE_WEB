@@ -16,6 +16,8 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         if user and check_password_hash(user.password, password):
+            session.clear()
+            session.permanent=True
             session["user"] = user.username
             flash("Login successful!", "success")
             return redirect(url_for('main.dashboard'))
@@ -23,7 +25,6 @@ def login():
         flash("Invalid username or password.", "danger")
         return render_template('auth/login.html', title="Login")
     
-    session.pop("user", None)
     return render_template('auth/login.html', title="Login")
 
 
@@ -96,7 +97,6 @@ def signup():
         flash('Account created successfully!', 'success')
         return redirect(url_for('auth.login'))
 
-    session.pop("user", None)
     return render_template('auth/signup.html', title="Sign Up")
 
 # LOGOUT
@@ -115,14 +115,14 @@ def forgot_password():
     email = request.form.get('email', '').strip().lower()
 
     if not email or not re.match(r'^[a-zA-Z0-9._%+-]+@student\.uwa\.edu\.au$', email):
-        return jsonify({"error": "Invalid email"}), 400
+        return jsonify({"message": "Invalid email format"}), 400
 
     user = User.query.filter_by(email=email).first()
 
     if user:
         current_app.email_service.send_reset_email(user)
 
-    return jsonify({"message": "ok"})
+    return jsonify({"message": "If the email exists, a reset link has been sent."}), 200
 
 # RESET PASSWORD
 @auth.route('/reset-password/<token>', methods=['GET', 'POST'])

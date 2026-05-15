@@ -94,3 +94,7 @@
 }
 
 .notif-page-item:not(.unread) .notif-page-dot { background: transparent; }
+
+.notif-page-link {display: inline-block;margin-top: 6px;font-size: 0.9rem;}
+
+.notif-page-link:hover {text-decoration: underline;}

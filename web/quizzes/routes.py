@@ -2,6 +2,7 @@ from flask import jsonify, request, session, render_template
 from web.quizzes import quizzes
 from web.quizzes.service import (get_quiz_names, get_quiz_by_name, save_quiz_answers, get_completed_quizzes_for_user, get_keywords_for_quiz)
 from web.auth.utils import require_login
+from web.api.models import User
 
 
 @quizzes.route("/", methods=["GET"])
@@ -13,7 +14,9 @@ def list_quizzes():
 @quizzes.route("/page", methods=["GET"])
 @require_login
 def quizzes_page():
-    return render_template("quizzes/quizzes.html")
+    username = username = session.get("user")
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template("quizzes/quizzes.html",user=user)
 
 @quizzes.route("/<quiz_name>", methods=["GET"])
 def get_quiz(quiz_name):
