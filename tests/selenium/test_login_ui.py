@@ -13,11 +13,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-BASE_URL = "http://127.0.0.1:60000"
-
-
-def test_login_page_loads(driver):
-    driver.get(f"{BASE_URL}/auth/login")
+def test_login_page_loads(driver,base_url):
+    driver.get(f"{base_url}/auth/login")
 
     login_form = driver.find_element(By.ID, "loginForm")
     username_input = login_form.find_element(By.NAME, "username")
@@ -30,8 +27,8 @@ def test_login_page_loads(driver):
     time.sleep(5)
 
 
-def test_user_can_type_into_login_form(driver):
-    driver.get(f"{BASE_URL}/auth/login")
+def test_user_can_type_into_login_form(driver,base_url):
+    driver.get(f"{base_url}/auth/login")
     time.sleep(2)
 
     login_form = driver.find_element(By.ID, "loginForm")
@@ -47,8 +44,8 @@ def test_user_can_type_into_login_form(driver):
     assert password_input.get_attribute("value") == "Password123"
 
 
-def test_invalid_login_shows_error(driver):
-    driver.get(f"{BASE_URL}/auth/login")
+def test_invalid_login_shows_error(driver,base_url):
+    driver.get(f"{base_url}/auth/login")
     time.sleep(2)
 
     login_form = driver.find_element(By.ID, "loginForm")

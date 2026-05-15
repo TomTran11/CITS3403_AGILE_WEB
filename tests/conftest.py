@@ -68,6 +68,10 @@ def create_test_user(
 
     return user
 
+BASE_URL = "http://127.0.0.1:60000"
+@pytest.fixture
+def base_url():
+    return BASE_URL
 
 @pytest.fixture
 def test_user(app):
