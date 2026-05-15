@@ -1,6 +1,6 @@
 .edit-profile-grid {
     display: grid;
-    grid-template-columns: minmax(650px, 2fr) 1px minmax(360px, 1fr);
+    grid-template-columns: minmax(600px, 2fr) 1px minmax(400px, 1fr);
     gap: 36px;
     align-items: start;
     width: 100%;
@@ -100,7 +100,6 @@
 /* =========================
    EDIT PROFILE PAGE — RESPONSIVE
    (scoped to .edit-profile-grid so profile/account pages aren't affected)
-========================= */
 
 /* Medium desktop / tablet (≤ 1200px) */
 @media (max-width: 1200px) {
