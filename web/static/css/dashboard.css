@@ -211,12 +211,6 @@
     position: relative;
 }
 
-.carousel-control-prev-icon {
-@media screen and (max-width: 900px){
-    .carousel-item{
-    flex: 0 0 calc((100%/2) - 40px);
-}
-}
 
 @media screen and (max-width: 650px){
     .carousel-item{
