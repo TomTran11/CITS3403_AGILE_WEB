@@ -81,3 +81,26 @@ def answer_all_questions(driver, q1_value=5, q10_value=4, default_value=3):
         )
         next_btn.click()
         time.sleep(0.5)
+
+#We firstly check if the quiz page loads correctly when navigated too
+def test_quizzes_page_loads_correctly(driver):
+    #Helper functions are used to login and navigate to the page
+    login_user(driver)
+    go_to_quizzes(driver)
+
+    #We wait for the quiz cards to load into their sections
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".quiz-card"))
+    )
+
+    #We then check that both sections are visible
+    assert driver.find_element(By.ID, "completed-section").is_displayed()
+    assert driver.find_element(By.ID, "todo-section").is_displayed()
+
+    #We check that each section has quiz cards in them
+    assert len(driver.find_elements(By.CSS_SELECTOR, "#completed-list .quiz-card")) > 0
+    assert len(driver.find_elements(By.CSS_SELECTOR, "#todo-list .quiz-card")) > 0
+
+    #We also check that the overall progress bar is visible and shows the progress text
+    assert driver.find_element(By.CSS_SELECTOR, ".overall-progress-section").is_displayed()
+    assert "quizzes completed" in driver.find_element(By.ID, "overall-progress-text").text
