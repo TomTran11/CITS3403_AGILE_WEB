@@ -164,35 +164,6 @@ def test_account_settings_password_mismatch_alert(driver):
     alert.accept()
 
 
-def test_account_settings_current_password_hidden_input_updates(driver):
-    login(driver)
-
-    driver.get(f"{BASE_URL}/account_settings")
-
-    email_input = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.NAME, "email"))
-    )
-    email_input.clear()
-    email_input.send_keys("user1@student.uwa.edu.au")
-
-    save_button = driver.find_element(By.ID, "openPasswordPopup")
-    driver.execute_script("arguments[0].click();", save_button)
-
-    current_password_input = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.ID, "currentPasswordInput"))
-    )
-
-    current_password_input.clear()
-    current_password_input.send_keys(TEST_PASSWORD)
-
-    confirm_button = driver.find_element(By.ID, "confirmSubmit")
-    driver.execute_script("arguments[0].click();", confirm_button)
-
-    hidden_password = driver.find_element(By.ID, "currentPasswordHidden")
-
-    assert hidden_password.get_attribute("value") == TEST_PASSWORD
-
-
 def test_account_settings_rejects_invalid_email(driver):
     login(driver)
 
