@@ -9,7 +9,7 @@ from web.auth.utils import require_login
 @main.route('/')
 @main.route('/landing_page')
 def landing_page():
-    return render_template('main/landing_page.html')
+    return render_template('main/landing_page.html', title="Landing Page")
 
 # Dashboard
 @main.route('/dashboard')
@@ -19,9 +19,6 @@ def dashboard():
     user = User.query.filter_by(username=username).first()
     return render_template('main/dashboard.html', user=user)
 
-@main.route('/about')
-def about():
-    return render_template('auth/about.html')
 
 # Profile (view)
 @main.route('/profile')
@@ -29,7 +26,7 @@ def about():
 def profile():
     username = session.get("user")
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('main/profile.html', user=user)
+    return render_template('main/profile.html', title="Profile", user=user)
 
 # Edit profile (GET + POST)
 @main.route('/edit_profile', methods=['GET', 'POST'])
@@ -170,10 +167,6 @@ def account_settings():
     username = session.get("user")
     user = User.query.filter_by(username=username).first()
 
-    if not user:
-        flash("User not found. Please log in again.", "danger")
-        return redirect(url_for("auth.login"))
-
     if request.method == "POST":
         email = request.form.get("email", "").strip()
         new_password = request.form.get("new_password", "")
@@ -234,7 +227,9 @@ def account_settings():
 @main.route('/notifications')
 @require_login
 def notifications():
-    return render_template('main/notifications.html')
+    username = session.get("user")
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('main/notifications.html', user=user)
 
 @main.app_errorhandler(404)
 def page_not_found(e):

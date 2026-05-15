@@ -80,12 +80,12 @@
                 </div>
 
             {% else %}
-                {% if title in ['Login', 'Sign Up'] %}
+                {% if title in ['Login', 'Sign Up', 'Landing Page'] %}
                     <!-- Login / Signup page → About only -->
-                    <a href="{{ url_for('main.about') }}">About</a>
+                    <a href="{{ url_for('auth.about') }}">About</a>
                 {% else %}
                     <!-- Other pages (not logged in) -->
-                    <a href="{{ url_for('main.about') }}">About</a>
+                    <a href="{{ url_for('auth.about') }}">About</a>
                     <a href="{{ url_for('auth.login') }}">Login</a>
                     <a href="{{ url_for('auth.signup') }}" class="btn">Sign Up</a>
                 {% endif %}
