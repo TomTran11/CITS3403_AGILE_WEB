@@ -16,6 +16,95 @@
 }
 
 /* =========================
+   EMPTY STATE (no matches yet)
+========================= */
+.matching-empty {
+    text-align: center;
+    padding: 60px 32px;
+    background: rgba(255, 255, 255, 0.74);
+    border-radius: 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+}
+
+.matching-empty-icon {
+    font-size: 56px;
+    margin-bottom: 16px;
+}
+
+.matching-empty-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #333;
+    margin: 0 0 12px 0;
+}
+
+.matching-empty-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin: 0 auto 28px;
+    max-width: 460px;
+    line-height: 1.5;
+}
+
+.quiz-cta-btn {
+    display: inline-block;
+    background: #FF958A;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px 36px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 6px 16px rgba(255, 149, 138, 0.3);
+}
+
+.quiz-cta-btn:hover {
+    background: #F07066;
+    transform: translateY(-2px);
+    color: white;
+}
+
+/* =========================
+   PERSISTENT QUIZ CTA (shown when matches exist)
+========================= */
+.quiz-prompt {
+    text-align: center;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.quiz-prompt-text {
+    font-size: 16px;
+    color: #555;
+    margin: 0;
+    font-weight: 500;
+}
+
+.quiz-prompt-btn {
+    background: transparent;
+    color: #F28A80;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 8px 20px;
+    border: 2px solid #F28A80;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.quiz-prompt-btn:hover {
+    background: #F28A80;
+    color: white;
+}
+
+/* =========================
    DASHBOARD: My Matches header
    (loaded in dashboard.html too)
 ========================= */
@@ -37,54 +126,44 @@
 
 /* =========================
    MATCHING PAGE — RESPONSIVE
-   (scoped to .matching-content so dashboard isn't affected)
+   (scoped to .matching-content)
 ========================= */
-
-/* Tablet & smaller (≤ 1024px) */
 @media (max-width: 1024px) {
     .matching-content {
         padding: 50px 40px !important;
         gap: 36px !important;
     }
-    .matching-content .dashboard-greeting {
-        font-size: 44px !important;
-    }
+    .matching-content .dashboard-greeting { font-size: 44px !important; }
     .matching-content .matching-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
 }
 
-/* Small tablet / large mobile (≤ 768px) */
 @media (max-width: 768px) {
     .matching-content {
         padding: 40px 28px !important;
         gap: 28px !important;
     }
-    .matching-content .dashboard-greeting {
-        font-size: 36px !important;
-    }
+    .matching-content .dashboard-greeting { font-size: 36px !important; }
     .matching-content .matching-subtitle {
         font-size: 14px;
         margin-top: -20px;
     }
-    .matching-content .matching-grid {
-        gap: 16px;
-    }
-    .matching-content .user-card {
-        padding: 16px;
-    }
+    .matching-content .matching-grid { gap: 16px; }
+    .matching-content .user-card { padding: 16px; }
+    .matching-content .matching-empty { padding: 48px 24px; }
+    .matching-content .matching-empty-title { font-size: 22px; }
+    .matching-content .matching-empty-subtitle { font-size: 14px; }
+    .matching-content .matching-empty-icon { font-size: 44px; }
 }
 
-/* Mobile (≤ 560px) */
 @media (max-width: 560px) {
     .matching-content {
         padding: 32px 18px !important;
         gap: 24px !important;
     }
-    .matching-content .dashboard-greeting {
-        font-size: 28px !important;
-    }
+    .matching-content .dashboard-greeting { font-size: 28px !important; }
     .matching-content .matching-subtitle {
         font-size: 13px;
         margin-top: -16px;
@@ -93,24 +172,92 @@
         grid-template-columns: 1fr;
         gap: 14px;
     }
-    .matching-content .user-card-name {
-        font-size: 15px;
-    }
-    .matching-content .user-card-bio {
-        font-size: 13px;
-    }
-    .matching-content .heart-btn {
-        font-size: 24px;
-        padding: 6px;
-    }
+    .matching-content .user-card-name { font-size: 15px; }
+    .matching-content .user-card-bio { font-size: 13px; }
+    .matching-content .matching-empty { padding: 40px 18px; }
+    .matching-content .quiz-cta-btn { padding: 12px 28px; font-size: 14px; }
+    .matching-content .quiz-prompt { padding: 18px; gap: 12px; }
+    .matching-content .quiz-prompt-text { font-size: 14px; }
 }
 
-/* Tiny mobile (≤ 360px) */
 @media (max-width: 360px) {
     .matching-content {
         padding: 24px 14px !important;
     }
-    .matching-content .dashboard-greeting {
-        font-size: 24px !important;
-    }
+    .matching-content .dashboard-greeting { font-size: 24px !important; }
+}
+
+/* =========================
+   EMPTY STATE + QUIZ CTA
+========================= */
+.matching-empty {
+    text-align: center;
+    padding: 60px 24px;
+    background: #f5cebc;
+    border-radius: 24px;
+}
+
+.matching-empty-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #c04030;
+    margin: 0 0 8px 0;
+}
+
+.matching-empty-subtitle {
+    font-size: 16px;
+    color: #885a4a;
+    margin: 0 0 24px 0;
+}
+
+.quiz-cta-btn {
+    display: inline-block;
+    background: #FF958A;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px 36px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 4px 14px rgba(255, 149, 138, 0.3);
+}
+
+.quiz-cta-btn:hover {
+    background: #F07066;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Persistent CTA shown when matches exist */
+.quiz-cta-footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(245, 206, 188, 0.5);
+    border-radius: 16px;
+    margin-top: 16px;
+}
+
+.quiz-cta-footer p {
+    margin: 0 0 4px 0;
+    color: #885a4a;
+    font-size: 14px;
+}
+
+.quiz-cta-link {
+    color: #F28A80;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+.quiz-cta-link:hover { color: #F07066; }
+
+/* Responsive overrides */
+@media (max-width: 560px) {
+    .matching-content .matching-empty { padding: 40px 18px; }
+    .matching-content .matching-empty-title { font-size: 22px; }
+    .matching-content .matching-empty-subtitle { font-size: 14px; }
+    .matching-content .quiz-cta-btn { padding: 12px 28px; font-size: 14px; }
 }
