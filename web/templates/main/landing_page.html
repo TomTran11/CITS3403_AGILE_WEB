@@ -60,7 +60,43 @@
         <span class="sr-only">Next</span>
       </a>
   </div>
+  <!--How it Work's Section Underneath Carousel-->
+  <section class="how-it-works">
+    <h2 class="how-title">How It Works</h2>
 
+      <!--This is step 1-->
+      <div class="how-step how-step-left">
+        <div class="how-number">1</div>
+        <div class="how-text">
+          <h3>Create Your Account</h3>
+          <p>Sign up with your UWA student email and build your profile. Add your languages, study units, and a short bio so others can get to know you easily.</p>
+        </div>
+      </div>
+
+      <!--This is the second step-->
+      <div class="how-step how-step-right">
+        <div class="how-text">
+          <h3>Complete Your Quizzes</h3>
+          <p>Answer fun personality quizzes like Social Energy, Time Availability, and Communication Style. The more you complete, the better and more potential matches you'll get.</p>
+        </div>
+        <div class="how-number">2</div>
+      </div>
+
+      <!--This is the final third step-->
+      <div class="how-step how-step-left">
+        <div class="how-number">3</div>
+        <div class="how-text">
+          <h3>Find Your Matches</h3>
+          <p>We compare your quiz answers with our propietary algorithm against other UWA students to find people most compatible with your personality.</p>
+        </div>
+      </div>
+
+      <!--This is the final message to a prospective user-->
+      <div class="how-cta">
+        <p class="how-cta-text">It really is that easy.</p>
+        <a href="{{ url_for('auth.signup') }}" class="how-cta-btn">Sign Up Now</a>
+      </div>
+  </section>
 {% endblock %}
 
 {% block title %}Find Your People{% endblock %}
