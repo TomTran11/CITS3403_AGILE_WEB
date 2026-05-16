@@ -21,33 +21,45 @@ document.querySelectorAll(".carousel").forEach(carousel => {
     let current = 0;
     let scroll_size = updateScroll();
     let card_width = $(items).width()+40;
+    let running = 0;
 
     $( window ).resize(function() {
-        if(scroll_size != updateScroll()) {
-            scroll_pos = 0
+        if (running == 1){
+            return
+        }
+        running = 1;
+        setTimeout(function (){
+            scroll_pos = 0;
             current = 0;
             $(inner).animate({scrollLeft: scroll_pos}, 600);
-        }
-        scroll_size = updateScroll();
-        card_width = $(items).width()+40;
+            scroll_size = updateScroll();
+            card_width = $(items).width()+40;
+            console.log($(window).width(), current, card_width, scroll_size);
+            running = 0
+
+        }, 500);
+        
     });
 
 
 
     $(next).on('click', function(){
-
+        console.log("next")
         if (current < items.length-scroll_size){ 
             scroll_pos += card_width;
             $(inner).animate({scrollLeft: scroll_pos}, 600);
             current += 1;
+            console.log("moved")
         }
     });
 
     $(prev).on('click', function(){
+        console.log("prev")
         if (current > 0){ 
             scroll_pos -= card_width;
             $(inner).animate({scrollLeft: scroll_pos}, 600);
             current -= 1;
+            console.log("moved")
         }
     });
 
