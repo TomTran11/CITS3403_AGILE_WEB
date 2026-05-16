@@ -158,8 +158,8 @@ def driver():
 
     driver.quit()
 
+#This resets the database before each selenium tests to ensure a clean database and test users are present
 @pytest.fixture(scope="function", autouse=True)
 def reset_database(request):
-    """Resets the database before each Selenium test."""
     if "selenium" in request.fspath.strpath:
         subprocess.run([sys.executable, "populating_DB.py"], check=True)
