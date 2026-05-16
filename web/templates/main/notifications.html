@@ -43,7 +43,7 @@
 
                     {% if n.related_displayname %}
                         <a 
-                            href="{{ url_for('main.view_profile', displayname=n.related_displayname) }}" 
+                            href="{{ url_for('main.view_user', username=n.related_user_id) }}" 
                             class="notif-page-link"
                         >
                             Click here to view their social contacts

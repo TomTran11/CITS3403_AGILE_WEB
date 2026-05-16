@@ -50,8 +50,6 @@ def view_user(username):
         return render_template('main/profile.html', user=user, viewed_user=viewed_user, can_view_socials=True)
 
     can_view_socials = has_mutual_like(current_username, viewed_user.username)
-    if not can_view_socials:
-        flash("You can only view social contacts for users you have matched with.", "warning")
 
     return render_template('main/profile.html', user=user, viewed_user=viewed_user, can_view_socials=can_view_socials)
 
@@ -70,16 +68,14 @@ def view_profile(displayname):
     current_user = User.query.filter_by(username=current_username).first_or_404()
     other_user = User.query.filter_by(displayname=displayname).first_or_404()
     
-    # View owned profile
     if other_user.username == current_username:
         return redirect(url_for("main.profile"))
 
-    # View others profile
     if not has_mutual_like(current_user.username, other_user.username):
         flash("You can only view social contacts for users you have matched with.", "warning")
         return redirect(url_for("main.dashboard"))
 
-    return render_template('main/profile.html', user=current_user, viewed_user=other_user)
+    return render_template('main/profile.html', user=current_user, viewed_user=other_user, can_view_socials=True)
 
 # Edit profile (GET + POST)
 @main.route('/edit_profile', methods=['GET', 'POST'])
