@@ -35,12 +35,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-BASE_URL = "http://127.0.0.1:5000"
-
 #Helper functions to make running the rest of the tests more streamlined
 #This function logs in the user using one of our fake users
-def login_user(driver, username="charlie", password="password"):
-    driver.get(f"{BASE_URL}/auth/login")
+def login_user(driver, base_url, username="charlie", password="password"):
+    driver.get(f"{base_url}/auth/login")
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.ID, "loginForm"))
     )
@@ -51,8 +49,8 @@ def login_user(driver, username="charlie", password="password"):
     time.sleep(3)
 
 #THis function simply navigates to the quizzes page after logging in
-def go_to_quizzes(driver):
-    driver.get(f"{BASE_URL}/quizzes/page")
+def go_to_quizzes(driver, base_url):
+    driver.get(f"{base_url}/quizzes/page")
     time.sleep(2)
 
 #This helper function closes the current modal slide that were in
@@ -83,10 +81,10 @@ def answer_all_questions(driver, q1_value=5, q10_value=4, default_value=3):
         time.sleep(0.5)
 
 #We firstly check if the quiz page loads correctly when navigated too
-def test_quizzes_page_loads_correctly(driver):
+def test_quizzes_page_loads_correctly(driver, base_url):
     #Helper functions are used to login and navigate to the page
-    login_user(driver)
-    go_to_quizzes(driver)
+    login_user(driver, base_url)
+    go_to_quizzes(driver, base_url)
 
     #We wait for the quiz cards to load into their sections
     WebDriverWait(driver, 10).until(
@@ -106,10 +104,10 @@ def test_quizzes_page_loads_correctly(driver):
     assert "quizzes completed" in driver.find_element(By.ID, "overall-progress-text").text
 
 #We then test the modal flow for when we click on a quiz card in the completed section
-def test_completed_quiz_modal_flow(driver):
+def test_completed_quiz_modal_flow(driver, base_url):
     #We use our helper functions to login and navigate to the page
-    login_user(driver)
-    go_to_quizzes(driver)
+    login_user(driver, base_url)
+    go_to_quizzes(driver, base_url)
 
     #We then wait until the quiz cards appear in the completed list section
     WebDriverWait(driver, 10).until(
@@ -189,9 +187,9 @@ def test_completed_quiz_modal_flow(driver):
     assert "active" not in driver.find_element(By.ID, "quiz-overlay").get_attribute("class")
 
 #We then test the full flow for a todo quiz card
-def test_todo_quiz_full_flow(driver):
-    login_user(driver)
-    go_to_quizzes(driver)
+def test_todo_quiz_full_flow(driver, base_url):
+    login_user(driver, base_url)
+    go_to_quizzes(driver, base_url)
 
     #We wait until a quiz card loads into the to-do section
     WebDriverWait(driver, 10).until(
@@ -240,9 +238,9 @@ def test_todo_quiz_full_flow(driver):
     assert len(driver.find_elements(By.CSS_SELECTOR, ".keyword-chip")) == 2
 
 #Finally we check that the sections update correctly after a quiz submission
-def test_sections_update_after_submission(driver):
-    login_user(driver)
-    go_to_quizzes(driver)
+def test_sections_update_after_submission(driver, base_url):
+    login_user(driver, base_url)
+    go_to_quizzes(driver, base_url)
 
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, "#todo-list .quiz-cards"))
