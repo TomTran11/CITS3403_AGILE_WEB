@@ -29,7 +29,7 @@
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-left">
-            <a href="{{ url_for('main.landing_page') }}" class="logo">
+            <a href="{{ url_for('main.dashboard') if session.get('user') else url_for('main.landing_page') }}" class="logo">
                 <i class="bi bi-people-fill"></i>
                 <span class="uni">Uni</span><span class="app">App</span>
             </a>
