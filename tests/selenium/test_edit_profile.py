@@ -1,53 +1,38 @@
-import pytest
-from selenium import webdriver
+"""
+This tests the edit profile page UI.
+    1. Edit profile page loads with all expected fields
+    2. Back to Profile link navigates correctly
+    3. Display name, bio, language and unit can be updated
+    4. Empty display name is rejected (HTML required validation)
+    5. Invalid unit code shows an error
+    6. Valid unit code populates the hidden input
+    7. Social form fields exist
+    8. Social links can be submitted
+"""
+
+import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-BASE_URL = "http://127.0.0.1:5000"
-TEST_USERNAME = "user1"
-TEST_PASSWORD = "1234"
-
-
-@pytest.fixture
-def driver():
-    options = Options()
-    options.add_argument("--headless")
-    options.add_argument("--window-size=1400,1000")
-
-    driver = webdriver.Chrome(options=options)
-    yield driver
-    driver.quit()
-
-
-def login(driver):
-    driver.get(f"{BASE_URL}/auth/login")
-
-    username_input = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.NAME, "username"))
-    )
-    password_input = driver.find_element(By.NAME, "password")
-
-    username_input.clear()
-    username_input.send_keys(TEST_USERNAME)
-
-    password_input.clear()
-    password_input.send_keys(TEST_PASSWORD)
-
-    driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
-
+# Helper: login as a user from populate_DB.py
+def login_user(driver, base_url, username="charlie", password="password"):
+    driver.get(f"{base_url}/auth/login")
     WebDriverWait(driver, 10).until(
-        EC.url_contains("/dashboard")
+        EC.presence_of_element_located((By.ID, "loginForm"))
     )
+    login_form = driver.find_element(By.ID, "loginForm")
+    login_form.find_element(By.NAME, "username").send_keys(username)
+    login_form.find_element(By.NAME, "password").send_keys(password)
+    login_form.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+    time.sleep(3)
 
 
-def test_edit_profile_page_loads(driver):
-    login(driver)
-
-    driver.get(f"{BASE_URL}/edit_profile")
+def test_edit_profile_page_loads(driver, base_url):
+    login_user(driver, base_url)
+    driver.get(f"{base_url}/edit_profile")
 
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.NAME, "display_name"))
@@ -64,10 +49,9 @@ def test_edit_profile_page_loads(driver):
     assert driver.find_element(By.ID, "unitsData")
 
 
-def test_edit_profile_back_to_profile_link(driver):
-    login(driver)
-
-    driver.get(f"{BASE_URL}/edit_profile")
+def test_edit_profile_back_to_profile_link(driver, base_url):
+    login_user(driver, base_url)
+    driver.get(f"{base_url}/edit_profile")
 
     back_link = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.LINK_TEXT, "← Back to Profile"))
@@ -76,17 +60,14 @@ def test_edit_profile_back_to_profile_link(driver):
     driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", back_link)
     driver.execute_script("arguments[0].click();", back_link)
 
-    WebDriverWait(driver, 10).until(
-        EC.url_contains("/profile")
-    )
+    WebDriverWait(driver, 10).until(EC.url_contains("/profile"))
 
     assert "/profile" in driver.current_url
 
 
-def test_edit_profile_can_update_display_name_bio_language_and_unit(driver):
-    login(driver)
-
-    driver.get(f"{BASE_URL}/edit_profile")
+def test_edit_profile_can_update_display_name_bio_language_and_unit(driver, base_url):
+    login_user(driver, base_url)
+    driver.get(f"{base_url}/edit_profile")
 
     display_name = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.NAME, "display_name"))
@@ -96,7 +77,7 @@ def test_edit_profile_can_update_display_name_bio_language_and_unit(driver):
     units_data = driver.find_element(By.ID, "unitsData")
 
     display_name.clear()
-    display_name.send_keys("User One")
+    display_name.send_keys("Charlie Updated")
 
     bio.clear()
     bio.send_keys("This bio was updated by Selenium.")
@@ -121,10 +102,9 @@ def test_edit_profile_can_update_display_name_bio_language_and_unit(driver):
     assert "Profile updated successfully" in driver.page_source or "/edit_profile" in driver.current_url
 
 
-def test_edit_profile_rejects_empty_display_name(driver):
-    login(driver)
-
-    driver.get(f"{BASE_URL}/edit_profile")
+def test_edit_profile_rejects_empty_display_name(driver, base_url):
+    login_user(driver, base_url)
+    driver.get(f"{base_url}/edit_profile")
 
     display_name = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.NAME, "display_name"))
@@ -144,10 +124,9 @@ def test_edit_profile_rejects_empty_display_name(driver):
     assert "/edit_profile" in driver.current_url
 
 
-def test_edit_profile_invalid_unit_code_shows_error(driver):
-    login(driver)
-
-    driver.get(f"{BASE_URL}/edit_profile")
+def test_edit_profile_invalid_unit_code_shows_error(driver, base_url):
+    login_user(driver, base_url)
+    driver.get(f"{base_url}/edit_profile")
 
     unit_input = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.ID, "unitInput"))
@@ -158,19 +137,15 @@ def test_edit_profile_invalid_unit_code_shows_error(driver):
     unit_input.send_keys(Keys.ENTER)
 
     WebDriverWait(driver, 10).until(
-        EC.text_to_be_present_in_element(
-            (By.ID, "flash-area"),
-            "Invalid unit code"
-        )
+        EC.text_to_be_present_in_element((By.ID, "flash-area"), "Invalid unit code")
     )
 
     assert "Invalid unit code" in driver.page_source
 
 
-def test_edit_profile_valid_unit_updates_hidden_input(driver):
-    login(driver)
-
-    driver.get(f"{BASE_URL}/edit_profile")
+def test_edit_profile_valid_unit_updates_hidden_input(driver, base_url):
+    login_user(driver, base_url)
+    driver.get(f"{base_url}/edit_profile")
 
     unit_input = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.ID, "unitInput"))
@@ -188,10 +163,9 @@ def test_edit_profile_valid_unit_updates_hidden_input(driver):
     assert "CITS3403" in units_data.get_attribute("value")
 
 
-def test_edit_profile_social_form_fields_exist(driver):
-    login(driver)
-
-    driver.get(f"{BASE_URL}/edit_profile")
+def test_edit_profile_social_form_fields_exist(driver, base_url):
+    login_user(driver, base_url)
+    driver.get(f"{base_url}/edit_profile")
 
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.ID, "socialForm"))
@@ -209,10 +183,9 @@ def test_edit_profile_social_form_fields_exist(driver):
     assert save_socials_button.text == "Save Socials"
 
 
-def test_edit_profile_can_submit_social_links(driver):
-    login(driver)
-
-    driver.get(f"{BASE_URL}/edit_profile")
+def test_edit_profile_can_submit_social_links(driver, base_url):
+    login_user(driver, base_url)
+    driver.get(f"{base_url}/edit_profile")
 
     instagram = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.NAME, "instagram"))
