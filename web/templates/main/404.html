@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block wrapper_class %}profile-page{% endblock %}
+{% block title %}Page Not Found{% endblock %}
+
+{% block content %}
+<div class="not-found-content">
+    <h1 class="not-found-code">404</h1>
+    <h2 class="not-found-title">Page Not Found</h2>
+    <p class="not-found-subtitle">We're so sorry, but it looks like this page doesn't exist. It may have been moved or deleted.</p>
+    {% if session.get('user') %}
+        <a href="{{ url_for('main.dashboard') }}" class="how-cta-btn">← Back to Dashboard</a>
+    {% else %}
+        <a href="{{ url_for('main.landing_page') }}" class="how-cta-btn">← Back to Home</a>
+    {% endif %}
+</div>
+{% endblock %}
