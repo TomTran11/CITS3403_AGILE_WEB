@@ -38,6 +38,14 @@ populate_users = [
         "password": "password",
         "languages": ["English", "Mandarin"],
         "units": ["CITS3403", "CITS2200"]
+    },
+    {
+        "username": "bob",
+        "displayname": "bob",
+        "email": "bob@student.uwa.edu.au",
+        "password": "password",
+        "languages": ["English"],
+        "units": ["CITS3403", "CITS3002"]
     }
 ]
 
@@ -61,6 +69,10 @@ populated_user_answers = {
     "jordan": {
         "food_preferences": [4, 4, 3, 4, 3, 3, 4, 3, 4, 3],
         "social_energy": [3, 4, 3, 3, 3, 3, 2, 3, 2, 3]
+    },
+    "bob": {
+        "food_preferences": [4, 4, 3, 5, 3, 5, 4, 3, 4, 3],
+        "social_energy": [3, 4, 3, 3, 5, 3, 2, 3, 2, 3]
     }
 }
 
@@ -72,6 +84,9 @@ populated_profile_likes = [
     {"liker_username": "jordan", "liked_username": "sam"},
 
     {"liker_username": "charlie", "liked_username": "jordan"},
+
+    {"liker_username": "jordan", "liked_username": "bob"}
+    
 ]
 
 #This function then actually creates the users using our fake data

@@ -7,6 +7,8 @@ from . import main
 from web.matching.service import find_matches_for_user
 from web.auth.utils import require_login
 from web.main.services import like_user, unlike_user,get_liked_usernames, has_mutual_like ,update_user_socials, delete_user_social
+from web.matching.service import find_matches_for_user, get_answers_for_user
+
 
 @main.route('/')
 @main.route('/landing_page')
@@ -19,10 +21,9 @@ def landing_page():
 def dashboard():
     username = session.get("user")
     user = User.query.filter_by(username=username).first()
-    threshold = request.args.get("threshold", default=10, type=int)
 
     #This calls the matching logic in service.py
-    matches = find_matches_for_user(username, threshold)
+    matches = find_matches_for_user(username)
     for i in range(len(matches)):
         item = matches[i]
         matchedUser = User.query.filter_by(username=item["username"]).first()
@@ -131,7 +132,7 @@ def edit_profile():
         if bio_entry:
             bio_entry.bio_text = bio_raw
         else:
-            bio_entry = UserBio(username=user.username,bio_text=bio_raw)
+            bio_entry = UserBio(username=user.username, bio_text=bio_raw)
             db.session.add(bio_entry)
 
         db.session.commit()
@@ -217,7 +218,7 @@ def account_settings():
         if not check_password_hash(user.password, current_password):
             flash("Current password is incorrect.", "danger")
             return redirect(url_for("main.account_settings"))
-        
+
         # No changes entered
         if not email and not new_password and not confirm_password:
             flash("No changes were made.", "warning")
@@ -280,6 +281,36 @@ def notifications():
         n.related_displayname = related_map.get(n.related_user_id) if n.related_user_id else None
 
     return render_template("main/notifications.html", user=user, notifications=notifications)
+
+# Matching page (full list of matches)
+@main.route('/matches')
+@require_login
+def matching():
+    username = session.get("user")
+    user = User.query.filter_by(username=username).first()
+ 
+    # Determine if the user has taken any quizzes
+    # (needed to distinguish "no quizzes done" from "no matches found")
+    has_quizzes = bool(get_answers_for_user(username))
+ 
+    # Get matches — will be [] if user hasn't taken quizzes OR no users meet threshold
+    matches = find_matches_for_user(username)
+    # Enrich each match dict with the full User object (same pattern as dashboard)
+    for i in range(len(matches)):
+        item = matches[i]
+        matchedUser = User.query.filter_by(username=item["username"]).first()
+        matches[i] = matchedUser
+ 
+    liked_usernames = get_liked_usernames(username)
+ 
+    return render_template(
+        'main/matching.html',
+        user=user,
+        matches=matches,
+        liked_usernames=liked_usernames,
+        has_quizzes=has_quizzes
+    )
+ 
 
 @main.app_errorhandler(404)
 def page_not_found(e):
