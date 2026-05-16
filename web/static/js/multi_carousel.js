@@ -1,5 +1,4 @@
-function updateAll(items){
-    let card_width = $(items).width()+40;
+function updateScroll(){
     let scroll_size = 3;
     if (window.innerWidth <= 900){
         scroll_size = 2;
@@ -7,7 +6,7 @@ function updateAll(items){
     if (window.innerWidth <= 650){
         scroll_size = 1;
     }
-    return [card_width, scroll_size];
+    return scroll_size;
 }
 
 document.querySelectorAll(".carousel").forEach(carousel => {
@@ -20,13 +19,23 @@ document.querySelectorAll(".carousel").forEach(carousel => {
 
     let scroll_pos = 0;
     let current = 0;
-    let updates = updateAll(items);
-    card_width = updates[0]; scroll_size = updates[1];
+    let scroll_size = updateScroll();
+    let card_width = $(items).width()+40;
+
+    $( window ).resize(function() {
+        if(scroll_size != updateScroll()) {
+            scroll_pos = 0
+            current = 0;
+            $(inner).animate({scrollLeft: scroll_pos}, 600);
+        }
+        scroll_size = updateScroll();
+        card_width = $(items).width()+40;
+    });
+
 
 
     $(next).on('click', function(){
-        updates = updateAll(items);
-        card_width = updates[0]; scroll_size = updates[1];
+
         if (current < items.length-scroll_size){ 
             scroll_pos += card_width;
             $(inner).animate({scrollLeft: scroll_pos}, 600);
@@ -35,8 +44,6 @@ document.querySelectorAll(".carousel").forEach(carousel => {
     });
 
     $(prev).on('click', function(){
-        updates = updateAll(items);
-        card_width = updates[0]; scroll_size = updates[1];
         if (current > 0){ 
             scroll_pos -= card_width;
             $(inner).animate({scrollLeft: scroll_pos}, 600);
