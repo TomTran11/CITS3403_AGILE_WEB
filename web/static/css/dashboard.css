@@ -1,3 +1,5 @@
+
+
 /* =========================
    DASHBOARD
 ========================= */
@@ -49,7 +51,7 @@
  
 .search-btn {
     width: auto;
-    padding: 16px 32px;
+    padding: 16px 22px;
     border-radius: 30px;
     background: #FF958A;
     color: white;
@@ -164,15 +166,19 @@
 .heart-btn.liked  { color: #F28A80; }
 /* base.css의 button/input 전역 스타일 override */
 .dashboard-content button { width: auto; margin-top: 0 ; }
-.dashboard-content input  { width: auto; margin: 0 ; }
+.dashboard-content input  {margin: 0 ; }
 .search-btn  { width: auto; padding: 16px 32px; border-radius: 30px; }
+
+
+
+/* carousel */
+
 
 .carousel-inner{
     mask-image: linear-gradient(to left,transparent 0%, black 3%, black 97%, transparent 100%);
     display:flex;
     text-align: center;
     justify-content: space-evenly;
-    
 
 }
 
@@ -195,15 +201,13 @@
 }
 }
 
-
-
 .carousel-control-prev-icon{
-    margin-right: 200px;
+    margin-right: 200%;
     pointer-events: all;
 }
 
 .carousel-control-next-icon {
-    margin-left: 200px;
+    margin-left: 200%;
     pointer-events: all;
 }
 
