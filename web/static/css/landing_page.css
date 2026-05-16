@@ -6,12 +6,24 @@ h1{
 }
 
 h2{
-    font-size: 3vw
+    font-size: 3.7vw;
+    font-weight: bolder;
 }
 
 
 h5{
-    font-size: 1.75vw
+    font-size: 3vw;
+    color: #885a4a;
+    -webkit-text-stroke: 0.1vw #885a4a;
+    
+}
+
+.carousel.pointer-event {
+  touch-action: none;
+}
+
+.body{
+    flex-direction: none;
 }
 
 
@@ -138,43 +150,19 @@ h5{
 /*Landing Page Responsiveness*/
 /* Tablet & smaller (≤ 1024px) */
 @media (max-width: 1024px) {
-    h1 { font-size: 6vw; }
-    h2 { font-size: 4vw; }
-    h5 { font-size: 2.2vw; }
+    h1 { font-size: 5.5vw; }
     .how-it-works { max-width: 720px; padding: 0 32px; gap: 32px; }
     .how-title { font-size: 30px; }
     .how-cta-text { font-size: 24px; }
-    #advertCarousel { height: auto !important; }
-    #advertCarousel .carousel-inner { width: 100% !important; height: auto !important; display: block; }
-    #advertCarousel .carousel-item { display: none !important; float: none !important; }
-    #advertCarousel .carousel-item.active {
-        display: flex !important;
-        flex-direction: column;
-        align-items: center !important;
-        padding: 20px;
-        text-align: center;
-    }
-    #advertCarousel .carousel-image {
-        float: none !important;
-        width: 35vw !important;
-        height: 35vw !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        display: block !important;
-        margin-bottom: 16px;
-    }
-    #advertCarousel .carousel-text { font-size: 2.5vw; position: static !important; margin: 8px 0; }
-    #advertCarousel h2 { font-size: 2.5vw !important; }
-    #advertCarousel h5 { font-size: 2vw !important; }
-    #advertCarousel .carousel-indicators { position: relative; margin-top: 16px; margin-bottom: 0; }
 }
 
 /* Small tablet / large mobile (≤ 768px) */
 @media (max-width: 768px) {
-    h1 { font-size: 8vw; }
-    #advertCarousel h2 { font-size: 3vw !important; }
-    #advertCarousel h5 { font-size: 2.5vw !important; }
-    .landing .btn { font-size: 2.5vw; padding: 1.5vw 6vw; }
+    h1 { font-size: 6vw; }
+    .landing .btn {
+        font-size: 2.5vw;
+        padding: 1.5vw 6vw;
+    }
     .how-it-works { max-width: 560px; padding: 0 24px; gap: 28px; }
     .how-title { font-size: 26px; }
     .how-number { width: 64px; height: 64px; min-width: 64px; font-size: 28px; }
@@ -182,39 +170,16 @@ h5{
     .how-cta-text { font-size: 22px; }
     .how-cta-btn { font-size: 15px; padding: 14px 36px; }
 
-    #advertCarousel { height: auto !important; }
-    #advertCarousel .carousel-inner { width: 100% !important; height: auto !important; display: block; }
-    #advertCarousel .carousel-item { display: none !important; float: none !important; }
-    #advertCarousel .carousel-item.active {
-        display: flex !important;
-        flex-direction: column;
-        align-items: center !important;
-        padding: 20px;
-        text-align: center;
-    }
-    #advertCarousel .carousel-image {
-        float: none !important;
-        width: 40vw !important;
-        height: 40vw !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        display: block !important;
-        margin-bottom: 16px;
-    }
-    #advertCarousel .carousel-text { font-size: 4vw; position: static !important; margin: 8px 0; }
-    #advertCarousel .carousel-indicators {
-        position: relative;
-        margin-top: 16px;
-        margin-bottom: 0;
-    }
 }
 
 /* Mobile (≤ 560px) */
 @media (max-width: 560px) {
-    h1 { font-size: 10vw; }
-    #advertCarousel h2 { font-size: 3.5vw !important; }
-    #advertCarousel h5 { font-size: 3vw !important; }
-    .landing .btn { font-size: 4vw; padding: 2vw 8vw; margin: 2vw; }
+    h1 { font-size: 7vw; }
+    .landing .btn {
+        font-size: 4vw;
+        padding: 2vw 8vw;
+        margin: 2vw;
+    }
     .how-it-works { padding: 0 18px; gap: 24px; }
     .how-step { flex-direction: column; text-align: center; }
     .how-step-right { flex-direction: column-reverse; }
@@ -223,49 +188,23 @@ h5{
     .how-cta-text { font-size: 20px; }
     .how-cta-btn { font-size: 14px; padding: 12px 28px; }
 
-    #advertCarousel .carousel-item { display: none !important; }
-    #advertCarousel .carousel-item.active { display: flex !important; }
-    #advertCarousel .carousel-image {
-        width: 50vw !important;
-        height: 50vw !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        display: block !important;
-        float: none !important;
-    }
-    #advertCarousel .carousel-text { font-size: 4vw; }
-    #advertCarousel .carousel-indicators {
-        position: relative;
-        margin-top: 16px;
-        margin-bottom: 0;
-    }
 }
 
 /* Tiny mobile (≤ 360px) */
 @media (max-width: 360px) {
-    h1 { font-size: 12vw; }
-    h2 { font-size: 7vw; }
-    h5 { font-size: 4.5vw; }
+    h1 { font-size: 10vw; }
+    h2{
+        font-size: 5.5vw
+    }
+    h5{
+        font-size: 4.3vw
+    }
+
     .how-it-works { padding: 0 14px; }
     .how-title { font-size: 22px; }
     .how-number { width: 48px; height: 48px; min-width: 48px; font-size: 20px; }
     .how-cta-text { font-size: 18px; }
-    .how-cta-btn { font-size: 13px; padding: 10px 24px; }
-
-    #advertCarousel .carousel-image {
-        width: 45vw !important;
-        height: 45vw !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        display: block !important;
-        float: none !important;
-    }
-    #advertCarousel .carousel-text { font-size: 3vw; }
-    #advertCarousel h2 { font-size: 3vw !important; }
-    #advertCarousel h5 { font-size: 2.5vw !important; }
-    #advertCarousel .carousel-indicators {
-        position: relative;
-        margin-top: 16px;
-        margin-bottom: 0;
-    }
+    .how-cta-btn { font-size: 13px; padding: 10px 24px;}
+    .carousel-image {width: 0;}
+    .carousel-text { line-height: 4vw; margin-left: 1vw; margin-bottom: 3vw}
 }
