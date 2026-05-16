@@ -271,6 +271,11 @@ def notifications():
     current_username = session.get("user")
     user = User.query.filter_by(username=current_username).first_or_404()
     notifications = Notification.query.filter_by(user_id=current_username).order_by(Notification.created_at.desc()).all()
+
+    for n in notifications:
+        n.is_read = True
+    db.session.commit()
+
     related_ids = {n.related_user_id for n in notifications if n.related_user_id}
     related_map = {}
     if related_ids:
