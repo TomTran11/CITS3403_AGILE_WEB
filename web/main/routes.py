@@ -21,10 +21,9 @@ def landing_page():
 def dashboard():
     username = session.get("user")
     user = User.query.filter_by(username=username).first()
-    threshold = request.args.get("threshold", default=10, type=int)
 
     #This calls the matching logic in service.py
-    matches = find_matches_for_user(username, threshold)
+    matches = find_matches_for_user(username)
     for i in range(len(matches)):
         item = matches[i]
         matchedUser = User.query.filter_by(username=item["username"]).first()
@@ -289,14 +288,13 @@ def notifications():
 def matching():
     username = session.get("user")
     user = User.query.filter_by(username=username).first()
-    threshold = request.args.get("threshold", default=10, type=int)
  
     # Determine if the user has taken any quizzes
     # (needed to distinguish "no quizzes done" from "no matches found")
     has_quizzes = bool(get_answers_for_user(username))
  
     # Get matches — will be [] if user hasn't taken quizzes OR no users meet threshold
-    matches = find_matches_for_user(username, threshold)
+    matches = find_matches_for_user(username)
     # Enrich each match dict with the full User object (same pattern as dashboard)
     for i in range(len(matches)):
         item = matches[i]
