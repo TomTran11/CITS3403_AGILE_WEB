@@ -225,6 +225,31 @@ CITS3403_AGILE_WEB
 
 ```
 
+## Database Migrations
+
+This project uses Flask-Migrate (powered by Alembic) for database schema version control.
+
+### Setup
+Flask-Migrate is already initialised in this project. The `migrations/` folder contains all migration history.
+
+### Applying Migrations
+To apply all migrations and bring your database up to date:
+flask --app web db upgrade
+
+### Creating a New Migration
+After making changes to models in `web/api/models.py`, generate a new migration:
+flask --app web db migrate -m "Description of your change"
+flask --app web db upgrade
+
+### Rolling Back a Migration
+To roll back to the previous migration:
+flask --app web db downgrade
+
+### Migration History
+| Migration | Description |
+|-----------|-------------|
+| 179b2062e0f4 | Initial migration capturing all current models |
+
 ---
 
 ## References
