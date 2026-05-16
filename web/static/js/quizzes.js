@@ -2,6 +2,8 @@
 let currentQuizName = null;
 //This stores the full quiz object that was returned by the backend
 let currentQuiz = null;
+//This stores the previus answers the user has done for the current quiz
+let previousAnswers = [];
 //This tracks which question the user is doing
 let currentQuestionIndex = 0;
 //This stores the users quiz answers before being submitted to the backend
@@ -176,6 +178,7 @@ async function openIntroModal(quizName) {
         currentQuiz = quiz;
         currentQuestionIndex = 0;
         answers = {};
+        previousAnswers = [];
  
         //We then build the intro modal page with the follow headings and text
         setModalContent(`
@@ -269,16 +272,28 @@ function showQuestion() {
                 <span class="slider-label">5</span>
                 <span class="slider-value-display" id="slider-val">3</span>
             </div>
-            <button class="modal-next-btn" id="next-btn">
-                ${isLast ? "Submit Quiz" : "Next →"}
-            </button>
+            <div class="modal-btn-row">
+                <button class="modal-back-btn" id="back-btn" ${currentQuestionIndex === 0 ? 'disabled' : ''}>
+                    ← Back
+                </button>
+
+                <button class="modal-next-btn" id="next-btn">
+                    ${isLast ? "Submit Quiz" : "Next →"}
+                </button>
+            </div>
         </div>
     `);
  
     //We then disolay the question slider and value elements
     const slider = document.getElementById("q-slider");
     const valDisplay = document.getElementById("slider-val");
- 
+
+    //If the user has previously answered this question, we restore their answer
+    if (previousAnswers[currentQuestionIndex] !== undefined) {
+        slider.value = previousAnswers[currentQuestionIndex];
+        valDisplay.textContent = previousAnswers[currentQuestionIndex];
+    }
+
     //This updates the slider value live as the user drags it
     slider.addEventListener("input", () => {
         valDisplay.textContent = slider.value;
@@ -288,6 +303,7 @@ function showQuestion() {
     document.getElementById("next-btn").addEventListener("click", () => {
         //We save the user selected answer using the question index as the key
         answers[String(question.question_index)] = Number(slider.value);
+        previousAnswers[currentQuestionIndex] = Number(slider.value);
  
         //If the current question is the last one of the quiz, we submit the quiz
         if (isLast) {
@@ -298,6 +314,19 @@ function showQuestion() {
             showQuestion();
         }
     });
+
+     //This handles the back button click to return to the previous question
+    const backBtn = document.getElementById("back-btn");
+    if (backBtn) {
+        backBtn.addEventListener("click", () => {
+            //We save the current answer before going back in case they come forward again
+            previousAnswers[currentQuestionIndex] = Number(slider.value);
+            //We decrement the question index to go back one question
+            currentQuestionIndex--;
+            //We then re-render the question at the new index
+            showQuestion();
+        });
+    }
 }
 
 //This function submits the quiz after the user has completed it
