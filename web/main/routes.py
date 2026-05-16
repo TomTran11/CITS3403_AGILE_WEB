@@ -41,11 +41,19 @@ def dashboard():
 @main.route('/view_user/<username>' )
 @require_login
 def view_user(username):
-    viewed_user = User.query.filter_by(username=username).first_or_404()
-    username = session.get("user")
-    user = User.query.filter_by(username=username).first_or_404()
-    
-    return render_template('main/profile.html', user=user, viewed_user = viewed_user)
+    viewed_username = username
+    current_username = session.get("user")
+    user = User.query.filter_by(username=current_username).first_or_404()
+    viewed_user = User.query.filter_by(username=viewed_username).first_or_404()
+
+    if viewed_user.username == current_username:
+        return render_template('main/profile.html', user=user, viewed_user=viewed_user, can_view_socials=True)
+
+    can_view_socials = has_mutual_like(current_username, viewed_user.username)
+    if not can_view_socials:
+        flash("You can only view social contacts for users you have matched with.", "warning")
+
+    return render_template('main/profile.html', user=user, viewed_user=viewed_user, can_view_socials=can_view_socials)
 
 # Profile (view)
 @main.route('/profile')
@@ -53,7 +61,7 @@ def view_user(username):
 def profile():
     username = session.get("user")
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('main/profile.html', user=user, viewed_user = user)
+    return render_template('main/profile.html', user=user, viewed_user = user, can_view_socials=True)
 
 @main.route("/profile/<displayname>", methods=["GET"])
 @require_login
