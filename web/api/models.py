@@ -62,6 +62,7 @@ class Notification(db.Model):
     message = db.Column(db.String(255), nullable=False)
     related_user_id = db.Column(db.String(75),db.ForeignKey("users.username"),nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    is_read = db.Column(db.Boolean, default=False, nullable=False)
     user = db.relationship("User",foreign_keys=[user_id],backref="notifications")
     related_user = db.relationship("User",foreign_keys=[related_user_id])
 

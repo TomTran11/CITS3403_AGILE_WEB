@@ -52,10 +52,10 @@
                         <div class="notif-header">Notifications</div>
                         {% if recent_notifications %}
                             {% for notification in recent_notifications %}
-                                <div class="notif-item {% if not notification.is_read %}unread{% endif %}">
+                                <a href="{{ url_for('main.notifications') }}" class="notif-item {% if not notification.is_read %}unread{% endif %}">
                                     <span class="notif-dot"></span>
                                     <span>{{ notification.message }}</span>
-                                </div>
+                                </a>
                             {% endfor %}
                         {% else %}
                             <div class="notif-item">

@@ -41,11 +41,17 @@ def dashboard():
 @main.route('/view_user/<username>' )
 @require_login
 def view_user(username):
-    viewed_user = User.query.filter_by(username=username).first_or_404()
-    username = session.get("user")
-    user = User.query.filter_by(username=username).first_or_404()
-    
-    return render_template('main/profile.html', user=user, viewed_user = viewed_user)
+    viewed_username = username
+    current_username = session.get("user")
+    user = User.query.filter_by(username=current_username).first_or_404()
+    viewed_user = User.query.filter_by(username=viewed_username).first_or_404()
+
+    if viewed_user.username == current_username:
+        return render_template('main/profile.html', user=user, viewed_user=viewed_user, can_view_socials=True)
+
+    can_view_socials = has_mutual_like(current_username, viewed_user.username)
+
+    return render_template('main/profile.html', user=user, viewed_user=viewed_user, can_view_socials=can_view_socials)
 
 # Profile (view)
 @main.route('/profile')
@@ -53,7 +59,7 @@ def view_user(username):
 def profile():
     username = session.get("user")
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('main/profile.html', user=user, viewed_user = user)
+    return render_template('main/profile.html', user=user, viewed_user = user, can_view_socials=True)
 
 @main.route("/profile/<displayname>", methods=["GET"])
 @require_login
@@ -62,16 +68,14 @@ def view_profile(displayname):
     current_user = User.query.filter_by(username=current_username).first_or_404()
     other_user = User.query.filter_by(displayname=displayname).first_or_404()
     
-    # View owned profile
     if other_user.username == current_username:
         return redirect(url_for("main.profile"))
 
-    # View others profile
     if not has_mutual_like(current_user.username, other_user.username):
         flash("You can only view social contacts for users you have matched with.", "warning")
         return redirect(url_for("main.dashboard"))
 
-    return render_template('main/profile.html', user=current_user, viewed_user=other_user)
+    return render_template('main/profile.html', user=current_user, viewed_user=other_user, can_view_socials=True)
 
 # Edit profile (GET + POST)
 @main.route('/edit_profile', methods=['GET', 'POST'])
@@ -271,6 +275,11 @@ def notifications():
     current_username = session.get("user")
     user = User.query.filter_by(username=current_username).first_or_404()
     notifications = Notification.query.filter_by(user_id=current_username).order_by(Notification.created_at.desc()).all()
+
+    for n in notifications:
+        n.is_read = True
+    db.session.commit()
+
     related_ids = {n.related_user_id for n in notifications if n.related_user_id}
     related_map = {}
     if related_ids:

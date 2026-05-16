@@ -27,8 +27,6 @@ def create_app(config_name):
 
     mail.init_app(app)
     db.init_app(app)
-    from flask_migrate import Migrate
-    migrate_ext = Migrate(app, db)
     csrf.init_app(app)
 
     app.email_service = EmailService(mail)
@@ -52,13 +50,14 @@ def create_app(config_name):
 
     @app.context_processor
     def inject_notifications():
+        from web.api.models import Notification
         username = session.get("user")
         if not username:
-            return {"recent_notifications": []}
+            return {"recent_notifications": [], "unread_notification_count": 0}
 
         recent_notifications = Notification.query.filter_by(user_id=username).order_by(Notification.created_at.desc()).limit(10).all()
-
-        return {"recent_notifications": recent_notifications}
+        unread_count = Notification.query.filter_by(user_id=username, is_read=False).count()
+        return {"recent_notifications": recent_notifications, "unread_notification_count": unread_count}
     
     return app
 
