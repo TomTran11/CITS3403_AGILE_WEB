@@ -37,7 +37,7 @@ function showLogin(e) {
 
 // Validate email format for student emails only
 function validateEmail(email) {
-    const regex = /^[a-zA-Z0-9._%+-]+@student\.uwa\.edu\.au$/;
+    const regex = /^\d{8}@student\.uwa\.edu\.au$/;
     return regex.test(email);
 }
 

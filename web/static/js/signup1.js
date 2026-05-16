@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.selectedLanguages = new Set();
     const selectedContainer = document.getElementById("selectedLanguages");
     const clearBtn = document.getElementById("clear");
-    const unitInput = document.getElementById("unitInput");
     const password = document.querySelector('input[name="password"]');
     const confirmPassword = document.querySelector('input[name="confirm_password"]');
     const form = document.querySelector("form");
