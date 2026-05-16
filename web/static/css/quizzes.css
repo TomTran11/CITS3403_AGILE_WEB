@@ -330,6 +330,48 @@
     box-shadow: 0 6px 18px rgba(240, 112, 102, 0.4);
 }
 
+/* Back button */
+.modal-back-btn {
+    background: transparent;
+    color: #F28A80;
+    border: 2px solid #F28A80 !important;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    width: auto;
+    margin-top: 18px;
+    margin-right: 12px;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.modal-back-btn:hover {
+    background: #FFF0EA;
+    color: #F07066;
+    transform: translateY(-2px);
+}
+
+.modal-back-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.modal-btn-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+    width: 100%;
+}
+
+.modal-btn-row .modal-back-btn,
+.modal-btn-row .modal-next-btn {
+    margin-top: 0;
+}
+
 .modal-choice-btns {
     display: flex;
     gap: 12px;
