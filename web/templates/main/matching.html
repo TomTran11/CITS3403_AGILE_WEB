@@ -35,21 +35,23 @@
         <div class="matching-grid">
             {% for match in matches %}
             <div class="user-card-wrap">
-                <a href="{{ url_for('main.view_user', username=match.username) }}" class="user-card">
+                <a href="{{ url_for('main.view_user', username=match.user.username) }}" class="user-card">
                     <div class="user-card-header">
                         <div class="user-card-avatar" style="background: {{ (['#FE9900','#FFBC57','#FFB697','#F79181','#ED553D']*4)[loop.index0] }}">
-                            {{ match.displayname[0] | upper }}
+                            {{ match.user.displayname[0] | upper }}
                         </div>
-                        <span class="user-card-name">{{ match.displayname }}</span>
+                        <span class="user-card-name">{{ match.user.displayname }}</span>
                     </div>
-                    <p class="user-card-bio">
-                        {{ match.bio_entry.bio_text if match.bio_entry and match.bio_entry.bio_text else 'No bio added yet.' }}
-                    </p>
+                    <p class="user-card-bio">{{ match.user.bio_entry.bio_text if match.user.bio_entry and match.user.bio_entry.bio_text else 'No bio added yet.' }}</p>
+                    <div class="match-info">
+                        <span class="match-percentage">{{ match.match_percentage }}% match</span>
+                        <span class="match-quizzes">{{ match.shared_quizzes | join(', ') | replace('_', ' ') }}</span>
+                    </div>
                 </a>
-                <button class="heart-btn {% if match.username in liked_usernames %}liked{% endif %}"
-                        type="button" data-username="{{ match.username }}"
-                        data-liked="{{ 'true' if match.username in liked_usernames else 'false' }}">
-                    {{ '♥' if match.username in liked_usernames else '♡' }}
+                <button class="heart-btn {% if match.user.username in liked_usernames %}liked{% endif %}"
+                        type="button" data-username="{{ match.user.username }}"
+                        data-liked="{{ 'true' if match.user.username in liked_usernames else 'false' }}">
+                    {{ '♥' if match.user.username in liked_usernames else '♡' }}
                 </button>
             </div>
             {% endfor %}
