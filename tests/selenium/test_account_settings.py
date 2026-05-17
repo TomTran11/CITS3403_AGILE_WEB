@@ -152,9 +152,10 @@ def test_account_settings_rejects_invalid_email(driver, base_url):
 
     save_button = driver.find_element(By.ID, "openPasswordPopup")
     driver.execute_script("arguments[0].click();", save_button)
+    time.sleep(1)
 
     current_password_input = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.ID, "currentPasswordInput"))
+        EC.element_to_be_clickable((By.ID, "currentPasswordInput"))
     )
     current_password_input.clear()
     current_password_input.send_keys("password")
@@ -181,9 +182,10 @@ def test_account_settings_no_changes_warning(driver, base_url):
     )
 
     driver.execute_script("arguments[0].click();", save_button)
+    time.sleep(1)
 
     current_password_input = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.ID, "currentPasswordInput"))
+        EC.element_to_be_clickable((By.ID, "currentPasswordInput"))
     )
     current_password_input.clear()
     current_password_input.send_keys("password")
