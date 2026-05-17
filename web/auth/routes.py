@@ -76,7 +76,7 @@ def signup():
             flash('Passwords do not match.', 'danger')
             return render_template('auth/signup.html')
         
-        if not re.match(r'^[0-9]{6}@student\.uwa\.edu\.au$', email):
+        if not re.match(r'^[0-9]{8}@student\.uwa\.edu\.au$', email):
             flash('Email must be a valid @student.uwa.edu.au address.', 'danger')
             return render_template('auth/signup.html')
         
