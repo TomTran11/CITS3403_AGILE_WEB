@@ -14,7 +14,7 @@
     <div class="notif-page-list">
         {% if notifications %}
             {% for n in notifications %}
-            <div class="notif-page-item">
+            <div class="notif-page-item {% if not n.is_read %}unread{% endif %}">
                 <div class="notif-page-avatar">
                     {{ (n.related_displayname[0] if n.related_displayname else (n.related_user_id[0] if n.related_user_id else n.user_id[0]))|upper }}
                 </div>
@@ -43,7 +43,7 @@
 
                     {% if n.related_displayname %}
                         <a 
-                            href="{{ url_for('main.view_profile', displayname=n.related_displayname) }}" 
+                            href="{{ url_for('main.view_user', username=n.related_user_id) }}" 
                             class="notif-page-link"
                         >
                             Click here to view their social contacts

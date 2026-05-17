@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash
 
 from web import app, db
-from web.api.models import User, QuizResult, UserKeyword, ProfileLike
+from web.api.models import User, QuizResult, UserKeyword, ProfileLike, Notification
 from web.quizzes.definitions import QUIZZES
 from web.quizzes.service import generate_keywords
 
@@ -87,6 +87,11 @@ populated_profile_likes = [
 
     {"liker_username": "jordan", "liked_username": "bob"}
     
+]
+
+populated_notifications = [
+    {"user_id": "charlie", "type": "match", "message": "You matched with Alex!", "related_user_id": "alex"},
+    {"user_id": "alex", "type": "match", "message": "You matched with charlie!", "related_user_id": "charlie"},
 ]
 
 #This function then actually creates the users using our fake data
@@ -229,6 +234,34 @@ def populate_quiz_data():
     #Finally we save all the quiz results and keywords to the DB
     db.session.commit()
 
+#This function clears the old fake notifications before each retest
+def clear_populated_notifications():
+    #We create a list of all the populated usernames
+    populated_usernames = [user["username"] for user in populate_users]
+    #We then delete all notifications that belong to any of the populated fake users
+    Notification.query.filter(
+        Notification.user_id.in_(populated_usernames)
+    ).delete(synchronize_session=False)
+    #We then save the deletions to the DB
+    db.session.commit()
+
+#This function creates the fake notification
+def populate_notifications():
+    #We loop through each notification in our populated notifications list
+    for notif_data in populated_notifications:
+        #We then create a new notification object that is set to not read so the unread badge can appear
+        notif = Notification(
+            user_id=notif_data["user_id"],
+            type=notif_data["type"],
+            message=notif_data["message"],
+            related_user_id=notif_data["related_user_id"],
+            is_read=False
+        )
+        #We then add it to the DB session
+        db.session.add(notif)
+    #And finally we commit all the notificiations to the DB
+    db.session.commit()
+
 #This function controls the whole database populating process
 def main():
     #We create a flask application context and run the helper functions
@@ -239,6 +272,10 @@ def main():
         create_populate_users()
         #Clear old profile likes
         clear_populated_profile_likes()
+        #Wen clear the old notifications
+        clear_populated_notifications()
+        #And populate them again
+        populate_notifications()
         #Delete old quiz answers and key words for the fake users
         clear_populated_quiz_data()
         #Add new quiz answers and keywords for the fake users

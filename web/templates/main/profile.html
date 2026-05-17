@@ -69,23 +69,27 @@
             <label class="section-label">Social Links</label>
 
             <div class="tag-row">
-                {% if viewed_user.social_links %}
-                    {% for social in viewed_user.social_links %}
-                        {% if social.platform == 'discord' %}
-                            <span class="tag tag-social">
-                                Discord: {{ social.link }}
-                            </span>
-                        {% else %}
-                            <a 
-                                class="tag tag-social"
-                                href="{{ social.link }}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {{ social.platform | capitalize }}
-                            </a>
-                        {% endif %}
-                    {% endfor %}
+                {% if can_view_socials %}
+                    {% if viewed_user.social_links %}
+                        {% for social in viewed_user.social_links %}
+                            {% if social.platform == 'discord' %}
+                                <span class="tag tag-social">
+                                    Discord: {{ social.link }}
+                                </span>
+                            {% else %}
+                                <a 
+                                    class="tag tag-social"
+                                    href="{{ social.link }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {{ social.platform | capitalize }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <span class="tag-empty">No social links added yet.</span>
+                    {% endif %}
                 {% else %}
                     <span class="tag-empty">No social links added yet.</span>
                 {% endif %}
