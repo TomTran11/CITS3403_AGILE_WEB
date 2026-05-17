@@ -59,19 +59,23 @@
                 <div class="carousel-item">
                 {% endif %}
                     <div class="user-card-wrap">
-                        <a href="{{ url_for('main.view_user', username = matches[i].username) }}" class="user-card">
-
+                        <a href="{{ url_for('main.view_user', username=matches[i].user.username) }}" class="user-card">
                             <div class="user-card-header">
-                                <div class="user-card-avatar" style="background: {{ (['#FE9900','#FFBC57','#FFB697','#F79181','#ED553D']*2)[i]}} ">{{ matches[i].displayname[0] | upper }}</div>
-                                <span class="user-card-name">{{ matches[i].displayname }}</span>
+                                <div class="user-card-avatar" style="background: {{ (['#FE9900','#FFBC57','#FFB697','#F79181','#ED553D']*2)[i] }}">
+                                    {{ matches[i].user.displayname[0] | upper }}
+                                </div>
+                                <span class="user-card-name">{{ matches[i].user.displayname }}</span>
                             </div>
-
-                            <p class="user-card-bio">{{ matches[i].bio_entry.bio_text if matches[i].bio_entry and matches[i].bio_entry.bio_text else 'No bio added yet.' }}</p>
+                            <p class="user-card-bio">{{ matches[i].user.bio_entry.bio_text if matches[i].user.bio_entry and matches[i].user.bio_entry.bio_text else 'No bio added yet.' }}</p>
+                            <div class="match-info">
+                                <span class="match-percentage">{{ matches[i].match_percentage }}% match</span>
+                                <span class="match-quizzes">{{ matches[i].shared_quizzes | join(', ') | replace('_', ' ') }}</span>
+                            </div>
                         </a>
-                        <button class="heart-btn {% if matches[i].username in liked_usernames %}liked{% endif %}" 
-                                type="button" data-username="{{ matches[i].username }}" 
-                                data-liked="{{ 'true' if matches[i].username in liked_usernames else 'false' }}">
-                                {{ '♥' if matches[i].username in liked_usernames else '♡' }}
+                        <button class="heart-btn {% if matches[i].user.username in liked_usernames %}liked{% endif %}"
+                                type="button" data-username="{{ matches[i].user.username }}"
+                                data-liked="{{ 'true' if matches[i].user.username in liked_usernames else 'false' }}">
+                            {{ '♥' if matches[i].user.username in liked_usernames else '♡' }}
                         </button>
                     </div>
                 </div>

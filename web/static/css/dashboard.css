@@ -167,6 +167,24 @@
 .dashboard-content input  {margin: 0 ; }
 .search-btn  { width: auto; padding: 16px 32px; border-radius: 30px; }
 
+.match-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.match-percentage {
+    font-size: 13px;
+    font-weight: 700;
+    color: #F07060;
+}
+
+.match-quizzes {
+    font-size: 11px;
+    color: #999;
+    text-transform: capitalize;
+}
 
 /* Override global button and input styles inside dashboard */
 .dashboard-content button {

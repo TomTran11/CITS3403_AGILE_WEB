@@ -23,19 +23,19 @@ def dashboard():
     user = User.query.filter_by(username=username).first()
 
     #This calls the matching logic in service.py
-    matches = find_matches_for_user(username)
-    for i in range(len(matches)):
-        item = matches[i]
-        matchedUser = User.query.filter_by(username=item["username"]).first()
-        matches[i] = matchedUser
+    raw_matches = find_matches_for_user(username)
+    matches = []
+    for item in raw_matches:
+        matched_user = User.query.filter_by(username=item["username"]).first()
+        matches.append({
+            "user": matched_user,
+            "match_percentage": item["match_percentage"],
+            "shared_quizzes": item["shared_quizzes"]
+        })
 
     # Get everyone this current user has already liked
     liked_usernames = get_liked_usernames(username)
     return render_template('main/dashboard.html', user=user, matches=matches, liked_usernames=liked_usernames)
-
-
-
-
 
 # View a user's profile
 @main.route('/view_user/<username>' )
@@ -305,15 +305,17 @@ def matching():
     has_quizzes = bool(get_answers_for_user(username))
  
     # Get matches — will be [] if user hasn't taken quizzes OR no users meet threshold
-    matches = find_matches_for_user(username)
-    # Enrich each match dict with the full User object (same pattern as dashboard)
-    for i in range(len(matches)):
-        item = matches[i]
-        matchedUser = User.query.filter_by(username=item["username"]).first()
-        matches[i] = matchedUser
- 
+    raw_matches = find_matches_for_user(username)
+    matches = []
+    for item in raw_matches:
+        matched_user = User.query.filter_by(username=item["username"]).first()
+        matches.append({
+            "user": matched_user,
+            "match_percentage": item["match_percentage"],
+            "shared_quizzes": item["shared_quizzes"]
+        })
+
     liked_usernames = get_liked_usernames(username)
- 
     return render_template(
         'main/matching.html',
         user=user,
