@@ -314,7 +314,7 @@ def matching():
 
 @main.app_errorhandler(404)
 def page_not_found(e):
-    return f"{request.path} not exist", 404
+    return render_template('main/404.html'), 404
 
 @main.route('/check-session')
 def check_session():

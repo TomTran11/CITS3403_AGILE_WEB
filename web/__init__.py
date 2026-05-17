@@ -27,6 +27,8 @@ def create_app(config_name):
 
     mail.init_app(app)
     db.init_app(app)
+    from flask_migrate import Migrate
+    migrate_ext = Migrate(app, db)
     csrf.init_app(app)
 
     app.email_service = EmailService(mail)

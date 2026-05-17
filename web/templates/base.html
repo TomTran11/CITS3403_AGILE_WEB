@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}UniApp{% endblock %}</title>
+    <title>{% block title %}UniConnect{% endblock %}</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -29,9 +29,13 @@
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-left">
-            <a href="{{ url_for('main.landing_page') }}" class="logo">
-                <i class="bi bi-people-fill"></i>
-                <span class="uni">Uni</span><span class="app">App</span>
+            <a href="{{ url_for('main.dashboard') if session.get('user') else url_for('main.landing_page') }}" class="logo">
+                <span class="logo-mark">
+                    <i class="bi bi-mortarboard-fill"></i>
+                </span>
+                <span class="logo-text">
+                    <span class="logo-uni">Uni</span><span class="logo-connect">Connect</span>
+                </span>
             </a>
         </div>
         <div class="nav-right">
@@ -77,6 +81,9 @@
                         <a href="{{ url_for('main.profile') }}">View Profile</a>
                         <a href="{{ url_for('main.edit_profile') }}">Edit Profile</a>
                         <a href="{{ url_for('main.account_settings') }}">Account Settings</a>
+                        <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+                        <a href="{{ url_for('main.matching') }}">My Matches</a>
+                        <a href="{{ url_for('main.notifications') }}">Notifications</a>
                         <a href="{{ url_for('quizzes.quizzes_page') }}">Quizzes</a>
                         <div class="dropdown-divider"></div>
                         <a href="{{ url_for('auth.logout') }}" class="dropdown-logout">Logout</a>

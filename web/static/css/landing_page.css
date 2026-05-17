@@ -6,12 +6,24 @@ h1{
 }
 
 h2{
-    font-size: 3vw
+    font-size: 3.7vw;
+    font-weight: bolder;
 }
 
 
 h5{
-    font-size: 1.75vw
+    font-size: 3vw;
+    color: #885a4a;
+    -webkit-text-stroke: 0.1vw #885a4a;
+    
+}
+
+.carousel.pointer-event {
+  touch-action: none;
+}
+
+.body{
+    flex-direction: none;
 }
 
 
@@ -35,4 +47,164 @@ h5{
     background: #ED553D;
     border-color:#ED553D;
     
+}
+
+/*How it Work's Section*/
+.how-it-works {
+    width: 100%;
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.how-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    color: #F07060;
+    margin: 0 0 20px 0;
+}
+
+.how-step {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.how-number {
+    min-width: 80px;
+    width: 80px;
+    height: 80px;
+    background: #FF958A;
+    color: white;
+    font-size: 36px;
+    font-weight: 800;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(255, 149, 138, 0.35);
+}
+
+.how-text {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.how-text h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #2a2a2a;
+    margin: 0 0 8px 0;
+}
+
+.how-text p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.how-cta {
+    text-align: center;
+    padding: 40px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.how-cta-text {
+    font-size: 28px;
+    font-weight: 800;
+    color: #F07060;
+    margin: 0;
+}
+
+.how-cta-btn {
+    display: inline-block;
+    background: #FF958A;
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 16px 44px;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(255, 149, 138, 0.35);
+    transition: background 0.2s, transform 0.15s;
+}
+
+.how-cta-btn:hover {
+    background: #F07066;
+    transform: translateY(-2px);
+    color: white;
+}
+
+/*Landing Page Responsiveness*/
+/* Tablet & smaller (≤ 1024px) */
+@media (max-width: 1024px) {
+    h1 { font-size: 5.5vw; }
+    .how-it-works { max-width: 720px; padding: 0 32px; gap: 32px; }
+    .how-title { font-size: 30px; }
+    .how-cta-text { font-size: 24px; }
+}
+
+/* Small tablet / large mobile (≤ 768px) */
+@media (max-width: 768px) {
+    h1 { font-size: 6vw; }
+    .landing .btn {
+        font-size: 2.5vw;
+        padding: 1.5vw 6vw;
+    }
+    .how-it-works { max-width: 560px; padding: 0 24px; gap: 28px; }
+    .how-title { font-size: 26px; }
+    .how-number { width: 64px; height: 64px; min-width: 64px; font-size: 28px; }
+    .how-text { padding: 20px 22px; }
+    .how-cta-text { font-size: 22px; }
+    .how-cta-btn { font-size: 15px; padding: 14px 36px; }
+
+}
+
+/* Mobile (≤ 560px) */
+@media (max-width: 560px) {
+    h1 { font-size: 7vw; }
+    .landing .btn {
+        font-size: 4vw;
+        padding: 2vw 8vw;
+        margin: 2vw;
+    }
+    .how-it-works { padding: 0 18px; gap: 24px; }
+    .how-step { flex-direction: column; text-align: center; }
+    .how-step-right { flex-direction: column-reverse; }
+    .how-number { width: 56px; height: 56px; min-width: 56px; font-size: 24px; }
+    .how-title { font-size: 24px; }
+    .how-cta-text { font-size: 20px; }
+    .how-cta-btn { font-size: 14px; padding: 12px 28px; }
+
+}
+
+/* Tiny mobile (≤ 360px) */
+@media (max-width: 360px) {
+    h1 { font-size: 10vw; }
+    h2{
+        font-size: 5.5vw
+    }
+    h5{
+        font-size: 4.3vw
+    }
+
+    .how-it-works { padding: 0 14px; }
+    .how-title { font-size: 22px; }
+    .how-number { width: 48px; height: 48px; min-width: 48px; font-size: 20px; }
+    .how-cta-text { font-size: 18px; }
+    .how-cta-btn { font-size: 13px; padding: 10px 24px;}
+    .carousel-image {width: 0;}
+    .carousel-text { line-height: 4vw; margin-left: 1vw; margin-bottom: 3vw}
 }
