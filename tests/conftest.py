@@ -1,4 +1,4 @@
-import pytest, os
+import pytest, os, subprocess, sys
 from web import create_app, db
 from werkzeug.security import generate_password_hash
 from web.api.models import User
@@ -157,3 +157,9 @@ def driver():
     yield driver
 
     driver.quit()
+
+#This resets the database before each selenium tests to ensure a clean database and test users are present
+@pytest.fixture(scope="function", autouse=True)
+def reset_database(request):
+    if "selenium" in request.fspath.strpath:
+        subprocess.run([sys.executable, "populating_DB.py"], check=True)

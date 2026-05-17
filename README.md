@@ -160,11 +160,21 @@ CITS3403_AGILE_WEB
 │  │  ├─ test_landing_page.py
 │  │  ├─ test_login.py
 │  │  ├─ test_protected_routes.py
-│  │  └─ test_signup.py
+│  │  ├─ test_signup.py
+│  │  ├─ test_completed_quizzes.py
+│  │  ├─ test_quizzes_keywords.py
+│  │  ├─ test_quizzes_matching_routes.py
+│  │  ├─ test_quizzes_matching_service.py
+│  │  ├─ test_quizzes_routes.py
+│  │  ├─ test_quizzes_service.py
+│  │  ├─ test_quizzes_submission.py
+│  │  └─ test_quizzes_validation.py
+
 │  ├─ conftest.py
 │  └─ selenium
 │     ├─ test_login_ui.py
-│     └─ test_signup_ui.py
+│     ├─ test_signup_ui.py
+│     └─ test_quizzes_page_ui.py
 └─ web
    ├─ __init__.py
    ├─ api
