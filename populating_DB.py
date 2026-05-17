@@ -11,7 +11,7 @@ populate_users = [
         "username": "charlie",
         "displayname": "charlie",
         "email": "charlie@student.uwa.edu.au",
-        "password": "password",
+        "password": "@G00dPr0ject",
         "languages": ["English"],
         "units": ["CITS3403", "CITS3002"]
     },
@@ -19,7 +19,7 @@ populate_users = [
         "username": "alex",
         "displayname": "Alex",
         "email": "alex@student.uwa.edu.au",
-        "password": "password",
+        "password": "@G00dPr0ject",
         "languages": ["English"],
         "units": ["CITS3403", "CITS3002"]
     },
