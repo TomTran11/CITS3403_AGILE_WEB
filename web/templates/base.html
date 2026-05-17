@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}UniApp{% endblock %}</title>
+    <title>{% block title %}UniConnect{% endblock %}</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -30,8 +30,12 @@
     <nav class="navbar">
         <div class="nav-left">
             <a href="{{ url_for('main.dashboard') if session.get('user') else url_for('main.landing_page') }}" class="logo">
-                <i class="bi bi-people-fill"></i>
-                <span class="uni">Uni</span><span class="app">App</span>
+                <span class="logo-mark">
+                    <i class="bi bi-mortarboard-fill"></i>
+                </span>
+                <span class="logo-text">
+                    <span class="logo-uni">Uni</span><span class="logo-connect">Connect</span>
+                </span>
             </a>
         </div>
         <div class="nav-right">
