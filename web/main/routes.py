@@ -338,9 +338,10 @@ def check_session():
 def search():
     query = request.args.get('q', '').strip()
     current_username = session.get('user')
+    user = User.query.filter_by(username=current_username).first()   # ← 추가
  
     if not query:
-        return render_template('main/search.html', query='', results=[])
+        return render_template('main/search.html', user=user, query='', results=[])   # ← user= 추가
  
     query_lower = query.lower()
     all_users = User.query.filter(User.username != current_username).all()
@@ -353,7 +354,7 @@ def search():
             or (u.units and any(query_lower in (un or '').lower() for un in u.units))):
             results.append(u)
  
-    return render_template('main/search.html', query=query, results=results)
+    return render_template('main/search.html', user=user, query=query, results=results)   # ← user= 추가
 
 @main.route("/profile/<username>/like", methods=["POST"])
 @require_login
